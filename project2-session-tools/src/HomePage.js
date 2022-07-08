@@ -8,12 +8,17 @@ export default class HomePage extends React.Component {
 
     state = {
         data: [],
-        allTags: [],
+        allUniqueTags: [],
         searchName: "",
         searchRecent: "",
         minTimeNeeded: "",
         maxTimeNeeded: "",
-        tags: ["Conflict Management"]
+        tags: [],
+        groupSize: [],
+        allGroupSizes: ["small", "medium", "large"],
+        newName: "",
+        newDescription: "",
+        newTags: [],
     }
 
     async componentDidMount() {
@@ -29,8 +34,9 @@ export default class HomePage extends React.Component {
                     allTags.push(tag)
                 }
             }
+            let allUniqueTags = [...new Set(allTags)]
             this.setState({
-                allTags: allTags
+                allUniqueTags: allUniqueTags
             })
 
         } catch (e) {
@@ -46,9 +52,10 @@ export default class HomePage extends React.Component {
                     "dateCreated": this.state.searchRecent,
                     "minTimeNeeded": this.state.minTimeNeeded,
                     "maxTimeNeeded": this.state.maxTimeNeeded,
-                    "tags": this.state.tags
-                    }
+                    "tags": this.state.tags,
+                    "groupSize": this.state.groupSize
                 }
+            }
             )
             this.setState({
                 data: response.data.tools
@@ -59,26 +66,64 @@ export default class HomePage extends React.Component {
     }
 
     updateFormField = (e) => {
-        this.setState({
-            [e.target.name]: e.target.value
-        })
+        if (e.target.type === "checkbox"){
+            let currentValues = this.state[e.target.name];
+            let modifiedValues;
+            if (!currentValues.includes(e.target.value)){
+                modifiedValues = [...currentValues, e.target.value];
+            } else {
+                modifiedValues = currentValues.filter((element)=>{
+                    return element !== e.target.value
+                })
+            }
+            this.setState({
+                [e.target.name]: modifiedValues
+            })
+        } else {
+            this.setState({
+                [e.target.name]: e.target.value
+            })
+        }
     }
 
 
     render() {
         return (
             <React.Fragment>
+                {/* SEARCH */}
                 <div>
                     <input name="searchName" type="text" className="form-control-input" value={this.state.searchName} onChange={this.updateFormField} placeholder="Search by Activity Name" />
                 </div>
                 <div>
-                    <input name="searchRecent" type="radio" value={new Date()} checked={this.state.searchRecent === new Date()} onChange={this.updateFormField} /> Recently Added
+                    <input name="searchRecent" type="checkbox" className="form-check-input" value="true" checked={this.state.searchRecent.includes("true")} onChange={this.updateFormField} />
+                    <label for="searchRecent">Recently Added</label>
                 </div>
                 <div>
-                    <input name="minTimeNeeded" type="number" className="form-control.input" value={this.state.minTimeNeeded} onChange={this.updateFormField} placeholder="Min Time in minutes"/>
-                    <input name="maxTimeNeeded" type="number" className="form-control.input" value={this.state.maxTimeNeeded} onChange={this.updateFormField} placeholder="Max Time in minutes"/>
+                    <input name="minTimeNeeded" type="number" className="form-control.input" value={this.state.minTimeNeeded} onChange={this.updateFormField} placeholder="Min Time in minutes" />
+                    <input name="maxTimeNeeded" type="number" className="form-control.input" value={this.state.maxTimeNeeded} onChange={this.updateFormField} placeholder="Max Time in minutes" />
+                </div>
+                <div>
+                    <h6>Tags</h6>
+                    {this.state.allUniqueTags.map(t => (
+                        <React.Fragment>
+                            <input name="tags" type="checkbox" className="form-check-input" value={t} checked={this.state.tags.includes(t)} onChange={this.updateFormField}/>
+                            <label for="tags" className="form-check-label">{t}</label>
+                        </React.Fragment>
+
+                    ))}
+                </div>
+                <div>
+                    <h6>Group Size</h6>
+                    {this.state.allGroupSizes.map(g =>(
+                        <React.Fragment>
+                            <input name="groupSize" type="checkbox" className="form-check-input" value={g} checked={this.state.groupSize.includes(g)} onChange={this.updateFormField}/>
+                            <label for="groupSize" className="form-check-label">{g}</label>
+                        </React.Fragment>
+                    ))}
+
                 </div>
                 <button onClick={this.search}>Search</button>
+                {/* SEARCH RESULTS */}
                 <h1>Search Results</h1>
                 {this.state.data.map(t => (
                     <div className="card">
@@ -93,6 +138,9 @@ export default class HomePage extends React.Component {
                                 </div>
                                 <div>
                                     Description: {t.description}
+                                </div>
+                                <div>
+                                    Likes: {t.likes} *heart*
                                 </div>
                                 <div>
                                     Tags: {t.tags.map(tags => (
@@ -126,6 +174,41 @@ export default class HomePage extends React.Component {
                         </div>
                     </div>
                 ))}
+                {/* ADD NEW ENTRY */}
+                <h1>Add New</h1>
+                <div className="card">
+                        <div className="card-title">
+                            <h3><input name="newName" type="text" className="form-control-input" value={this.state.newName} onChange={this.updateFormField} placeholder="Activity Name"/></h3>
+                            <div className="card-body">
+                                <div>
+                                    Description: 
+                                    <input name="newDescription" type="text" className="form-control-input" value={this.state.newDescription} onChange={this.updateFormField}/>
+                                </div>
+                                <div>
+                                    Tags: 
+                                </div>
+                                <div>
+                                    Group Size: 
+                                </div>
+                                <div>
+                                    Time Needed:  minutes
+                                </div>
+                                <div>
+                                    Materials: 
+                                </div>
+                                <div>
+                                    Learning Objectives: 
+                                </div>
+                                <div>
+                                    Instructions: 
+                                </div>
+                                <div>
+                                    Debrief: 
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
             </React.Fragment>
         )
     }
