@@ -61,6 +61,27 @@ export default class Search extends React.Component {
             console.log(e)
         }
     }
+    
+    updateFormField = (e) => {
+        if (e.target.type === "checkbox") {
+            let currentValues = this.state[e.target.name];
+            let modifiedValues;
+            if (!currentValues.includes(e.target.value)) {
+                modifiedValues = [...currentValues, e.target.value];
+            } else {
+                modifiedValues = currentValues.filter((element) => {
+                    return element !== e.target.value
+                })
+            }
+            this.setState({
+                [e.target.name]: modifiedValues
+            })
+        } else {
+            this.setState({
+                [e.target.name]: e.target.value
+            })
+        }
+    }
 
     render() {
         return (
