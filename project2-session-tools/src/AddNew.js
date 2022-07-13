@@ -25,11 +25,16 @@ export default class AddNew extends React.Component {
         }],
         newLearningObjectivesArray: [],
         newInstructionsData: "",
-        newDebriefData: ""
-
+        newDebriefData: "",
+        newUserName: "",
+        newEmail: ""
     }
 
     addNewSubmit = async () => {
+        let createdBy = {
+            userName: this.state.newUserName,
+            email: this.state.newEmail
+        }
         try {
             await axios.post(this.url + "add-tool", {
                 name: this.state.newName,
@@ -38,18 +43,22 @@ export default class AddNew extends React.Component {
                 groupSize: this.state.newGroupSize,
                 materials: this.state.newMaterialsArray,
                 instructions: this.state.newInstructionsData,
-                debrief: this.state.newDebriefData
+                debrief: this.state.newDebriefData,
+                timeNeeded: this.state.newTimeNeeded,
+                createdBy : createdBy
             })
 
-            const newTool = {
-                name: this.state.newName,
-                description: this.state.newDescription,
-                tags: this.state.newTagsArray,
-                groupSize: this.state.newGroupSize,
-                materials: this.state.newMaterialsArray,
-                instructions: this.state.newInstructionsData,
-                debrief: this.state.newDebriefData
-            }
+            // const newTool = {
+            //     name: this.state.newName,
+            //     description: this.state.newDescription,
+            //     tags: this.state.newTagsArray,
+            //     groupSize: this.state.newGroupSize,
+            //     materials: this.state.newMaterialsArray,
+            //     instructions: this.state.newInstructionsData,
+            //     debrief: this.state.newDebriefData,
+            //     timeNeeded: this.state.newTimeNeeded,
+            //     createdBy : createdBy
+            // }
 
             // this.setState({
             //     data: [...this.state.data, newTool]
@@ -251,6 +260,11 @@ export default class AddNew extends React.Component {
                     <div className="card-title">
                         <h3><input name="newName" type="text" className="form-control-input" value={this.state.newName} onChange={this.updateFormField} placeholder="Activity Name" /></h3>
                         <div className="card-body">
+                            <div>
+                                Created By:
+                                <input name="newUserName" type="text" className="form-control-input" value={this.state.newUserName} onChange={this.updateFormField} placeholder="User Name"/>
+                                <input name="newEmail" type="text" className="form-control-input" value={this.state.newEmail} onChange={this.updateFormField} placeholder="Email"/>
+                            </div>
                             <div>
                                 Description:
                                 <input name="newDescription" type="text" className="form-control-input" value={this.state.newDescription} onChange={this.updateFormField} />

@@ -128,7 +128,7 @@ export default class Search extends React.Component {
                             <h3>{t.name}</h3>
                             <div className="card-body">
                                 <div>
-                                    Created By: {t.createdBy}
+                                    Created By: {t.createdBy.userName}
                                 </div>
                                 <div>
                                     Date Created: {t.dateCreated}
