@@ -1,6 +1,9 @@
 import React from "react";
 import axios from "axios";
 import parse from "html-react-parser"
+import "bootstrap/dist/css/bootstrap.min.css"
+import "./Search.css"
+
 
 export default class Search extends React.Component {
     url = "https://tgc-session-tools.herokuapp.com/"
@@ -15,6 +18,20 @@ export default class Search extends React.Component {
         tags: [],
         groupSize: [],
         allGroupSizes: ["small", "medium", "large"],
+
+        isTagsListOpen: false
+    }
+
+    toggleTagsList = () => {
+        if (this.state.isTagsListOpen) {
+            this.setState({
+                isTagsListOpen: false
+            })
+        } else if (!this.state.isTagsListOpen) {
+            this.setState({
+                isTagsListOpen: true
+            })
+        }
     }
 
     async componentDidMount() {
@@ -82,6 +99,10 @@ export default class Search extends React.Component {
         }
     }
 
+    toggleClassList = () => {
+
+    }
+
     render() {
         return (
             <React.Fragment>
@@ -99,12 +120,18 @@ export default class Search extends React.Component {
                 </div>
                 <div>
                     <h6>Tags</h6>
-                    {this.state.tagsData.map(t => (
-                        <React.Fragment>
-                            <input name="tags" type="checkbox" className="form-check-input" value={t} checked={this.state.tags.includes(t)} onChange={this.updateFormField} />
-                            <label for="tags" className="form-check-label">{t}</label>
-                        </React.Fragment>
-                     ))}
+                    <button className="btn btn-sm btn-primary" onClick={this.toggleTagsList}>Select one or more tags</button>
+                    <div className={this.state.isTagsListOpen ? "show" : "hidden"}>
+                        {this.state.tagsData.map(t => (
+                            <React.Fragment>
+                                <div>
+                                    <input name="tags" type="checkbox" className="form-check-input" value={t} checked={this.state.tags.includes(t)} onChange={this.updateFormField} />
+                                    <label for="tags" className="form-check-label">{t}</label>
+                                </div>
+                            </React.Fragment>
+                        ))}
+                    </div>
+
                 </div>
                 <div>
                     <h6>Group Size</h6>
