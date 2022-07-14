@@ -2,17 +2,17 @@ import React from "react";
 import axios from "axios";
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import CreatableSelect from 'react-select/creatable';
 
 export default class AddNew extends React.Component {
     url = "https://tgc-session-tools.herokuapp.com/"
 
     state = {
+        tagsData: [],
         allGroupSizes: ["small", "medium", "large"],
         newName: "",
         newDescription: "",
-        newTags: [{
-            tag: ""
-        }],
+        // newTagsData: [],
         newTagsArray: [],
         newGroupSize: [],
         newTimeNeeded: "",
@@ -30,6 +30,48 @@ export default class AddNew extends React.Component {
         newEmail: ""
     }
 
+    async componentDidMount() {
+        try {
+            let response = await axios.get(this.url + "tags")
+            let responseData = response.data.tags
+
+            let allTags = []
+            for (let t of responseData) {
+                for (let tag of t.tags) {
+                    // console.log(tag)
+                    allTags.push(tag)
+                }
+            }
+
+            let allUniqueTags = [...new Set(allTags)]
+            let tagsData = []
+            for (let i = 0; i < allUniqueTags.length; i++) {
+                let temp = {
+                    label: allUniqueTags[i],
+                    value: i + 1
+                }
+                tagsData.push(temp)
+            }
+
+            this.setState({
+                tagsData: tagsData
+            })
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    handleCreatableChange = (selectedOptions) => {
+        let temp = []
+        for (let o of selectedOptions) {
+            temp.push(o.label)
+        }
+        console.log("temp"+temp)
+        this.setState({
+            newTagsArray: temp
+        })
+    }
+
     addNewSubmit = async () => {
         let createdBy = {
             userName: this.state.newUserName,
@@ -45,7 +87,7 @@ export default class AddNew extends React.Component {
                 instructions: this.state.newInstructionsData,
                 debrief: this.state.newDebriefData,
                 timeNeeded: this.state.newTimeNeeded,
-                createdBy : createdBy
+                createdBy: createdBy
             })
 
             // const newTool = {
@@ -89,24 +131,24 @@ export default class AddNew extends React.Component {
         }
     }
 
-    addTag = () => {
-        let _tags = [...this.state.newTags]
-        _tags.push({
-            tag: ""
-        })
-        this.setState({
-            newTags: _tags
-        })
+    // addTag = () => {
+    //     let _tags = [...this.state.newTags]
+    //     _tags.push({
+    //         tag: ""
+    //     })
+    //     this.setState({
+    //         newTags: _tags
+    //     })
 
-        // set inviteMembersArray
-        let _newTagsArray = [];
-        for (let m of this.state.newTags) {
-            _newTagsArray.push(m.tag)
-        }
-        this.setState({
-            newTagsArray: _newTagsArray
-        })
-    }
+    //     // set inviteMembersArray
+    //     let _newTagsArray = [];
+    //     for (let m of this.state.newTags) {
+    //         _newTagsArray.push(m.tag)
+    //     }
+    //     this.setState({
+    //         newTagsArray: _newTagsArray
+    //     })
+    // }
 
     addMaterial = () => {
         let _materials = [...this.state.newMaterials]
@@ -146,23 +188,23 @@ export default class AddNew extends React.Component {
         })
     }
 
-    removeTag = (index) => {
-        let _tags = [...this.state.newTags]
-        // _tags = _tags.filter(tag=> tag === tag[index])
-        _tags.splice(index, 1)
-        this.setState({
-            newTags: _tags
-        })
+    // removeTag = (index) => {
+    //     let _tags = [...this.state.newTags]
+    //     // _tags = _tags.filter(tag=> tag === tag[index])
+    //     _tags.splice(index, 1)
+    //     this.setState({
+    //         newTags: _tags
+    //     })
 
-        // set inviteMembersArray
-        let _newTagsArray = [];
-        for (let m of this.state.newTags) {
-            _newTagsArray.push(m.tag)
-        }
-        this.setState({
-            newTagsArray: _newTagsArray
-        })
-    }
+    //     // set inviteMembersArray
+    //     let _newTagsArray = [];
+    //     for (let m of this.state.newTags) {
+    //         _newTagsArray.push(m.tag)
+    //     }
+    //     this.setState({
+    //         newTagsArray: _newTagsArray
+    //     })
+    // }
 
     removeMaterial = (index) => {
         let _materials = [...this.state.newMaterials]
@@ -200,22 +242,22 @@ export default class AddNew extends React.Component {
         })
     }
 
-    tagChange = (index, e) => {
-        let _tags = [...this.state.newTags]
-        _tags[index][e.target.name] = e.target.value
-        this.setState({
-            tags: _tags
-        })
+    // tagChange = (index, e) => {
+    //     let _tags = [...this.state.newTags]
+    //     _tags[index][e.target.name] = e.target.value
+    //     this.setState({
+    //         tags: _tags
+    //     })
 
-        // set inviteMembersArray
-        let _newTagsArray = [];
-        for (let m of this.state.newTags) {
-            _newTagsArray.push(m.tag)
-        }
-        this.setState({
-            newTagsArray: _newTagsArray
-        })
-    }
+    //     // set inviteMembersArray
+    //     let _newTagsArray = [];
+    //     for (let m of this.state.newTags) {
+    //         _newTagsArray.push(m.tag)
+    //     }
+    //     this.setState({
+    //         newTagsArray: _newTagsArray
+    //     })
+    // }
 
     materialChange = (index, e) => {
         let _materials = [...this.state.newMaterials]
@@ -262,8 +304,8 @@ export default class AddNew extends React.Component {
                         <div className="card-body">
                             <div>
                                 Created By:
-                                <input name="newUserName" type="text" className="form-control-input" value={this.state.newUserName} onChange={this.updateFormField} placeholder="User Name"/>
-                                <input name="newEmail" type="text" className="form-control-input" value={this.state.newEmail} onChange={this.updateFormField} placeholder="Email"/>
+                                <input name="newUserName" type="text" className="form-control-input" value={this.state.newUserName} onChange={this.updateFormField} placeholder="User Name" />
+                                <input name="newEmail" type="text" className="form-control-input" value={this.state.newEmail} onChange={this.updateFormField} placeholder="Email" />
                             </div>
                             <div>
                                 Description:
@@ -271,7 +313,7 @@ export default class AddNew extends React.Component {
                             </div>
                             <div>
                                 Tags:
-                                {this.state.newTags.map((element, index) => (
+                                {/* {this.state.newTags.map((element, index) => (
                                     <React.Fragment>
                                         <div key={index}>
                                             <label>Tags</label>
@@ -280,7 +322,15 @@ export default class AddNew extends React.Component {
                                         <button onClick={this.addTag}>Add New</button>
                                         <button onClick={() => this.removeTag(index)}>Remove</button>
                                     </React.Fragment>
-                                ))}
+                                ))} */}
+                                <React.Fragment>
+                                    <CreatableSelect
+                                        placeholder="Select or create new tag"
+                                        isMulti
+                                        onChange={this.handleCreatableChange}
+                                        options={this.state.tagsData}
+                                    />
+                                </React.Fragment>
                             </div>
                             <div>
                                 Group Size:
@@ -299,7 +349,7 @@ export default class AddNew extends React.Component {
                                 {this.state.newMaterials.map((element, index) => (
                                     <React.Fragment>
                                         <div key={index}>
-                                            <label>Tags</label>
+                                            <label></label>
                                             <input name="material" type="text" value={element.material} onChange={(e) => this.materialChange(index, e)} />
                                         </div>
                                         <button onClick={this.addMaterial}>Add New</button>
@@ -312,7 +362,7 @@ export default class AddNew extends React.Component {
                                 {this.state.newLearningObjectives.map((element, index) => (
                                     <React.Fragment>
                                         <div key={index}>
-                                            <label>Tags</label>
+                                            <label></label>
                                             <input name="learningObjective" type="text" value={element.learningObjective} onChange={(e) => this.learningObjectiveChange(index, e)} />
                                         </div>
                                         <button onClick={this.addLearningObjective}>Add New</button>
