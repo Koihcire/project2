@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import parse from "html-react-parser"
+import Select from 'react-select';
 
 
 export default class Search extends React.Component {
@@ -8,7 +9,7 @@ export default class Search extends React.Component {
 
     state = {
         data: [],
-        allUniqueTags: [],
+        tagsData: [],
         searchName: "",
         searchRecent: "",
         minTimeNeeded: "",
@@ -32,10 +33,18 @@ export default class Search extends React.Component {
                 }
             }
             let allUniqueTags = [...new Set(allTags)]
-            this.setState({
-                allUniqueTags: allUniqueTags
-            })
+            let tagsData = []
+            for (let i = 0; i < allUniqueTags.length; i++) {
+                let temp = {
+                    label: allUniqueTags[i],
+                    value: i + 1
+                }
+                tagsData.push(temp)
+            }
 
+            this.setState({
+                tagsData: tagsData
+            })
         } catch (e) {
             console.log(e)
         }
@@ -61,7 +70,7 @@ export default class Search extends React.Component {
             console.log(e)
         }
     }
-    
+
     updateFormField = (e) => {
         if (e.target.type === "checkbox") {
             let currentValues = this.state[e.target.name];
@@ -83,6 +92,17 @@ export default class Search extends React.Component {
         }
     }
 
+    handleCreatableChange = (selectedOptions) => {
+        let temp = []
+        for (let o of selectedOptions) {
+            temp.push(o.label)
+        }
+        console.log(temp)
+        this.setState({
+            tags: temp
+        })
+    }
+
     render() {
         return (
             <React.Fragment>
@@ -100,13 +120,19 @@ export default class Search extends React.Component {
                 </div>
                 <div>
                     <h6>Tags</h6>
-                    {this.state.allUniqueTags.map(t => (
+                    {/* {this.state.allUniqueTags.map(t => ( */}
                         <React.Fragment>
-                            <input name="tags" type="checkbox" className="form-check-input" value={t} checked={this.state.tags.includes(t)} onChange={this.updateFormField} />
-                            <label for="tags" className="form-check-label">{t}</label>
+                            {/* <input name="tags" type="checkbox" className="form-check-input" value={t} checked={this.state.tags.includes(t)} onChange={this.updateFormField} />
+                            <label for="tags" className="form-check-label">{t}</label> */}
+                            <Select
+                                isMulti
+                                placeholder="Select one or more"
+                                onChange={this.handleCreatableChange}
+                                options={this.state.tagsData}
+                            />
                         </React.Fragment>
 
-                    ))}
+                    {/* ))} */}
                 </div>
                 <div>
                     <h6>Group Size</h6>
