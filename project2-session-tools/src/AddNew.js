@@ -34,7 +34,7 @@ export default class AddNew extends React.Component {
         showProcessAddNew: false
     }
 
-    closeProcessAddNew =()=>{
+    closeProcessAddNew = () => {
         this.setState({
             showProcessAddNew: false
         })
@@ -78,13 +78,15 @@ export default class AddNew extends React.Component {
         for (let o of selectedOptions) {
             temp.push(o.label)
         }
-        console.log("temp"+temp)
+        console.log("temp" + temp)
         this.setState({
             newTagsArray: temp
         })
     }
 
     addNewSubmit = async () => {
+        // set the newmaterialsarray
+
         let createdBy = {
             userName: this.state.newUserName,
             email: this.state.newEmail
@@ -99,24 +101,10 @@ export default class AddNew extends React.Component {
                 instructions: this.state.newInstructionsData,
                 debrief: this.state.newDebriefData,
                 timeNeeded: this.state.newTimeNeeded,
-                createdBy: createdBy
+                createdBy: createdBy,
+                learningObjectives: this.state.newLearningObjectivesArray
             })
 
-            // const newTool = {
-            //     name: this.state.newName,
-            //     description: this.state.newDescription,
-            //     tags: this.state.newTagsArray,
-            //     groupSize: this.state.newGroupSize,
-            //     materials: this.state.newMaterialsArray,
-            //     instructions: this.state.newInstructionsData,
-            //     debrief: this.state.newDebriefData,
-            //     timeNeeded: this.state.newTimeNeeded,
-            //     createdBy : createdBy
-            // }
-
-            // this.setState({
-            //     data: [...this.state.data, newTool]
-            // })
         } catch (e) {
             console.log(e)
         }
@@ -147,30 +135,47 @@ export default class AddNew extends React.Component {
         }
     }
 
-    // addTag = () => {
-    //     let _tags = [...this.state.newTags]
-    //     _tags.push({
-    //         tag: ""
-    //     })
-    //     this.setState({
-    //         newTags: _tags
-    //     })
-
-    //     // set inviteMembersArray
-    //     let _newTagsArray = [];
-    //     for (let m of this.state.newTags) {
-    //         _newTagsArray.push(m.tag)
-    //     }
-    //     this.setState({
-    //         newTagsArray: _newTagsArray
-    //     })
-    // }
-
     addMaterial = () => {
         let _materials = [...this.state.newMaterials]
         _materials.push({
             material: ""
         })
+        this.setState({
+            newMaterials: _materials
+        })
+
+        // set inviteMembersArray
+        // let _newMaterialsArray = [];
+        // for (let m of this.state.newMaterials) {
+        //     _newMaterialsArray.push(m.material)
+        // }
+        // this.setState({
+        //     newMaterialsArray: _newMaterialsArray
+        // })
+    }
+
+    removeMaterial = (index, e) => {
+        let _materials = [...this.state.newMaterials]
+
+        _materials.splice(index, 1)
+        this.setState({
+            newMaterials: _materials
+        })
+        // console.log(this.state.newMaterials)
+
+        // reset the new materials array
+        // let _newMaterialsArray = [];
+        // for (let m of this.state.newMaterials) {
+        //     _newMaterialsArray.push(m.material)
+        // }
+        // this.setState({
+        //     newMaterialsArray: _newMaterialsArray
+        // })
+    }
+
+    materialChange = (index, e) => {
+        let _materials = [...this.state.newMaterials]
+        _materials[index][e.target.name] = e.target.value
         this.setState({
             newMaterials: _materials
         })
@@ -195,49 +200,13 @@ export default class AddNew extends React.Component {
         })
 
         // set inviteMembersArray
-        let _newLearningObjectivesArray = [];
-        for (let m of this.state.newLearningObjectives) {
-            _newLearningObjectivesArray.push(m.learningObjective)
-        }
-        this.setState({
-            newLearningObjectivesArray: _newLearningObjectivesArray
-        })
-    }
-
-    // removeTag = (index) => {
-    //     let _tags = [...this.state.newTags]
-    //     // _tags = _tags.filter(tag=> tag === tag[index])
-    //     _tags.splice(index, 1)
-    //     this.setState({
-    //         newTags: _tags
-    //     })
-
-    //     // set inviteMembersArray
-    //     let _newTagsArray = [];
-    //     for (let m of this.state.newTags) {
-    //         _newTagsArray.push(m.tag)
-    //     }
-    //     this.setState({
-    //         newTagsArray: _newTagsArray
-    //     })
-    // }
-
-    removeMaterial = (index) => {
-        let _materials = [...this.state.newMaterials]
-        // _tags = _tags.filter(tag=> tag === tag[index])
-        _materials.splice(index, 1)
-        this.setState({
-            newMaterials: _materials
-        })
-
-        // set inviteMembersArray
-        let _newMaterialsArray = [];
-        for (let m of this.state.newMaterials) {
-            _newMaterialsArray.push(m.material)
-        }
-        this.setState({
-            newMaterialsArray: _newMaterialsArray
-        })
+        // let _newLearningObjectivesArray = [];
+        // for (let m of this.state.newLearningObjectives) {
+        //     _newLearningObjectivesArray.push(m.learningObjective)
+        // }
+        // this.setState({
+        //     newLearningObjectivesArray: _newLearningObjectivesArray
+        // })
     }
 
     removeLearningObjective = (index) => {
@@ -249,47 +218,13 @@ export default class AddNew extends React.Component {
         })
 
         // set inviteMembersArray
-        let _newLearningObjectivesArray = [];
-        for (let m of this.state.newLearningObjectives) {
-            _newLearningObjectivesArray.push(m.learningObjective)
-        }
-        this.setState({
-            newLearningObjectivesArray: _newLearningObjectivesArray
-        })
-    }
-
-    // tagChange = (index, e) => {
-    //     let _tags = [...this.state.newTags]
-    //     _tags[index][e.target.name] = e.target.value
-    //     this.setState({
-    //         tags: _tags
-    //     })
-
-    //     // set inviteMembersArray
-    //     let _newTagsArray = [];
-    //     for (let m of this.state.newTags) {
-    //         _newTagsArray.push(m.tag)
-    //     }
-    //     this.setState({
-    //         newTagsArray: _newTagsArray
-    //     })
-    // }
-
-    materialChange = (index, e) => {
-        let _materials = [...this.state.newMaterials]
-        _materials[index][e.target.name] = e.target.value
-        this.setState({
-            newMaterials: _materials
-        })
-
-        // set inviteMembersArray
-        let _newMaterialsArray = [];
-        for (let m of this.state.newMaterials) {
-            _newMaterialsArray.push(m.material)
-        }
-        this.setState({
-            newMaterialsArray: _newMaterialsArray
-        })
+        // let _newLearningObjectivesArray = [];
+        // for (let m of this.state.newLearningObjectives) {
+        //     _newLearningObjectivesArray.push(m.learningObjective)
+        // }
+        // this.setState({
+        //     newLearningObjectivesArray: _newLearningObjectivesArray
+        // })
     }
 
     learningObjectiveChange = (index, e) => {
@@ -369,7 +304,7 @@ export default class AddNew extends React.Component {
                                             <input name="material" type="text" value={element.material} onChange={(e) => this.materialChange(index, e)} />
                                         </div>
                                         <button onClick={this.addMaterial}>Add New</button>
-                                        <button onClick={() => this.removeMaterial(index)}>Remove</button>
+                                        <button onClick={(e) => this.removeMaterial(index, e)}>Remove</button>
                                     </React.Fragment>
                                 ))}
                             </div>
@@ -446,7 +381,7 @@ export default class AddNew extends React.Component {
                 </div>
                 <button onClick={this.addNewSubmit}>Submit</button>
                 <ProcessAddNew showProcessAddNew={this.state.showProcessAddNew}
-                    closeProcessAddNew={this.closeProcessAddNew}/>
+                    closeProcessAddNew={this.closeProcessAddNew} />
             </React.Fragment>
         )
     }
