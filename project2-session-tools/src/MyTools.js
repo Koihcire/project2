@@ -1,13 +1,28 @@
 import React from "react"
 import axios from "axios";
 import parse from "html-react-parser"
+import ToolCard from "./ToolCard";
 
 export default class MyTools extends React.Component {
     url = "https://tgc-session-tools.herokuapp.com/"
 
     state = {
         data: [],
-        email: ""
+        email: "",
+
+        showToolCard: false
+    }
+
+    closeToolCard = () => {
+        this.setState({
+            showToolCard: false
+        })
+    }
+
+    showToolCard = () => {
+        this.setState({
+            showToolCard: true
+        })
     }
 
     updateFormField = (e) => {
@@ -100,20 +115,10 @@ export default class MyTools extends React.Component {
                                     Time Needed: {t.timeNeeded} minutes
                                 </div>
                                 <div>
-                                    Materials: {t.materials.map(materials => (
-                                        materials
-                                    ))}
+                                    <button className="btn btn-sm" onClick={this.showToolCard}>Show More</button>
+                                    <ToolCard showToolCard={this.state.showToolCard}
+                                        closeToolCard={this.closeToolCard} />
                                 </div>
-                                <div>
-                                    Learning Objectives: {t.learningObjectives}
-                                </div>
-                                <div>
-                                    Instructions: {parse(t.instructions)}
-                                </div>
-                                <div>
-                                    Debrief: {parse(t.debrief)}
-                                </div>
-
                             </div>
                         </div>
                     </div>

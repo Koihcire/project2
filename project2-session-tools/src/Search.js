@@ -3,6 +3,11 @@ import axios from "axios";
 import parse from "html-react-parser"
 import "bootstrap/dist/css/bootstrap.min.css"
 import "./Search.css"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
+import { faAngleUp } from '@fortawesome/free-solid-svg-icons'
+import ToolCard from "./ToolCard";
+
 
 
 export default class Search extends React.Component {
@@ -19,7 +24,20 @@ export default class Search extends React.Component {
         groupSize: [],
         allGroupSizes: ["small", "medium", "large"],
 
-        isTagsListOpen: false
+        isTagsListOpen: false,
+        showToolCard: false
+    }
+
+    closeToolCard = ()=>{
+        this.setState({
+           showToolCard: false
+        })
+    }
+
+    showToolCard = ()=>{
+        this.setState({
+            showToolCard: true
+        })
     }
 
     toggleTagsList = () => {
@@ -99,14 +117,14 @@ export default class Search extends React.Component {
         }
     }
 
-    toggleClassList = () => {
-
-    }
-
     render() {
         return (
             <React.Fragment>
                 {/* SEARCH */}
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-2-circle-fill iconHeight" viewBox="0 0 16 16">
+                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0ZM6.646 6.24c0-.691.493-1.306 1.336-1.306.756 0 1.313.492 1.313 1.236 0 .697-.469 1.23-.902 1.705l-2.971 3.293V12h5.344v-1.107H7.268v-.077l1.974-2.22.096-.107c.688-.763 1.287-1.428 1.287-2.43 0-1.266-1.031-2.215-2.613-2.215-1.758 0-2.637 1.19-2.637 2.402v.065h1.271v-.07Z" />
+                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" className="iconHeight" fill="currentColor" viewBox="0 0 448 512"><path d="M423.9 255.8L411 413.1c-3.3 40.7-63.9 35.1-60.6-4.9l10-122.5-41.1 2.3c10.1 20.7 15.8 43.9 15.8 68.5 0 41.2-16.1 78.7-42.3 106.5l-39.3-39.3c57.9-63.7 13.1-167.2-74-167.2-25.9 0-49.5 9.9-67.2 26L73 243.2c22-20.7 50.1-35.1 81.4-40.2l75.3-85.7-42.6-24.8-51.6 46c-30 26.8-70.6-18.5-40.5-45.4l68-60.7c9.8-8.8 24.1-10.2 35.5-3.6 0 0 139.3 80.9 139.5 81.1 16.2 10.1 20.7 36 6.1 52.6L285.7 229l106.1-5.9c18.5-1.1 33.6 14.4 32.1 32.7zm-64.9-154c28.1 0 50.9-22.8 50.9-50.9C409.9 22.8 387.1 0 359 0c-28.1 0-50.9 22.8-50.9 50.9 0 28.1 22.8 50.9 50.9 50.9zM179.6 456.5c-80.6 0-127.4-90.6-82.7-156.1l-39.7-39.7C36.4 287 24 320.3 24 356.4c0 130.7 150.7 201.4 251.4 122.5l-39.7-39.7c-16 10.9-35.3 17.3-56.1 17.3z" /></svg>
                 <div>
                     <input name="searchName" type="text" className="form-control-input" value={this.state.searchName} onChange={this.updateFormField} placeholder="Search by Activity Name" />
                 </div>
@@ -120,7 +138,13 @@ export default class Search extends React.Component {
                 </div>
                 <div>
                     <h6>Tags</h6>
-                    <button className="btn btn-sm btn-primary" onClick={this.toggleTagsList}>Select one or more tags</button>
+                    <div>
+                        <div className="btn btn-sm btn-primary" onClick={this.toggleTagsList}>
+                            Select one or more tags {this.state.isTagsListOpen ? <FontAwesomeIcon icon={faAngleUp} /> : <FontAwesomeIcon icon={faAngleDown} />}
+                        </div>
+
+                    </div>
+
                     <div className={this.state.isTagsListOpen ? "show" : "hidden"}>
                         {this.state.tagsData.map(t => (
                             <React.Fragment>
@@ -177,25 +201,17 @@ export default class Search extends React.Component {
                                 <div>
                                     Time Needed: {t.timeNeeded} minutes
                                 </div>
-                                <div>
-                                    Materials: {t.materials.map(materials => (
-                                        materials
-                                    ))}
-                                </div>
-                                <div>
-                                    Learning Objectives: {t.learningObjectives}
-                                </div>
-                                <div>
-                                    Instructions: {parse(t.instructions)}
-                                </div>
-                                <div>
-                                    Debrief: {parse(t.debrief)}
-                                </div>
-
                             </div>
                         </div>
+                        <div>
+                            <button className="btn btn-sm" onClick={this.showToolCard}>Show More</button>
+                            <ToolCard showToolCard={this.state.showToolCard}
+                                        closeToolCard={this.closeToolCard}/>
+                        </div>
+                                          
                     </div>
                 ))}
+                
             </React.Fragment>
         );
     }
