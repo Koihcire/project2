@@ -1,7 +1,8 @@
 import React from "react"
 import "./ToolCard.css"
-import parse from "html-react-parser"
 import axios from "axios"
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 
 export default class UpdateToolCard extends React.Component {
@@ -146,6 +147,62 @@ export default class UpdateToolCard extends React.Component {
                                                     <label for="updateGroupSize" className="form-check-label">{g}</label>
                                                 </React.Fragment>
                                             ))}
+                                        </div>
+                                        <div>
+                                            Time Needed:
+                                            <input name="updateTimeNeeded" type="number" className="form-control" value={this.state.updateTimeNeeded} onChange={this.updateFormField} /> minutes
+                                        </div>
+                                        <div>
+                                            Instructions:
+                                            <div>
+                                                <CKEditor
+                                                    editor={ClassicEditor}
+                                                    data={this.state.updateInstructionsData}
+                                                    onReady={editor => {
+                                                        // You can store the "editor" and use when it is needed.
+                                                        console.log('Editor is ready to use!', editor);
+                                                    }}
+                                                    onChange={(event, editor) => {
+                                                        const data = editor.getData();
+                                                        console.log({ event, editor, data });
+                                                        this.setState({
+                                                            updateInstructionsData: data
+                                                        })
+                                                    }}
+                                                    onBlur={(event, editor) => {
+                                                        console.log('Blur.', editor);
+                                                    }}
+                                                    onFocus={(event, editor) => {
+                                                        console.log('Focus.', editor);
+                                                    }}
+                                                />
+                                            </div>
+                                        </div>
+                                        <div>
+                                            Debrief:
+                                            <div>
+                                                <CKEditor
+                                                    editor={ClassicEditor}
+                                                    data={this.state.updateDebriefData}
+                                                    onReady={editor => {
+                                                        // You can store the "editor" and use when it is needed.
+                                                        console.log('Editor is ready to use!', editor);
+                                                    }}
+                                                    onChange={(event, editor) => {
+                                                        const data = editor.getData();
+                                                        console.log({ event, editor, data });
+                                                        this.setState({
+                                                            updateDebriefData: data
+                                                        })
+                                                    }}
+                                                    onBlur={(event, editor) => {
+                                                        console.log('Blur.', editor);
+                                                    }}
+                                                    onFocus={(event, editor) => {
+                                                        console.log('Focus.', editor);
+                                                    }}
+                                                />
+                                            </div>
                                         </div>
 
                                     </div>
