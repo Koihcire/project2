@@ -3,6 +3,7 @@ import "./ToolCard.css"
 import axios from "axios"
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import CreatableSelect from 'react-select/creatable';
 
 
 export default class UpdateToolCard extends React.Component {
@@ -11,6 +12,8 @@ export default class UpdateToolCard extends React.Component {
 
     state = {
         allGroupSizes: ["small", "medium", "large"],
+        allTags: [],
+        preSelectedTags: [],
         updateId: "",
         updateName: "",
         updateDescription: "",
@@ -60,13 +63,14 @@ export default class UpdateToolCard extends React.Component {
         let id = this.props.activeToolData._id;
         let name = this.props.activeToolData.name;
         let description = this.props.activeToolData.description;
-        let tags = this.props.activeToolData.tags;
+        let allTagsData = this.props.tagsData;
         let groupSize = this.props.activeToolData.groupSize;
         let timeNeeded = this.props.activeToolData.timeNeeded;
         let learningObjectivesData = this.props.activeToolData.learningObjectives;
         let materialsData = this.props.activeToolData.materials;
         let instructions = this.props.activeToolData.instructions;
         let debrief = this.props.activeToolData.debrief;
+        let tags = this.props.activeToolData.tags;
 
         // console.log(materialsData)
         let materials = [...this.state.materials];
@@ -77,11 +81,11 @@ export default class UpdateToolCard extends React.Component {
             })
         })
 
-         // set updatematerialsarray
-         let _newMaterialsArray = [];
-         for (let m of materials) {
-             _newMaterialsArray.push(m.material)
-         }
+        // set updatematerialsarray
+        let _newMaterialsArray = [];
+        for (let m of materials) {
+            _newMaterialsArray.push(m.material)
+        }
         //  this.setState({
         //      updateMaterials: _newMaterialsArray
         //  })
@@ -104,12 +108,21 @@ export default class UpdateToolCard extends React.Component {
         //     updateLearningObjectives: _newLearningObjectivesArray
         // })
 
+        let _selectedTags = [];
+        for (let i = 0; i < tags.length; i++) {
+            let temp = {
+                label: tags[i],
+                value: i + 1
+            }
+            _selectedTags.push(temp)
+        }
+
         // console.log(name)
         this.setState({
             updateId: id,
             updateName: name,
             updateDescription: description,
-            updateTags: tags,
+            allTags: allTagsData,
             updateGroupSize: groupSize,
             updateTimeNeeded: timeNeeded,
             learningObjectives: learningObjectives,
@@ -118,12 +131,22 @@ export default class UpdateToolCard extends React.Component {
             updateMaterials: _newMaterialsArray,
             updateInstructionsData: instructions,
             updateDebriefData: debrief,
-            showStartUpdate: false
+            showStartUpdate: false,
+            updateTags: tags,
+            preSelectedTags: _selectedTags
         })
+    }
 
-       
-
-        
+    handleCreatableChange = (selectedOptions) => {
+        // console.log("selected =>" + selectedOptions)
+        let temp = []
+        for (let o of selectedOptions) {
+            temp.push(o.label)
+        }
+        console.log("temp" + temp)
+        this.setState({
+            updateTags: temp
+        })
     }
 
     updateFormField = (e) => {
@@ -300,6 +323,18 @@ export default class UpdateToolCard extends React.Component {
                                         <div>
                                             Time Needed:
                                             <input name="updateTimeNeeded" type="number" className="form-control" value={this.state.updateTimeNeeded} onChange={this.updateFormField} /> minutes
+                                        </div>
+                                        <div>
+                                            Tags:
+                                            <React.Fragment>
+                                                <CreatableSelect
+                                                    placeholder="Select or create new tag"
+                                                    isMulti
+                                                    onChange={this.handleCreatableChange}
+                                                    options={this.state.allTags}
+                                                    defaultValue={this.state.preSelectedTags}
+                                                />
+                                            </React.Fragment>
                                         </div>
                                         <div>
                                             Materials:

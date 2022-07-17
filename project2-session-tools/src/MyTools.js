@@ -11,6 +11,7 @@ export default class MyTools extends React.Component {
     url = "https://tgc-session-tools.herokuapp.com/"
 
     state = {
+        tagsData: [],
         data: [],
         email: "",
 
@@ -20,6 +21,37 @@ export default class MyTools extends React.Component {
         showProcessDelete: false,
 
         activeToolData: [],
+    }
+
+    async componentDidMount() {
+        try {
+            let response = await axios.get(this.url + "tags")
+            let responseData = response.data.tags
+
+            let allTags = []
+            for (let t of responseData) {
+                for (let tag of t.tags) {
+                    // console.log(tag)
+                    allTags.push(tag)
+                }
+            }
+
+            let allUniqueTags = [...new Set(allTags)]
+            let tagsData = []
+            for (let i = 0; i < allUniqueTags.length; i++) {
+                let temp = {
+                    label: allUniqueTags[i],
+                    value: i + 1
+                }
+                tagsData.push(temp)
+            }
+
+            this.setState({
+                tagsData: tagsData
+            })
+        } catch (e) {
+            console.log(e)
+        }
     }
 
     closeToolCard = () => {
@@ -198,7 +230,8 @@ export default class MyTools extends React.Component {
                 <UpdateToolCard showUpdateToolCard={this.state.showUpdateToolCard}
                     closeUpdateToolCard={this.closeUpdateToolCard}
                     activeToolData={this.state.activeToolData}
-                    searchMyTools={this.searchMyTools} />
+                    searchMyTools={this.searchMyTools}
+                    tagsData={this.state.tagsData} />
 
                 <ConfirmDelete showConfirmDelete={this.state.showConfirmDelete}
                     closeConfirmDelete={this.closeConfirmDelete}

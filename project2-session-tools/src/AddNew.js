@@ -74,6 +74,7 @@ export default class AddNew extends React.Component {
     }
 
     handleCreatableChange = (selectedOptions) => {
+        // console.log("selected =>" + selectedOptions)
         let temp = []
         for (let o of selectedOptions) {
             temp.push(o.label)
