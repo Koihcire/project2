@@ -42,6 +42,9 @@ export default class UpdateToolCard extends React.Component {
         } catch (e) {
             console.log (e)
         }
+
+        this.endUpdate()
+        this.props.searchMyTools()
     }
 
     endUpdate = () => {

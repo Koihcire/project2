@@ -197,7 +197,8 @@ export default class MyTools extends React.Component {
 
                 <UpdateToolCard showUpdateToolCard={this.state.showUpdateToolCard}
                     closeUpdateToolCard={this.closeUpdateToolCard}
-                    activeToolData={this.state.activeToolData} />
+                    activeToolData={this.state.activeToolData}
+                    searchMyTools={this.searchMyTools} />
 
                 <ConfirmDelete showConfirmDelete={this.state.showConfirmDelete}
                     closeConfirmDelete={this.closeConfirmDelete}
