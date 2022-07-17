@@ -77,6 +77,15 @@ export default class UpdateToolCard extends React.Component {
             })
         })
 
+         // set updatematerialsarray
+         let _newMaterialsArray = [];
+         for (let m of materials) {
+             _newMaterialsArray.push(m.material)
+         }
+        //  this.setState({
+        //      updateMaterials: _newMaterialsArray
+        //  })
+
         // console.log("materialsData = " + materials)
 
         let learningObjectives = [...this.state.learningObjectives]
@@ -85,6 +94,15 @@ export default class UpdateToolCard extends React.Component {
                 "learningObjective": l
             })
         })
+
+        //set up updatelearningobjectivesarray
+        let _newLearningObjectivesArray = [];
+        for (let m of learningObjectives) {
+            _newLearningObjectivesArray.push(m.learningObjective)
+        }
+        // this.setState({
+        //     updateLearningObjectives: _newLearningObjectivesArray
+        // })
 
         // console.log(name)
         this.setState({
@@ -95,30 +113,17 @@ export default class UpdateToolCard extends React.Component {
             updateGroupSize: groupSize,
             updateTimeNeeded: timeNeeded,
             learningObjectives: learningObjectives,
-            updateLearningObjectives: [],
+            updateLearningObjectives: _newLearningObjectivesArray,
             materials: materials,
+            updateMaterials: _newMaterialsArray,
             updateInstructionsData: instructions,
             updateDebriefData: debrief,
             showStartUpdate: false
         })
 
-        // set updatematerialsarray
-        let _newMaterialsArray = [];
-        for (let m of materials) {
-            _newMaterialsArray.push(m.material)
-        }
-        this.setState({
-            updateMaterials: _newMaterialsArray
-        })
+       
 
-        //set up updatelearningobjectivesarray
-        let _newLearningObjectivesArray = [];
-        for (let m of learningObjectives) {
-            _newLearningObjectivesArray.push(m.learningObjective)
-        }
-        this.setState({
-            updateLearningObjectives: _newLearningObjectivesArray
-        })
+        
     }
 
     updateFormField = (e) => {
@@ -147,9 +152,9 @@ export default class UpdateToolCard extends React.Component {
         _materials.push({
             material: ""
         })
-        this.setState({
-            materials: _materials
-        })
+        // this.setState({
+        //     materials: _materials
+        // })
 
         // set updatematerialsarray
         let _newMaterialsArray = [];
@@ -157,7 +162,8 @@ export default class UpdateToolCard extends React.Component {
             _newMaterialsArray.push(m.material)
         }
         this.setState({
-            updateMaterials: _newMaterialsArray
+            updateMaterials: _newMaterialsArray,
+            materials: _materials
         })
     }
 
@@ -165,9 +171,9 @@ export default class UpdateToolCard extends React.Component {
         let _materials = [...this.state.materials]
 
         _materials.splice(index, 1)
-        this.setState({
-            materials: _materials
-        })
+        // this.setState({
+        //     materials: _materials
+        // })
         // console.log(this.state.newMaterials)
         // set updatematerialsarray
         let _newMaterialsArray = [];
@@ -175,16 +181,17 @@ export default class UpdateToolCard extends React.Component {
             _newMaterialsArray.push(m.material)
         }
         this.setState({
-            updateMaterials: _newMaterialsArray
+            updateMaterials: _newMaterialsArray,
+            materials: _materials
         })
     }
 
     materialChange = (index, e) => {
         let _materials = [...this.state.materials]
         _materials[index][e.target.name] = e.target.value
-        this.setState({
-            materials: _materials
-        })
+        // this.setState({
+        //     materials: _materials
+        // })
 
         // set updatematerialsarray
         let _newMaterialsArray = [];
@@ -192,7 +199,8 @@ export default class UpdateToolCard extends React.Component {
             _newMaterialsArray.push(m.material)
         }
         this.setState({
-            updateMaterials: _newMaterialsArray
+            updateMaterials: _newMaterialsArray,
+            materials: _materials
         })
     }
 
@@ -201,9 +209,9 @@ export default class UpdateToolCard extends React.Component {
         _learningObjectives.push({
             learningObjective: ""
         })
-        this.setState({
-            learningObjectives: _learningObjectives
-        })
+        // this.setState({
+        //     learningObjectives: _learningObjectives
+        // })
 
         // set inviteMembersArray
         let _newLearningObjectivesArray = [];
@@ -211,7 +219,8 @@ export default class UpdateToolCard extends React.Component {
             _newLearningObjectivesArray.push(m.learningObjective)
         }
         this.setState({
-            updateLearningObjectives: _newLearningObjectivesArray
+            updateLearningObjectives: _newLearningObjectivesArray,
+            learningObjectives: _learningObjectives
         })
     }
 
@@ -219,9 +228,9 @@ export default class UpdateToolCard extends React.Component {
         let _learningObjectives = [...this.state.learningObjectives]
         // _tags = _tags.filter(tag=> tag === tag[index])
         _learningObjectives.splice(index, 1)
-        this.setState({
-            learningObjectives: _learningObjectives
-        })
+        // this.setState({
+        //     learningObjectives: _learningObjectives
+        // })
 
         // set inviteMembersArray
         let _newLearningObjectivesArray = [];
@@ -229,16 +238,17 @@ export default class UpdateToolCard extends React.Component {
             _newLearningObjectivesArray.push(m.learningObjective)
         }
         this.setState({
-            updateLearningObjectives: _newLearningObjectivesArray
+            updateLearningObjectives: _newLearningObjectivesArray,
+            learningObjectives: _learningObjectives
         })
     }
 
     learningObjectiveChange = (index, e) => {
         let _learningObjectives = [...this.state.learningObjectives]
         _learningObjectives[index][e.target.name] = e.target.value
-        this.setState({
-            learningObjectives: _learningObjectives
-        })
+        // this.setState({
+        //     learningObjectives: _learningObjectives
+        // })
 
         // set inviteMembersArray
         let _newLearningObjectivesArray = [];
@@ -246,7 +256,8 @@ export default class UpdateToolCard extends React.Component {
             _newLearningObjectivesArray.push(m.learningObjective)
         }
         this.setState({
-            updateLearningObjectives: _newLearningObjectivesArray
+            updateLearningObjectives: _newLearningObjectivesArray,
+            learningObjectives: _learningObjectives
         })
     }
 

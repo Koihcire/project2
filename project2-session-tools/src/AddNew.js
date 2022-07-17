@@ -140,9 +140,9 @@ export default class AddNew extends React.Component {
         _materials.push({
             material: ""
         })
-        this.setState({
-            newMaterials: _materials
-        })
+        // this.setState({
+        //     newMaterials: _materials
+        // })
 
         // set inviteMembersArray
         let _newMaterialsArray = [];
@@ -150,7 +150,8 @@ export default class AddNew extends React.Component {
             _newMaterialsArray.push(m.material)
         }
         this.setState({
-            newMaterialsArray: _newMaterialsArray
+            newMaterialsArray: _newMaterialsArray,
+            newMaterials: _materials
         })
     }
 
@@ -158,10 +159,10 @@ export default class AddNew extends React.Component {
         let _materials = [...this.state.newMaterials]
 
         _materials.splice(index, 1)
-        this.setState({
-            newMaterials: _materials
-        })
-        console.log(this.state.newMaterials)
+        // this.setState({
+        //     newMaterials: _materials
+        // })
+        // console.log(this.state.newMaterials)
 
         // reset the new materials array
         let _newMaterialsArray = [];
@@ -169,16 +170,17 @@ export default class AddNew extends React.Component {
             _newMaterialsArray.push(m.material)
         }
         this.setState({
-            newMaterialsArray: _newMaterialsArray
+            newMaterialsArray: _newMaterialsArray,
+            newMaterials: _materials
         })
     }
 
     materialChange = (index, e) => {
         let _materials = [...this.state.newMaterials]
         _materials[index][e.target.name] = e.target.value
-        this.setState({
-            newMaterials: _materials
-        })
+        // this.setState({
+        //     newMaterials: _materials
+        // })
 
         // set inviteMembersArray
         let _newMaterialsArray = [];
@@ -186,7 +188,8 @@ export default class AddNew extends React.Component {
             _newMaterialsArray.push(m.material)
         }
         this.setState({
-            newMaterialsArray: _newMaterialsArray
+            newMaterialsArray: _newMaterialsArray,
+            newMaterials: _materials
         })
     }
 
@@ -195,9 +198,9 @@ export default class AddNew extends React.Component {
         _learningObjectives.push({
             learningObjective: ""
         })
-        this.setState({
-            newLearningObjectives: _learningObjectives
-        })
+        // this.setState({
+        //     newLearningObjectives: _learningObjectives
+        // })
 
         // set inviteMembersArray
         let _newLearningObjectivesArray = [];
@@ -205,7 +208,8 @@ export default class AddNew extends React.Component {
             _newLearningObjectivesArray.push(m.learningObjective)
         }
         this.setState({
-            newLearningObjectivesArray: _newLearningObjectivesArray
+            newLearningObjectivesArray: _newLearningObjectivesArray,
+            newLearningObjectives: _learningObjectives
         })
     }
 
@@ -213,9 +217,9 @@ export default class AddNew extends React.Component {
         let _learningObjectives = [...this.state.newLearningObjectives]
         // _tags = _tags.filter(tag=> tag === tag[index])
         _learningObjectives.splice(index, 1)
-        this.setState({
-            newLearningObjectives: _learningObjectives
-        })
+        // this.setState({
+        //     newLearningObjectives: _learningObjectives
+        // })
 
         // set inviteMembersArray
         let _newLearningObjectivesArray = [];
@@ -223,16 +227,17 @@ export default class AddNew extends React.Component {
             _newLearningObjectivesArray.push(m.learningObjective)
         }
         this.setState({
-            newLearningObjectivesArray: _newLearningObjectivesArray
+            newLearningObjectivesArray: _newLearningObjectivesArray,
+            newLearningObjectives: _learningObjectives
         })
     }
 
     learningObjectiveChange = (index, e) => {
         let _learningObjectives = [...this.state.newLearningObjectives]
         _learningObjectives[index][e.target.name] = e.target.value
-        this.setState({
-            newLearningObjectives: _learningObjectives
-        })
+        // this.setState({
+        //     newLearningObjectives: _learningObjectives
+        // })
 
         // set inviteMembersArray
         let _newLearningObjectivesArray = [];
@@ -240,7 +245,8 @@ export default class AddNew extends React.Component {
             _newLearningObjectivesArray.push(m.learningObjective)
         }
         this.setState({
-            newLearningObjectivesArray: _newLearningObjectivesArray
+            newLearningObjectivesArray: _newLearningObjectivesArray,
+            newLearningObjectives: _learningObjectives
         })
     }
 
