@@ -2,6 +2,7 @@ import React from "react"
 import axios from "axios";
 import parse from "html-react-parser"
 import ToolCard from "./ToolCard";
+import "./ToolCard.css"
 import UpdateToolCard from "./UpdateToolCard";
 import ConfirmDelete from "./ConfirmDelete";
 import ProcessDelete from "./ProcessDelete";
@@ -36,7 +37,7 @@ export default class MyTools extends React.Component {
         })
     }
 
-    closeUpdateToolCard = () =>{
+    closeUpdateToolCard = () => {
         this.setState({
             showUpdateToolCard: false
         })
@@ -66,21 +67,21 @@ export default class MyTools extends React.Component {
         })
     }
 
-    showProcessDelete = () =>{
+    showProcessDelete = () => {
         this.setState({
             showProcessDelete: true
         })
     }
 
-    closeProcessDelete = () =>{
+    closeProcessDelete = () => {
         this.setState({
-            showProcessDelete:false
+            showProcessDelete: false
         })
 
         this.searchMyTools()
     }
 
-    processDelete = async(toolId) => {
+    processDelete = async (toolId) => {
         await axios.delete(this.url + "delete-tool/" + toolId)
 
         this.setState({
@@ -179,28 +180,31 @@ export default class MyTools extends React.Component {
                                     Time Needed: {t.timeNeeded} minutes
                                 </div>
                                 <div>
-                                    <button className="btn btn-sm btn-primary" onClick={()=>this.showToolCard(t._id)}>Show More</button>
-                                    <ToolCard showToolCard={this.state.showToolCard}
-                                        closeToolCard={this.closeToolCard}
-                                        activeToolData={this.state.activeToolData} />
-                                    
-                                    <button className="btn btn-sm btn-primary" onClick={()=>this.showUpdateToolCard(t._id)}>Update Tool</button>
-                                    <UpdateToolCard showUpdateToolCard={this.state.showUpdateToolCard}
-                                        closeUpdateToolCard={this.closeUpdateToolCard}
-                                        activeToolData={this.state.activeToolData} />
-
-                                    <button className="btn btn-sm btn-danger" onClick={()=>this.showConfirmDelete(t._id)}>Delete</button>
-                                    <ConfirmDelete showConfirmDelete={this.state.showConfirmDelete}
-                                        closeConfirmDelete={this.closeConfirmDelete}
-                                        activeToolData={this.state.activeToolData}
-                                        processDelete={this.processDelete}/>
-                                    <ProcessDelete showProcessDelete={this.state.showProcessDelete}
-                                        closeProcessDelete={this.closeProcessDelete}/>
+                                    <button className="btn btn-sm btn-primary" onClick={() => this.showToolCard(t._id)}>Show More</button>
+                                    <button className="btn btn-sm btn-primary" onClick={() => this.showUpdateToolCard(t._id)}>Update Tool</button>
+                                    <button className="btn btn-sm btn-danger" onClick={() => this.showConfirmDelete(t._id)}>Delete</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 ))}
+                
+                <ToolCard showToolCard={this.state.showToolCard}
+                    closeToolCard={this.closeToolCard}
+                    activeToolData={this.state.activeToolData} />
+
+                <UpdateToolCard showUpdateToolCard={this.state.showUpdateToolCard}
+                    closeUpdateToolCard={this.closeUpdateToolCard}
+                    activeToolData={this.state.activeToolData} />
+
+                <ConfirmDelete showConfirmDelete={this.state.showConfirmDelete}
+                    closeConfirmDelete={this.closeConfirmDelete}
+                    activeToolData={this.state.activeToolData}
+                    processDelete={this.processDelete} />
+
+                <ProcessDelete showProcessDelete={this.state.showProcessDelete}
+                    closeProcessDelete={this.closeProcessDelete} />
+
             </React.Fragment>
         )
     }

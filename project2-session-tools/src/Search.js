@@ -24,18 +24,18 @@ export default class Search extends React.Component {
 
         isTagsListOpen: false,
         showToolCard: false,
-        
+
         activeToolData: []
     }
 
-    closeToolCard = ()=>{
+    closeToolCard = () => {
         this.setState({
-           showToolCard: false
+            showToolCard: false
         })
     }
 
-    showToolCard = async (toolId)=>{
-        let activeToolId= toolId;
+    showToolCard = async (toolId) => {
+        let activeToolId = toolId;
 
         let response = await axios.get(this.url + "tool/" + toolId)
 
@@ -44,7 +44,7 @@ export default class Search extends React.Component {
             // activeToolId: activeToolId
             activeToolData: response.data.tool
         })
-    }        
+    }
 
     toggleTagsList = () => {
         if (this.state.isTagsListOpen) {
@@ -210,17 +210,16 @@ export default class Search extends React.Component {
                             </div>
                         </div>
                         <div>
-                            <button className="btn btn-sm btn-primary" onClick={()=>this.showToolCard(t._id)}>Show More</button>
-                            <ToolCard showToolCard={this.state.showToolCard}
-                                        closeToolCard={this.closeToolCard}
-                                        activeToolData={this.state.activeToolData}
-                                        // name={this.state.activeToolId}
-                                    />
+                            <button className="btn btn-sm btn-primary" onClick={() => this.showToolCard(t._id)}>Show More</button>
                         </div>
-                                          
+
                     </div>
                 ))}
-                
+                <ToolCard showToolCard={this.state.showToolCard}
+                    closeToolCard={this.closeToolCard}
+                    activeToolData={this.state.activeToolData}
+                />
+
             </React.Fragment>
         );
     }
