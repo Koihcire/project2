@@ -15,10 +15,14 @@
     width: 90%;
     background-color: #fff;
     max-height: 80vh;
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
 }
 
-.myModal-header, .myModal-footer {
+.myModal-header {
+    padding: 10px;
+}
+
+.myModal-footer {
     padding: 10px;
 }
 
@@ -30,4 +34,6 @@
     padding: 10px;
     border-top: 1px solid #eee;
     border-bottom: 1px solid #eee;
+    overflow-y: scroll;
+    height: 68vh;
 }
