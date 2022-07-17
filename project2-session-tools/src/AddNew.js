@@ -3,6 +3,8 @@ import axios from "axios";
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import CreatableSelect from 'react-select/creatable';
+import ProcessAddNew from "./ProcessAddNew";
+
 
 export default class AddNew extends React.Component {
     url = "https://tgc-session-tools.herokuapp.com/"
@@ -27,7 +29,17 @@ export default class AddNew extends React.Component {
         newInstructionsData: "",
         newDebriefData: "",
         newUserName: "",
-        newEmail: ""
+        newEmail: "",
+
+        showProcessAddNew: false
+    }
+
+    closeProcessAddNew =()=>{
+        this.setState({
+            showProcessAddNew: false
+        })
+
+        this.props.changePage()
     }
 
     async componentDidMount() {
@@ -108,6 +120,10 @@ export default class AddNew extends React.Component {
         } catch (e) {
             console.log(e)
         }
+
+        this.setState({
+            showProcessAddNew: true
+        })
     }
 
     updateFormField = (e) => {
@@ -429,6 +445,8 @@ export default class AddNew extends React.Component {
                     </div>
                 </div>
                 <button onClick={this.addNewSubmit}>Submit</button>
+                <ProcessAddNew showProcessAddNew={this.state.showProcessAddNew}
+                    closeProcessAddNew={this.closeProcessAddNew}/>
             </React.Fragment>
         )
     }
