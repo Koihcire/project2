@@ -26,9 +26,9 @@ export default class UpdateToolCard extends React.Component {
         showStartUpdate: true
     }
 
-    processUpdate = async ()=>{
+    processUpdate = async () => {
         try {
-            await axios.put(this.url + "update-tool/" + this.state.updateId , {
+            await axios.put(this.url + "update-tool/" + this.state.updateId, {
                 name: this.state.updateName,
                 description: this.state.updateDescription,
                 groupSize: this.state.updateGroupSize,
@@ -40,7 +40,7 @@ export default class UpdateToolCard extends React.Component {
             })
 
         } catch (e) {
-            console.log (e)
+            console.log(e)
         }
 
         this.endUpdate()
@@ -57,7 +57,7 @@ export default class UpdateToolCard extends React.Component {
     }
 
     startUpdate = () => {
-        let id  = this.props.activeToolData._id;
+        let id = this.props.activeToolData._id;
         let name = this.props.activeToolData.name;
         let description = this.props.activeToolData.description;
         let tags = this.props.activeToolData.tags;
@@ -102,16 +102,23 @@ export default class UpdateToolCard extends React.Component {
             showStartUpdate: false
         })
 
-         // set updatematerialsarray
-         let _newMaterialsArray = [];
-         for (let m of this.state.materials) {
-             _newMaterialsArray.push(m.material)
-         }
-         this.setState({
-             updateMaterials: _newMaterialsArray
-         })
+        // set updatematerialsarray
+        let _newMaterialsArray = [];
+        for (let m of materials) {
+            _newMaterialsArray.push(m.material)
+        }
+        this.setState({
+            updateMaterials: _newMaterialsArray
+        })
 
-
+        //set up updatelearningobjectivesarray
+        let _newLearningObjectivesArray = [];
+        for (let m of learningObjectives) {
+            _newLearningObjectivesArray.push(m.learningObjective)
+        }
+        this.setState({
+            updateLearningObjectives: _newLearningObjectivesArray
+        })
     }
 
     updateFormField = (e) => {
@@ -143,6 +150,15 @@ export default class UpdateToolCard extends React.Component {
         this.setState({
             materials: _materials
         })
+
+        // set updatematerialsarray
+        let _newMaterialsArray = [];
+        for (let m of _materials) {
+            _newMaterialsArray.push(m.material)
+        }
+        this.setState({
+            updateMaterials: _newMaterialsArray
+        })
     }
 
     removeMaterial = (index, e) => {
@@ -153,6 +169,14 @@ export default class UpdateToolCard extends React.Component {
             materials: _materials
         })
         // console.log(this.state.newMaterials)
+        // set updatematerialsarray
+        let _newMaterialsArray = [];
+        for (let m of _materials) {
+            _newMaterialsArray.push(m.material)
+        }
+        this.setState({
+            updateMaterials: _newMaterialsArray
+        })
     }
 
     materialChange = (index, e) => {
@@ -164,7 +188,7 @@ export default class UpdateToolCard extends React.Component {
 
         // set updatematerialsarray
         let _newMaterialsArray = [];
-        for (let m of this.state.materials) {
+        for (let m of _materials) {
             _newMaterialsArray.push(m.material)
         }
         this.setState({
@@ -180,6 +204,15 @@ export default class UpdateToolCard extends React.Component {
         this.setState({
             learningObjectives: _learningObjectives
         })
+
+        // set inviteMembersArray
+        let _newLearningObjectivesArray = [];
+        for (let m of _learningObjectives) {
+            _newLearningObjectivesArray.push(m.learningObjective)
+        }
+        this.setState({
+            updateLearningObjectives: _newLearningObjectivesArray
+        })
     }
 
     removeLearningObjective = (index) => {
@@ -188,6 +221,15 @@ export default class UpdateToolCard extends React.Component {
         _learningObjectives.splice(index, 1)
         this.setState({
             learningObjectives: _learningObjectives
+        })
+
+        // set inviteMembersArray
+        let _newLearningObjectivesArray = [];
+        for (let m of _learningObjectives) {
+            _newLearningObjectivesArray.push(m.learningObjective)
+        }
+        this.setState({
+            updateLearningObjectives: _newLearningObjectivesArray
         })
     }
 
@@ -200,7 +242,7 @@ export default class UpdateToolCard extends React.Component {
 
         // set inviteMembersArray
         let _newLearningObjectivesArray = [];
-        for (let m of this.state.learningObjectives) {
+        for (let m of _learningObjectives) {
             _newLearningObjectivesArray.push(m.learningObjective)
         }
         this.setState({
@@ -334,7 +376,7 @@ export default class UpdateToolCard extends React.Component {
 
                                     <div className="myModal-footer">
                                         <button onClick={this.endUpdate}>Cancel</button>
-                                        
+
                                     </div>
                                 </React.Fragment>
                             }
