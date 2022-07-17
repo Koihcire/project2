@@ -2,6 +2,9 @@ import React from "react"
 import axios from "axios";
 import parse from "html-react-parser"
 import ToolCard from "./ToolCard";
+import UpdateToolCard from "./UpdateToolCard";
+import ConfirmDelete from "./ConfirmDelete";
+import ProcessDelete from "./ProcessDelete";
 
 export default class MyTools extends React.Component {
     url = "https://tgc-session-tools.herokuapp.com/"
@@ -11,8 +14,11 @@ export default class MyTools extends React.Component {
         email: "",
 
         showToolCard: false,
+        showUpdateToolCard: false,
+        showConfirmDelete: false,
+        showProcessDelete: false,
 
-        activeToolData: []
+        activeToolData: [],
     }
 
     closeToolCard = () => {
@@ -22,13 +28,64 @@ export default class MyTools extends React.Component {
     }
 
     showToolCard = async (toolId) => {
-        let activeToolId = toolId;
-
         let response = await axios.get(this.url + "tool/" + toolId)
 
         this.setState({
             showToolCard: true,
             activeToolData: response.data.tool
+        })
+    }
+
+    closeUpdateToolCard = () =>{
+        this.setState({
+            showUpdateToolCard: false
+        })
+    }
+
+    showUpdateToolCard = async (toolId) => {
+        let response = await axios.get(this.url + "tool/" + toolId)
+
+        this.setState({
+            showUpdateToolCard: true,
+            activeToolData: response.data.tool
+        })
+    }
+
+    closeConfirmDelete = () => {
+        this.setState({
+            showConfirmDelete: false
+        })
+    }
+
+    showConfirmDelete = async (toolId) => {
+        let response = await axios.get(this.url + "tool/" + toolId)
+
+        this.setState({
+            showConfirmDelete: true,
+            activeToolData: response.data.tool
+        })
+    }
+
+    showProcessDelete = () =>{
+        this.setState({
+            showProcessDelete: true
+        })
+    }
+
+    closeProcessDelete = () =>{
+        this.setState({
+            showProcessDelete:false
+        })
+
+        this.searchMyTools()
+    }
+
+    processDelete = async(toolId) => {
+        await axios.delete(this.url + "delete-tool/" + toolId)
+
+        this.setState({
+            showConfirmDelete: false,
+            showProcessDelete: true
         })
     }
 
@@ -126,6 +183,19 @@ export default class MyTools extends React.Component {
                                     <ToolCard showToolCard={this.state.showToolCard}
                                         closeToolCard={this.closeToolCard}
                                         activeToolData={this.state.activeToolData} />
+                                    
+                                    <button className="btn btn-sm btn-primary" onClick={()=>this.showUpdateToolCard(t._id)}>Update Tool</button>
+                                    <UpdateToolCard showUpdateToolCard={this.state.showUpdateToolCard}
+                                        closeUpdateToolCard={this.closeUpdateToolCard}
+                                        activeToolData={this.state.activeToolData} />
+
+                                    <button className="btn btn-sm btn-danger" onClick={()=>this.showConfirmDelete(t._id)}>Delete</button>
+                                    <ConfirmDelete showConfirmDelete={this.state.showConfirmDelete}
+                                        closeConfirmDelete={this.closeConfirmDelete}
+                                        activeToolData={this.state.activeToolData}
+                                        processDelete={this.processDelete}/>
+                                    <ProcessDelete showProcessDelete={this.state.showProcessDelete}
+                                        closeProcessDelete={this.closeProcessDelete}/>
                                 </div>
                             </div>
                         </div>
