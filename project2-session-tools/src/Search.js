@@ -8,8 +8,6 @@ import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
 import { faAngleUp } from '@fortawesome/free-solid-svg-icons'
 import ToolCard from "./ToolCard";
 
-
-
 export default class Search extends React.Component {
     url = "https://tgc-session-tools.herokuapp.com/"
 
@@ -25,7 +23,9 @@ export default class Search extends React.Component {
         allGroupSizes: ["small", "medium", "large"],
 
         isTagsListOpen: false,
-        showToolCard: false
+        showToolCard: false,
+        
+        activeToolData: []
     }
 
     closeToolCard = ()=>{
@@ -34,11 +34,17 @@ export default class Search extends React.Component {
         })
     }
 
-    showToolCard = ()=>{
+    showToolCard = async (toolId)=>{
+        let activeToolId= toolId;
+
+        let response = await axios.get(this.url + "tool/" + toolId)
+
         this.setState({
-            showToolCard: true
+            showToolCard: true,
+            // activeToolId: activeToolId
+            activeToolData: response.data.tool
         })
-    }
+    }        
 
     toggleTagsList = () => {
         if (this.state.isTagsListOpen) {
@@ -204,9 +210,12 @@ export default class Search extends React.Component {
                             </div>
                         </div>
                         <div>
-                            <button className="btn btn-sm" onClick={this.showToolCard}>Show More</button>
+                            <button className="btn btn-sm btn-primary" onClick={()=>this.showToolCard(t._id)}>Show More</button>
                             <ToolCard showToolCard={this.state.showToolCard}
-                                        closeToolCard={this.closeToolCard}/>
+                                        closeToolCard={this.closeToolCard}
+                                        activeToolData={this.state.activeToolData}
+                                        // name={this.state.activeToolId}
+                                    />
                         </div>
                                           
                     </div>

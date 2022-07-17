@@ -10,7 +10,9 @@ export default class MyTools extends React.Component {
         data: [],
         email: "",
 
-        showToolCard: false
+        showToolCard: false,
+
+        activeToolData: []
     }
 
     closeToolCard = () => {
@@ -19,9 +21,14 @@ export default class MyTools extends React.Component {
         })
     }
 
-    showToolCard = () => {
+    showToolCard = async (toolId) => {
+        let activeToolId = toolId;
+
+        let response = await axios.get(this.url + "tool/" + toolId)
+
         this.setState({
-            showToolCard: true
+            showToolCard: true,
+            activeToolData: response.data.tool
         })
     }
 
@@ -115,9 +122,10 @@ export default class MyTools extends React.Component {
                                     Time Needed: {t.timeNeeded} minutes
                                 </div>
                                 <div>
-                                    <button className="btn btn-sm" onClick={this.showToolCard}>Show More</button>
+                                    <button className="btn btn-sm btn-primary" onClick={()=>this.showToolCard(t._id)}>Show More</button>
                                     <ToolCard showToolCard={this.state.showToolCard}
-                                        closeToolCard={this.closeToolCard} />
+                                        closeToolCard={this.closeToolCard}
+                                        activeToolData={this.state.activeToolData} />
                                 </div>
                             </div>
                         </div>

@@ -8,11 +8,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 100vh;
 }
 
 .myModal-content {
     width: 90%;
     background-color: #fff;
+    height: 80vh;
+    overflow: scroll;
 }
 
 .myModal-header, .myModal-footer {
