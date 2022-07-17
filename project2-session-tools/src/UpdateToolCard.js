@@ -11,7 +11,7 @@ export default class UpdateToolCard extends React.Component {
 
     state = {
         allGroupSizes: ["small", "medium", "large"],
-        _id: "",
+        updateId: "",
         updateName: "",
         updateDescription: "",
         updateGroupSize: [],
@@ -26,26 +26,66 @@ export default class UpdateToolCard extends React.Component {
         showStartUpdate: true
     }
 
+    processUpdate = async ()=>{
+        try {
+            await axios.put(this.url + "update-tool/" + this.state.updateId , {
+                name: this.state.updateName,
+                description: this.state.updateDescription,
+                groupSize: this.state.updateGroupSize,
+                timeNeeded: this.state.updateTimeNeeded,
+                materials: this.state.updateMaterials,
+                learningObjectives: this.state.updateLearningObjectives,
+                instructions: this.state.updateInstructionsData,
+                debrief: this.state.updateDebriefData
+            })
+
+        } catch (e) {
+            console.log (e)
+        }
+    }
+
     endUpdate = () => {
         this.setState({
-            showStartUpdate: true
+            showStartUpdate: true,
+            learningObjectives: [],
+            materials: []
         })
         this.props.closeUpdateToolCard()
     }
 
     startUpdate = () => {
+        let id  = this.props.activeToolData._id;
         let name = this.props.activeToolData.name;
         let description = this.props.activeToolData.description;
         let tags = this.props.activeToolData.tags;
         let groupSize = this.props.activeToolData.groupSize;
         let timeNeeded = this.props.activeToolData.timeNeeded;
-        let learningObjectives = this.props.activeToolData.learningObjectives;
-        let materials = this.props.activeToolData.materials;
+        let learningObjectivesData = this.props.activeToolData.learningObjectives;
+        let materialsData = this.props.activeToolData.materials;
         let instructions = this.props.activeToolData.instructions;
         let debrief = this.props.activeToolData.debrief;
 
+        // console.log(materialsData)
+        let materials = [...this.state.materials];
+        materialsData.map(m => {
+            // console.log(m)
+            materials.push({
+                "material": m
+            })
+        })
+
+        // console.log("materialsData = " + materials)
+
+        let learningObjectives = [...this.state.learningObjectives]
+        learningObjectivesData.map(l => {
+            learningObjectives.push({
+                "learningObjective": l
+            })
+        })
+
         // console.log(name)
         this.setState({
+            updateId: id,
             updateName: name,
             updateDescription: description,
             updateTags: tags,
@@ -54,42 +94,22 @@ export default class UpdateToolCard extends React.Component {
             learningObjectives: learningObjectives,
             updateLearningObjectives: [],
             materials: materials,
-            updateMaterials: [],
             updateInstructionsData: instructions,
             updateDebriefData: debrief,
             showStartUpdate: false
         })
 
-        // this.setState({
-        //     showStartUpdate: false
-        // })
+         // set updatematerialsarray
+         let _newMaterialsArray = [];
+         for (let m of this.state.materials) {
+             _newMaterialsArray.push(m.material)
+         }
+         this.setState({
+             updateMaterials: _newMaterialsArray
+         })
+
+
     }
-
-    // componentDidMount() {
-    //     let name = this.props.activeToolData.name;
-    //     let description = this.props.activeToolData.description;
-    //     let tags = this.props.activeToolData.tags;
-    //     let groupSize = this.props.activeToolData.groupSize;
-    //     let timeNeeded = this.props.activeToolData.timeNeeded;
-    //     let learningObjectives = this.props.activeToolData.learningObjectives;
-    //     let materials = this.props.activeToolData.materials;
-    //     let instructions = this.props.activeToolData.instructions;
-    //     let debrief = this.props.activeToolData.debrief;
-
-    //     // console.log(name)
-    //     this.setState({
-    //         updateName: name,
-    //         updateDescription: description,
-    //         updateTags: tags,
-    //         updateGroupSize: groupSize,
-    //         updateTimeNeeded: timeNeeded,
-    //         updateLearningObjectives: learningObjectives,
-    //         updateMaterials: materials,
-    //         updateInstructionsData: instructions,
-    //         updateDebriefData: debrief
-    //     })
-    //     // console.log(this.props.activeToolData)
-    // }
 
     updateFormField = (e) => {
         if (e.target.type === "checkbox") {
@@ -110,6 +130,79 @@ export default class UpdateToolCard extends React.Component {
                 [e.target.name]: e.target.value
             })
         }
+    }
+
+    addMaterial = () => {
+        let _materials = [...this.state.materials]
+        _materials.push({
+            material: ""
+        })
+        this.setState({
+            materials: _materials
+        })
+    }
+
+    removeMaterial = (index, e) => {
+        let _materials = [...this.state.materials]
+
+        _materials.splice(index, 1)
+        this.setState({
+            materials: _materials
+        })
+        // console.log(this.state.newMaterials)
+    }
+
+    materialChange = (index, e) => {
+        let _materials = [...this.state.materials]
+        _materials[index][e.target.name] = e.target.value
+        this.setState({
+            materials: _materials
+        })
+
+        // set updatematerialsarray
+        let _newMaterialsArray = [];
+        for (let m of this.state.materials) {
+            _newMaterialsArray.push(m.material)
+        }
+        this.setState({
+            updateMaterials: _newMaterialsArray
+        })
+    }
+
+    addLearningObjective = () => {
+        let _learningObjectives = [...this.state.learningObjectives]
+        _learningObjectives.push({
+            learningObjective: ""
+        })
+        this.setState({
+            learningObjectives: _learningObjectives
+        })
+    }
+
+    removeLearningObjective = (index) => {
+        let _learningObjectives = [...this.state.learningObjectives]
+        // _tags = _tags.filter(tag=> tag === tag[index])
+        _learningObjectives.splice(index, 1)
+        this.setState({
+            learningObjectives: _learningObjectives
+        })
+    }
+
+    learningObjectiveChange = (index, e) => {
+        let _learningObjectives = [...this.state.learningObjectives]
+        _learningObjectives[index][e.target.name] = e.target.value
+        this.setState({
+            learningObjectives: _learningObjectives
+        })
+
+        // set inviteMembersArray
+        let _newLearningObjectivesArray = [];
+        for (let m of this.state.learningObjectives) {
+            _newLearningObjectivesArray.push(m.learningObjective)
+        }
+        this.setState({
+            updateLearningObjectives: _newLearningObjectivesArray
+        })
     }
 
     render() {
@@ -151,6 +244,32 @@ export default class UpdateToolCard extends React.Component {
                                         <div>
                                             Time Needed:
                                             <input name="updateTimeNeeded" type="number" className="form-control" value={this.state.updateTimeNeeded} onChange={this.updateFormField} /> minutes
+                                        </div>
+                                        <div>
+                                            Materials:
+                                            {this.state.materials.map((element, index) => (
+                                                <React.Fragment>
+                                                    <div key={index}>
+                                                        <label></label>
+                                                        <input name="material" type="text" value={element.material} onChange={(e) => this.materialChange(index, e)} />
+                                                    </div>
+                                                    <button onClick={this.addMaterial}>Add New</button>
+                                                    <button onClick={(e) => this.removeMaterial(index, e)}>Remove</button>
+                                                </React.Fragment>
+                                            ))}
+                                        </div>
+                                        <div>
+                                            Learning Objectives:
+                                            {this.state.learningObjectives.map((element, index) => (
+                                                <React.Fragment>
+                                                    <div key={index}>
+                                                        <label></label>
+                                                        <input name="learningObjective" type="text" value={element.learningObjective} onChange={(e) => this.learningObjectiveChange(index, e)} />
+                                                    </div>
+                                                    <button onClick={this.addLearningObjective}>Add New</button>
+                                                    <button onClick={() => this.removeLearningObjective(index)}>Remove</button>
+                                                </React.Fragment>
+                                            ))}
                                         </div>
                                         <div>
                                             Instructions:
@@ -204,11 +323,15 @@ export default class UpdateToolCard extends React.Component {
                                                 />
                                             </div>
                                         </div>
+                                        <div>
+                                            <button className="btn btn-sm btn-primary" onClick={this.processUpdate}>Update</button>
+                                        </div>
 
                                     </div>
 
                                     <div className="myModal-footer">
                                         <button onClick={this.endUpdate}>Cancel</button>
+                                        
                                     </div>
                                 </React.Fragment>
                             }

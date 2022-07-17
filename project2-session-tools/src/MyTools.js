@@ -112,18 +112,20 @@ export default class MyTools extends React.Component {
     }
 
     searchMyTools = async (e) => {
-        try {
-            let response = await axios.get(this.url + "tools", {
-                params: {
-                    email: this.state.email
+        if (this.state.email){
+            try {
+                let response = await axios.get(this.url + "tools", {
+                    params: {
+                        email: this.state.email
+                    }
                 }
+                )
+                this.setState({
+                    data: response.data.tools
+                })
+            } catch (e) {
+                console.log(e)
             }
-            )
-            this.setState({
-                data: response.data.tools
-            })
-        } catch (e) {
-            console.log(e)
         }
     }
 
