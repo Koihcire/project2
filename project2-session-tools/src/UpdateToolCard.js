@@ -13,6 +13,7 @@ export default class UpdateToolCard extends React.Component {
     state = {
         allGroupSizes: ["small", "medium", "large"],
         allTags: [],
+        updateTags: [],
         preSelectedTags: [],
         updateId: "",
         updateName: "",
@@ -39,7 +40,8 @@ export default class UpdateToolCard extends React.Component {
                 materials: this.state.updateMaterials,
                 learningObjectives: this.state.updateLearningObjectives,
                 instructions: this.state.updateInstructionsData,
-                debrief: this.state.updateDebriefData
+                debrief: this.state.updateDebriefData,
+                tags: this.state.updateTags
             })
 
         } catch (e) {
