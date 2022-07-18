@@ -21,8 +21,9 @@ export default class Search extends React.Component {
         tags: [],
         groupSize: [],
         difficulty: "",
+        sortBy: "",
         allGroupSizes: ["Small", "Medium", "Large"],
-        allDifficulty: ["Easy", "Medium" , "Hard"],
+        allDifficulty: ["Easy", "Medium", "Hard"],
 
         isTagsListOpen: false,
         showToolCard: false,
@@ -36,8 +37,16 @@ export default class Search extends React.Component {
         })
     }
 
-    showToolCard = async (toolId) => {
-        let activeToolId = toolId;
+    showToolCard = async (toolId, likes) => {
+        // let activeToolId = toolId;
+        try {
+            let incrementLikes = likes + 1
+            await axios.put(this.url + "update-likes/" + toolId, {
+                likes: incrementLikes
+            })
+        } catch (e) {
+            console.log(e)
+        }
 
         let response = await axios.get(this.url + "tool/" + toolId)
 
@@ -93,7 +102,8 @@ export default class Search extends React.Component {
                     "maxTimeNeeded": this.state.maxTimeNeeded,
                     "tags": this.state.tags,
                     "groupSize": this.state.groupSize,
-                    "difficulty" : this.state.difficulty
+                    "difficulty": this.state.difficulty,
+                    "sortBy": this.state.sortBy
                 }
             }
             )
@@ -148,8 +158,8 @@ export default class Search extends React.Component {
                 <div>
                     <h6>Difficulty</h6>
                     <select className="form-select form-select-sm" name="difficulty" onChange={this.updateFormField}>
-                        <option selected>Select One</option>
-                        {this.state.allDifficulty.map(d=>(
+                        <option selected value="">Select One</option>
+                        {this.state.allDifficulty.map(d => (
                             <React.Fragment>
                                 <option value={d}>{d}</option>
                             </React.Fragment>
@@ -185,7 +195,15 @@ export default class Search extends React.Component {
                             <label for="groupSize" className="form-check-label">{g}</label>
                         </React.Fragment>
                     ))}
-
+                </div>
+                <div>
+                    Sort By:
+                    <div>
+                        <input className="form-check-input" type="radio" name="sortBy" id="recentlyAdded" value="recentlyAdded" onChange={this.updateFormField} />
+                        <label for="recentlyAdded" className="form-check-label">Recently Added</label>
+                        <input className="form-check-input" type="radio" name="sortBy" id="popularity" value="popularity" onChange={this.updateFormField} />
+                        <label for="popularity" className="form-check-label">Popularity</label>
+                    </div>
                 </div>
                 <button onClick={this.search}>Search</button>
 
@@ -206,7 +224,7 @@ export default class Search extends React.Component {
                                     Description: {t.description}
                                 </div>
                                 <div>
-                                    Likes: {t.likes} *heart*
+                                    Views: {t.likes} 
                                 </div>
                                 <div>
                                     Difficulty Level: {t.difficulty}
@@ -227,7 +245,7 @@ export default class Search extends React.Component {
                             </div>
                         </div>
                         <div>
-                            <button className="btn btn-sm btn-primary" onClick={() => this.showToolCard(t._id)}>Show More</button>
+                            <button className="btn btn-sm btn-primary" onClick={() => this.showToolCard(t._id, t.likes)}>Show More</button>
                         </div>
 
                     </div>

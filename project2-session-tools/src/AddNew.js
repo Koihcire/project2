@@ -105,7 +105,8 @@ export default class AddNew extends React.Component {
                 debrief: this.state.newDebriefData,
                 timeNeeded: this.state.newTimeNeeded,
                 createdBy: createdBy,
-                learningObjectives: this.state.newLearningObjectivesArray
+                learningObjectives: this.state.newLearningObjectivesArray,
+                difficulty: this.state.newDifficulty
             })
 
         } catch (e) {

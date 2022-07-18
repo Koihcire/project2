@@ -25,7 +25,7 @@ export default function ToolCard(props) {
                                 Description: {props.activeToolData.description}
                             </div>
                             <div>
-                                Likes: {props.activeToolData.likes} *heart*
+                                Views: {props.activeToolData.likes} 
                             </div>
                             <div>
                                 Difficulty: {props.activeToolData.difficulty}

@@ -198,7 +198,7 @@ export default class MyTools extends React.Component {
                                     Description: {t.description}
                                 </div>
                                 <div>
-                                    Likes: {t.likes} *heart*
+                                    Views: {t.likes} 
                                 </div>
                                 <div>
                                     Difficulty: {t.difficulty}

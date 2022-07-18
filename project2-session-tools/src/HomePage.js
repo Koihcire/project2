@@ -15,7 +15,7 @@ export default class HomePage extends React.Component {
         if (this.state.active === "search") {
             return <Search />
         } else if (this.state.active === "addNew") {
-            return <AddNew changePage={() => this.test()} />
+            return <AddNew changePage={() => this.setToSearch()} />
         } else if (this.state.active === "myTools") {
             return <MyTools />
         } else if (this.state.active === "landingPage") {
@@ -26,6 +26,12 @@ export default class HomePage extends React.Component {
     changePage(page) {
         this.setState({
             "active": page
+        })
+    }
+
+    setToSearch(){
+        this.setState({
+            "active" : "search"
         })
     }
 
