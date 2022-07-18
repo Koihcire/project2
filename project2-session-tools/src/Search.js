@@ -20,7 +20,9 @@ export default class Search extends React.Component {
         maxTimeNeeded: "",
         tags: [],
         groupSize: [],
-        allGroupSizes: ["small", "medium", "large"],
+        difficulty: "",
+        allGroupSizes: ["Small", "Medium", "Large"],
+        allDifficulty: ["Easy", "Medium" , "Hard"],
 
         isTagsListOpen: false,
         showToolCard: false,
@@ -90,7 +92,8 @@ export default class Search extends React.Component {
                     "minTimeNeeded": this.state.minTimeNeeded,
                     "maxTimeNeeded": this.state.maxTimeNeeded,
                     "tags": this.state.tags,
-                    "groupSize": this.state.groupSize
+                    "groupSize": this.state.groupSize,
+                    "difficulty" : this.state.difficulty
                 }
             }
             )
@@ -143,6 +146,17 @@ export default class Search extends React.Component {
                     <input name="maxTimeNeeded" type="number" className="form-control.input" value={this.state.maxTimeNeeded} onChange={this.updateFormField} placeholder="Max Time in minutes" />
                 </div>
                 <div>
+                    <h6>Difficulty</h6>
+                    <select className="form-select form-select-sm" name="difficulty" onChange={this.updateFormField}>
+                        <option selected>Select One</option>
+                        {this.state.allDifficulty.map(d=>(
+                            <React.Fragment>
+                                <option value={d}>{d}</option>
+                            </React.Fragment>
+                        ))}
+                    </select>
+                </div>
+                <div>
                     <h6>Tags</h6>
                     <div>
                         <div className="btn btn-sm btn-primary" onClick={this.toggleTagsList}>
@@ -193,6 +207,9 @@ export default class Search extends React.Component {
                                 </div>
                                 <div>
                                     Likes: {t.likes} *heart*
+                                </div>
+                                <div>
+                                    Difficulty Level: {t.difficulty}
                                 </div>
                                 <div>
                                     Tags: {t.tags.map(tags => (
