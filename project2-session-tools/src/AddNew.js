@@ -11,13 +11,15 @@ export default class AddNew extends React.Component {
 
     state = {
         tagsData: [],
-        allGroupSizes: ["small", "medium", "large"],
+        allGroupSizes: ["Small", "Medium", "Large"],
+        allDifficulty: ["Easy", "Medium", "Hard"],
         newName: "",
         newDescription: "",
         // newTagsData: [],
         newTagsArray: [],
         newGroupSize: [],
         newTimeNeeded: "",
+        newDifficulty: "",
         newMaterials: [{
             material: ""
         }],
@@ -303,6 +305,17 @@ export default class AddNew extends React.Component {
                                 Time Needed: <input name="newTimeNeeded" type="number" className="form-control-input" value={this.state.newTimeNeeded} onChange={this.updateFormField} /> minutes
                             </div>
                             <div>
+                                Difficulty:
+                                <select className="form-select form-select-sm" name="newDifficulty" onChange={this.updateFormField}>
+                                    <option selected>Select One</option>
+                                    {this.state.allDifficulty.map(d=>(
+                                        <React.Fragment>
+                                            <option value={d}>{d}</option>
+                                        </React.Fragment>
+                                    ))}
+                                </select>
+                            </div>
+                            <div>
                                 Materials:
                                 {this.state.newMaterials.map((element, index) => (
                                     <React.Fragment>
@@ -331,7 +344,6 @@ export default class AddNew extends React.Component {
                             <div>
                                 Instructions:
                                 <div>
-                                    <h2>Using CKEditor 5 for Instructions</h2>
                                     <CKEditor
                                         editor={ClassicEditor}
                                         data={this.state.newInstructionsData}
@@ -358,7 +370,6 @@ export default class AddNew extends React.Component {
                             <div>
                                 Debrief:
                                 <div>
-                                    <h2>Using CKEditor 5 for Debrief</h2>
                                     <CKEditor
                                         editor={ClassicEditor}
                                         data={this.state.newDebriefData}
