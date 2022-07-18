@@ -11,7 +11,8 @@ export default class UpdateToolCard extends React.Component {
     url = "https://tgc-session-tools.herokuapp.com/"
 
     state = {
-        allGroupSizes: ["small", "medium", "large"],
+        allGroupSizes: ["Small", "Medium", "Large"],
+        allDifficulty: ["Easy", "Medium", "Hard"],
         allTags: [],
         updateTags: [],
         preSelectedTags: [],
@@ -20,6 +21,7 @@ export default class UpdateToolCard extends React.Component {
         updateDescription: "",
         updateGroupSize: [],
         updateTimeNeeded: [],
+        updateDifficulty: "",
         learningObjectives: [],
         updateLearningObjectives: [],
         materials: [],
@@ -41,7 +43,8 @@ export default class UpdateToolCard extends React.Component {
                 learningObjectives: this.state.updateLearningObjectives,
                 instructions: this.state.updateInstructionsData,
                 debrief: this.state.updateDebriefData,
-                tags: this.state.updateTags
+                tags: this.state.updateTags,
+                difficulty: this.state.updateDifficulty
             })
 
         } catch (e) {
@@ -73,6 +76,7 @@ export default class UpdateToolCard extends React.Component {
         let instructions = this.props.activeToolData.instructions;
         let debrief = this.props.activeToolData.debrief;
         let tags = this.props.activeToolData.tags;
+        let difficulty = this.props.activeToolData.difficulty;
 
         // console.log(materialsData)
         let materials = [...this.state.materials];
@@ -135,7 +139,8 @@ export default class UpdateToolCard extends React.Component {
             updateDebriefData: debrief,
             showStartUpdate: false,
             updateTags: tags,
-            preSelectedTags: _selectedTags
+            preSelectedTags: _selectedTags,
+            updateDifficulty: difficulty
         })
     }
 
@@ -325,6 +330,14 @@ export default class UpdateToolCard extends React.Component {
                                         <div>
                                             Time Needed:
                                             <input name="updateTimeNeeded" type="number" className="form-control" value={this.state.updateTimeNeeded} onChange={this.updateFormField} /> minutes
+                                        </div>
+                                        <div>
+                                            Difficulty:
+                                            <select className="form-select form-select-sm" name="updateDifficulty" select={this.state.updateDifficulty} onChange={this.updateFormField}>
+                                                {this.state.allDifficulty.map(d=>(
+                                                    <option value={d}>{d}</option>
+                                                ))}
+                                            </select>
                                         </div>
                                         <div>
                                             Tags:

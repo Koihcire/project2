@@ -28,6 +28,9 @@ export default function ToolCard(props) {
                                 Likes: {props.activeToolData.likes} *heart*
                             </div>
                             <div>
+                                Difficulty: {props.activeToolData.difficulty}
+                            </div>
+                            <div>
                                 Tags: {props.activeToolData.tags.map(tags => (
                                     tags
                                 ))}

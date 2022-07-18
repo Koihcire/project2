@@ -201,6 +201,9 @@ export default class MyTools extends React.Component {
                                     Likes: {t.likes} *heart*
                                 </div>
                                 <div>
+                                    Difficulty: {t.difficulty}
+                                </div>
+                                <div>
                                     Tags: {t.tags.map(tags => (
                                         tags
                                     ))}
