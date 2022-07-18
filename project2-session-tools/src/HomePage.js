@@ -7,34 +7,26 @@ import LandingPage from "./LandingPage";
 
 
 export default class HomePage extends React.Component {
-    state={
-        active: "search"
+    state = {
+        active: "landingPage"
     }
 
-    renderContent(){
+    renderContent() {
         if (this.state.active === "search") {
-            return <Search/>
-        } else if (this.state.active === "addNew"){
-            return <AddNew changePage={()=>this.test()}/>
-        } else if (this.state.active === "myTools"){
-            return <MyTools/>
-        } else if (this.state.active === "landingPage"){
-            return <LandingPage/>
+            return <Search />
+        } else if (this.state.active === "addNew") {
+            return <AddNew changePage={() => this.test()} />
+        } else if (this.state.active === "myTools") {
+            return <MyTools />
+        } else if (this.state.active === "landingPage") {
+            return <LandingPage />
         }
     }
 
-    changePage(page){
+    changePage(page) {
         this.setState({
-            "active" : page
+            "active": page
         })
-    }
-
-    test(){
-        this.setState({
-            "active": "search"
-        })
-
-        this.renderContent()
     }
 
     render() {
@@ -43,16 +35,16 @@ export default class HomePage extends React.Component {
                 <div className="container">
                     <ul className="nav nav-tabs">
                         <li className="nav-item">
-                            <button className={"nav-link" + (this.state.active==="search" ? "active" : "")} aria-current="page" onClick={()=>this.changePage("search")}>Search</button>
+                            <button className={"nav-link" + (this.state.active === "landingPage" ? "active" : "")} aria-current="page" onClick={() => this.changePage("landingPage")}>Home</button>
                         </li>
                         <li className="nav-item">
-                            <button className={"nav-link" + (this.state.active==="addNew" ? "active" : "")} aria-current="page" onClick={()=>this.changePage("addNew")}>Add New</button>
+                            <button className={"nav-link" + (this.state.active === "search" ? "active" : "")} aria-current="page" onClick={() => this.changePage("search")}>Search</button>
                         </li>
                         <li className="nav-item">
-                            <button className={"nav-link" + (this.state.active==="myTools" ? "active" : "")} aria-current="page" onClick={()=>this.changePage("myTools")}>My Tools</button>
+                            <button className={"nav-link" + (this.state.active === "addNew" ? "active" : "")} aria-current="page" onClick={() => this.changePage("addNew")}>Add New</button>
                         </li>
                         <li className="nav-item">
-                            <button className={"nav-link" + (this.state.active==="landingPage" ? "active" : "")} aria-current="page" onClick={()=>this.changePage("landingPage")}>Home</button>
+                            <button className={"nav-link" + (this.state.active === "myTools" ? "active" : "")} aria-current="page" onClick={() => this.changePage("myTools")}>My Tools</button>
                         </li>
                     </ul>
                     {this.renderContent()}
