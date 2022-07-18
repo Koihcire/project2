@@ -4,7 +4,7 @@ import parse from "html-react-parser"
 import "bootstrap/dist/css/bootstrap.min.css"
 import "./Search.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
+import { faAngleDown, faThumbsDown } from '@fortawesome/free-solid-svg-icons'
 import { faAngleUp } from '@fortawesome/free-solid-svg-icons'
 import ToolCard from "./ToolCard";
 
@@ -21,7 +21,7 @@ export default class Search extends React.Component {
         tags: [],
         groupSize: [],
         difficulty: "",
-        sortBy: "",
+        sortBy: "recentlyAdded",
         allGroupSizes: ["Small", "Medium", "Large"],
         allDifficulty: ["Easy", "Medium", "Hard"],
 
@@ -199,9 +199,9 @@ export default class Search extends React.Component {
                 <div>
                     Sort By:
                     <div>
-                        <input className="form-check-input" type="radio" name="sortBy" id="recentlyAdded" value="recentlyAdded" onChange={this.updateFormField} />
+                        <input className="form-check-input" type="radio" name="sortBy" id="recentlyAdded" value="recentlyAdded" checked={this.state.sortBy === "recentlyAdded"} onChange={this.updateFormField} />
                         <label for="recentlyAdded" className="form-check-label">Recently Added</label>
-                        <input className="form-check-input" type="radio" name="sortBy" id="popularity" value="popularity" onChange={this.updateFormField} />
+                        <input className="form-check-input" type="radio" name="sortBy" id="popularity" value="popularity" checked={this.state.sortBy === "popularity"} onChange={this.updateFormField} />
                         <label for="popularity" className="form-check-label">Popularity</label>
                     </div>
                 </div>
