@@ -21,7 +21,8 @@ export default class ToolCard extends React.Component {
 
     closeDelete = () => {
         this.setState({
-            showValidateEmail: false
+            showValidateEmail: false,
+            showEmailValidationError: false
         })
     }
 
