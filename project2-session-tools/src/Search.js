@@ -1,6 +1,5 @@
 import React from "react";
 import axios from "axios";
-import parse from "html-react-parser"
 import "bootstrap/dist/css/bootstrap.min.css"
 import "./Search.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -28,12 +27,42 @@ export default class Search extends React.Component {
         isTagsListOpen: false,
         showToolCard: false,
 
-        activeToolData: []
+        activeToolData: [],
+        commentUserName: "",
+        commentData: "",
+    }
+
+    submitComment = async () => {
+        let toolId = this.state.activeToolData._id
+        if (this.state.commentUserName && this.state.commentData) {
+            try {
+                let response = await axios.put(this.url + "add-comment/" + toolId, {
+                    userName: this.state.commentUserName,
+                    comments: this.state.commentData
+                })
+                console.log(response.data)
+            } catch (e) {
+                console.log(e)
+            }
+            this.setState({
+                commentUserName: "",
+                commentData: ""
+            })
+            let response = await axios.get(this.url + "tool/" + toolId)
+
+            this.setState({
+                showToolCard: true,
+                // activeToolId: activeToolId
+                activeToolData: response.data.tool
+            })
+        }
     }
 
     closeToolCard = () => {
         this.setState({
-            showToolCard: false
+            showToolCard: false,
+            commentUserName: "",
+            commentData: ""
         })
     }
 
@@ -224,7 +253,7 @@ export default class Search extends React.Component {
                                     Description: {t.description}
                                 </div>
                                 <div>
-                                    Views: {t.likes} 
+                                    Views: {t.likes}
                                 </div>
                                 <div>
                                     Difficulty Level: {t.difficulty}
@@ -253,6 +282,10 @@ export default class Search extends React.Component {
                 <ToolCard showToolCard={this.state.showToolCard}
                     closeToolCard={this.closeToolCard}
                     activeToolData={this.state.activeToolData}
+                    updateFormField={this.updateFormField}
+                    submitComment={this.submitComment}
+                    commentUserName={this.state.commentUserName}
+                    commentData={this.state.commentData}
                 />
 
             </React.Fragment>
