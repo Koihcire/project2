@@ -14,15 +14,15 @@ export default class ToolCard extends React.Component {
         showValidateEmail: false,
         activeCommentId: "",
         activeEmail: "",
-        activeToolId: "",
-        deleteCommentMatch: false,
         showEmailValidationError: false
     }
 
     closeDelete = () => {
         this.setState({
             showValidateEmail: false,
-            showEmailValidationError: false
+            showEmailValidationError: false,
+            activeCommentId: "",
+            activeEmail: ""
         })
     }
 
@@ -192,7 +192,6 @@ export default class ToolCard extends React.Component {
                         updateFormField={this.updateFormField}
                         processDelete={this.processDelete}
                         closeDelete={this.closeDelete}
-                        deleteCommentMatch={this.state.deleteCommentMatch}
                         showEmailValidationError={this.state.showEmailValidationError}
                     /> : ""}
                 </div>
