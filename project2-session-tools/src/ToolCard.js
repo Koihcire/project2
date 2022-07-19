@@ -15,7 +15,8 @@ export default class ToolCard extends React.Component {
         activeCommentId: "",
         activeEmail: "",
         activeToolId: "",
-        deleteCommentMatch: false
+        deleteCommentMatch: false,
+        showEmailValidationError: false
     }
 
     closeDelete = () => {
@@ -62,6 +63,9 @@ export default class ToolCard extends React.Component {
                 console.log(e)
             }
         } else {
+            this.setState({
+                showEmailValidationError: true
+            })
             console.log("CANNOT DELETE")
         }
 
@@ -188,6 +192,7 @@ export default class ToolCard extends React.Component {
                         processDelete={this.processDelete}
                         closeDelete={this.closeDelete}
                         deleteCommentMatch={this.state.deleteCommentMatch}
+                        showEmailValidationError={this.state.showEmailValidationError}
                     /> : ""}
                 </div>
             )
