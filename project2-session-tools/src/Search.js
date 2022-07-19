@@ -7,6 +7,7 @@ import { faAngleDown, faThumbsDown } from '@fortawesome/free-solid-svg-icons'
 import { faAngleUp } from '@fortawesome/free-solid-svg-icons'
 import ToolCard from "./ToolCard";
 
+
 export default class Search extends React.Component {
     url = "https://tgc-session-tools.herokuapp.com/"
 
@@ -29,7 +30,15 @@ export default class Search extends React.Component {
 
         activeToolData: [],
         commentUserName: "",
+        commentEmail: "",
         commentData: "",
+    }
+
+    refresh = async()=>{
+        let response = await axios.get(this.url + "tool/" + this.state.activeToolData._id)
+        this.setState({
+            activeToolData: response.data.tool
+        })
     }
 
     submitComment = async () => {
@@ -38,7 +47,8 @@ export default class Search extends React.Component {
             try {
                 let response = await axios.put(this.url + "add-comment/" + toolId, {
                     userName: this.state.commentUserName,
-                    comments: this.state.commentData
+                    comments: this.state.commentData,
+                    email: this.state.commentEmail
                 })
                 console.log(response.data)
             } catch (e) {
@@ -46,7 +56,8 @@ export default class Search extends React.Component {
             }
             this.setState({
                 commentUserName: "",
-                commentData: ""
+                commentData: "",
+                commentEmail: ""
             })
             let response = await axios.get(this.url + "tool/" + toolId)
 
@@ -286,6 +297,8 @@ export default class Search extends React.Component {
                     submitComment={this.submitComment}
                     commentUserName={this.state.commentUserName}
                     commentData={this.state.commentData}
+                    commentEmail={this.state.commentEmail}
+                    refresh={this.refresh}
                 />
 
             </React.Fragment>
