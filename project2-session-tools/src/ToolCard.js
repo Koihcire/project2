@@ -140,34 +140,46 @@ export default class ToolCard extends React.Component {
                                     Materials: {this.props.activeToolData.materials}
                                 </div>
                                 <div>
-                                    Instructions:
-                                    <div>
-                                        {parse(this.props.activeToolData.instructions)}
-                                    </div>
+                                    {this.props.activeToolData.instructions ?
+                                        <React.Fragment>
+                                            Instructions:
+                                            <div>
+                                                {parse(this.props.activeToolData.instructions)}
+                                            </div>
+                                        </React.Fragment>
+                                        : ""
+                                    }
                                 </div>
                                 <div>
-                                    Debrief:
-                                    <div>
-                                        {parse(this.props.activeToolData.debrief)}
-                                    </div>
+                                    {this.props.activeToolData.debrief ?
+                                        <React.Fragment>
+                                            Debrief:
+                                            <div>
+                                                {parse(this.props.activeToolData.debrief)}
+                                            </div>
+                                        </React.Fragment>
+                                        : ""
+                                    }
                                 </div>
                                 <div>
-                                    Comments:
-                                    {this.props.activeToolData.comments ? 
-                                    this.props.activeToolData.comments.map(c => (
-                                        <div className="card">
-                                            <div>
-                                                {c.userName}
-                                            </div>
-                                            <div>
-                                                {c.comments}
-                                            </div>
-                                            <div>
-                                                <button className="btn btn-sm btn-danger" onClick={() => this.toggleConfirmDeleteComment(c.comment_id)}>Delete</button>
-                                            </div>
-                                        </div>
-                                    )) :
-                                    ""
+                                    {this.props.activeToolData.comments ?
+                                        <React.Fragment>
+                                            Comments:
+                                            {this.props.activeToolData.comments.map(c => (
+                                                <div className="card">
+                                                    <div>
+                                                        {c.userName}
+                                                    </div>
+                                                    <div>
+                                                        {c.comments}
+                                                    </div>
+                                                    <div>
+                                                        <button className="btn btn-sm btn-danger" onClick={() => this.toggleConfirmDeleteComment(c.comment_id)}>Delete</button>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </React.Fragment>
+                                        : ""
                                     }
                                 </div>
                                 <div>
