@@ -21,6 +21,9 @@ export default class MyTools extends React.Component {
         showProcessDelete: false,
 
         activeToolData: [],
+        commentUserName: "",
+        commentEmail: "",
+        commentData: "",
     }
 
     async componentDidMount() {
@@ -169,6 +172,41 @@ export default class MyTools extends React.Component {
 
     }
 
+    submitComment = async () => {
+        let toolId = this.state.activeToolData._id
+        if (this.state.commentUserName && this.state.commentData) {
+            try {
+                let response = await axios.put(this.url + "add-comment/" + toolId, {
+                    userName: this.state.commentUserName,
+                    comments: this.state.commentData,
+                    email: this.state.commentEmail
+                })
+                console.log(response.data)
+            } catch (e) {
+                console.log(e)
+            }
+            this.setState({
+                commentUserName: "",
+                commentData: "",
+                commentEmail: ""
+            })
+            let response = await axios.get(this.url + "tool/" + toolId)
+
+            this.setState({
+                showToolCard: true,
+                // activeToolId: activeToolId
+                activeToolData: response.data.tool
+            })
+        }
+    }
+
+    refresh = async()=>{
+        let response = await axios.get(this.url + "tool/" + this.state.activeToolData._id)
+        this.setState({
+            activeToolData: response.data.tool
+        })
+    }
+
     render() {
         return (
             <React.Fragment>
@@ -228,7 +266,13 @@ export default class MyTools extends React.Component {
                 
                 <ToolCard showToolCard={this.state.showToolCard}
                     closeToolCard={this.closeToolCard}
-                    activeToolData={this.state.activeToolData} />
+                    activeToolData={this.state.activeToolData}
+                    updateFormField={this.updateFormField}
+                    submitComment={this.submitComment}
+                    commentUserName={this.state.commentUserName}
+                    commentData={this.state.commentData}
+                    commentEmail={this.state.commentEmail}
+                    refresh={this.refresh} />
 
                 <UpdateToolCard showUpdateToolCard={this.state.showUpdateToolCard}
                     closeUpdateToolCard={this.closeUpdateToolCard}
