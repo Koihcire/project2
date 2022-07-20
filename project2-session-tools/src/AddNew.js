@@ -4,6 +4,7 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import CreatableSelect from 'react-select/creatable';
 import ProcessAddNew from "./ProcessAddNew";
+import "bootstrap/dist/css/bootstrap.min.css"
 
 
 export default class AddNew extends React.Component {
@@ -270,7 +271,10 @@ export default class AddNew extends React.Component {
                             </div>
                             <div>
                                 Description:
-                                <input name="newDescription" type="text" className="form-control-input" value={this.state.newDescription} onChange={this.updateFormField} />
+                                <div>
+                                    <textarea rows={4} name="newDescription" type="text" className="form-control" value={this.state.newDescription} onChange={this.updateFormField} placeholder="Brief description of the activity" />
+                                </div>
+                                {/* <input name="newDescription" type="text" className="form-control-input" value={this.state.newDescription} onChange={this.updateFormField} /> */}
                             </div>
                             <div>
                                 Tags:
@@ -303,13 +307,13 @@ export default class AddNew extends React.Component {
                                 ))}
                             </div>
                             <div>
-                                Time Needed: <input name="newTimeNeeded" type="number" className="form-control-input" value={this.state.newTimeNeeded} onChange={this.updateFormField} /> minutes
+                                Time Needed: <input name="newTimeNeeded" type="number" className="form-control-sm" value={this.state.newTimeNeeded} onChange={this.updateFormField} /> minutes
                             </div>
                             <div>
                                 Difficulty:
                                 <select className="form-select form-select-sm" name="newDifficulty" onChange={this.updateFormField}>
                                     <option selected>Select One</option>
-                                    {this.state.allDifficulty.map(d=>(
+                                    {this.state.allDifficulty.map(d => (
                                         <React.Fragment>
                                             <option value={d}>{d}</option>
                                         </React.Fragment>
@@ -325,7 +329,8 @@ export default class AddNew extends React.Component {
                                             <input name="material" type="text" value={element.material} onChange={(e) => this.materialChange(index, e)} />
                                         </div>
                                         <button onClick={this.addMaterial}>Add New</button>
-                                        <button onClick={(e) => this.removeMaterial(index, e)}>Remove</button>
+                                        {this.state.newMaterials.length > 1 && (<button onClick={(e) => this.removeMaterial(index, e)}>Remove</button>)}
+                                        {/* <button onClick={(e) => this.removeMaterial(index, e)}>Remove</button> */}
                                     </React.Fragment>
                                 ))}
                             </div>
@@ -338,7 +343,8 @@ export default class AddNew extends React.Component {
                                             <input name="learningObjective" type="text" value={element.learningObjective} onChange={(e) => this.learningObjectiveChange(index, e)} />
                                         </div>
                                         <button onClick={this.addLearningObjective}>Add New</button>
-                                        <button onClick={() => this.removeLearningObjective(index)}>Remove</button>
+                                        {this.state.newLearningObjectives.length > 1 && (<button onClick={() => this.removeLearningObjective(index)}>Remove</button>)}
+                                        {/* <button onClick={() => this.removeLearningObjective(index)}>Remove</button> */}
                                     </React.Fragment>
                                 ))}
                             </div>

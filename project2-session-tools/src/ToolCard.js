@@ -153,7 +153,8 @@ export default class ToolCard extends React.Component {
                                 </div>
                                 <div>
                                     Comments:
-                                    {this.props.activeToolData.comments.map(c => (
+                                    {this.props.activeToolData.comments ? 
+                                    this.props.activeToolData.comments.map(c => (
                                         <div className="card">
                                             <div>
                                                 {c.userName}
@@ -165,7 +166,9 @@ export default class ToolCard extends React.Component {
                                                 <button className="btn btn-sm btn-danger" onClick={() => this.toggleConfirmDeleteComment(c.comment_id)}>Delete</button>
                                             </div>
                                         </div>
-                                    ))}
+                                    )) :
+                                    ""
+                                    }
                                 </div>
                                 <div>
                                     Add New Comment:
