@@ -145,6 +145,8 @@ export default class AddNew extends React.Component {
                 showDescriptionError: false
             })
         }
+
+        //check for ti
     
 
     // set the newmaterialsarray

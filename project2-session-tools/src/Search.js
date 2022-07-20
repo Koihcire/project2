@@ -32,6 +32,8 @@ export default class Search extends React.Component {
         commentUserName: "",
         commentEmail: "",
         commentData: "",
+
+        showMaxMinError: false
     }
 
     refresh = async()=>{
@@ -133,25 +135,51 @@ export default class Search extends React.Component {
     }
 
     search = async (e) => {
-        try {
-            let response = await axios.get(this.url + "tools", {
-                params: {
-                    "name": this.state.searchName,
-                    "dateCreated": this.state.searchRecent,
-                    "minTimeNeeded": this.state.minTimeNeeded,
-                    "maxTimeNeeded": this.state.maxTimeNeeded,
-                    "tags": this.state.tags,
-                    "groupSize": this.state.groupSize,
-                    "difficulty": this.state.difficulty,
-                    "sortBy": this.state.sortBy
-                }
-            }
-            )
-            this.setState({
-                data: response.data.tools
+        let minTime = ''
+        let maxTime = ''
+        if (!this.state.minTimeNeeded){
+            minTime = "0"
+        } else {
+            minTime = this.state.minTimeNeeded
+        }
+
+        if (!this.state.maxTimeNeeded){
+            maxTime = "999"
+        } else {
+            maxTime = this.state.maxTimeNeeded
+        }
+
+        if (maxTime < minTime){
+            await this.setState({
+                showMaxMinError : true
             })
-        } catch (e) {
-            console.log(e)
+        } else {
+            await this.setState({
+                showMaxMinError : false
+            })
+        }
+
+        if (!this.state.showMaxMinError){
+            try {
+                let response = await axios.get(this.url + "tools", {
+                    params: {
+                        "name": this.state.searchName,
+                        "dateCreated": this.state.searchRecent,
+                        "minTimeNeeded": minTime,
+                        "maxTimeNeeded": maxTime,
+                        "tags": this.state.tags,
+                        "groupSize": this.state.groupSize,
+                        "difficulty": this.state.difficulty,
+                        "sortBy": this.state.sortBy
+                    }
+                }
+                )
+                this.setState({
+                    data: response.data.tools
+                })
+            } catch (e) {
+                console.log(e)
+            }
         }
     }
 
@@ -194,6 +222,7 @@ export default class Search extends React.Component {
                 <div>
                     <input name="minTimeNeeded" type="number" className="form-control.input" value={this.state.minTimeNeeded} onChange={this.updateFormField} placeholder="Min Time in minutes" />
                     <input name="maxTimeNeeded" type="number" className="form-control.input" value={this.state.maxTimeNeeded} onChange={this.updateFormField} placeholder="Max Time in minutes" />
+                    {this.state.showMaxMinError ? <p>Max value cannot be less than min value</p> : ''}
                 </div>
                 <div>
                     <h6>Difficulty</h6>
