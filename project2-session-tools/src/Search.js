@@ -338,13 +338,13 @@ export default class Search extends React.Component {
                 <div className="container d-flex">
                     <div id="searchResults" className="row">
                         {this.state.data.map(t => (
-                            <div className="card col-lg-3 m-3">
+                            <div className="card col-xl-3 col-md-5 m-3">
                                 <div className="card-title">
                                     <h3>{t.name}</h3>
                                     <div className="card-body">
                                         <div>
                                             Created By: {t.createdBy.userName}
-                                        </div>
+                                        </div> 
                                         <div>
                                             Date Created: {t.dateCreated}
                                         </div>
