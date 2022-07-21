@@ -3,6 +3,7 @@ import AddNew from "./AddNew";
 import Search from "./Search";
 import MyTools from "./MyTools";
 import LandingPage from "./LandingPage";
+import "./index.css"
 
 
 
@@ -29,31 +30,35 @@ export default class HomePage extends React.Component {
         })
     }
 
-    setToSearch(){
+    setToSearch() {
         this.setState({
-            "active" : "search"
+            "active": "search"
         })
     }
 
     render() {
         return (
             <React.Fragment>
-                <div className="container">
-                    <ul className="nav nav-tabs">
-                        <li className="nav-item">
-                            <button className={"nav-link" + (this.state.active === "landingPage" ? "active" : "")} aria-current="page" onClick={() => this.changePage("landingPage")}>Home</button>
-                        </li>
-                        <li className="nav-item">
-                            <button className={"nav-link" + (this.state.active === "search" ? "active" : "")} aria-current="page" onClick={() => this.changePage("search")}>Search</button>
-                        </li>
-                        <li className="nav-item">
-                            <button className={"nav-link" + (this.state.active === "addNew" ? "active" : "")} aria-current="page" onClick={() => this.changePage("addNew")}>Add New</button>
-                        </li>
-                        <li className="nav-item">
-                            <button className={"nav-link" + (this.state.active === "myTools" ? "active" : "")} aria-current="page" onClick={() => this.changePage("myTools")}>My Tools</button>
-                        </li>
-                    </ul>
-                    {this.renderContent()}
+                <div>
+                    <div className="container">
+                        <ul className="nav nav-tabs navbar-expand">
+                            <li className="nav-item">
+                                <button className={"nav-link" + (this.state.active === "landingPage" ? "active" : "")} aria-current="page" onClick={() => this.changePage("landingPage")}>Home</button>
+                            </li>
+                            <li className="nav-item">
+                                <button className={"nav-link" + (this.state.active === "search" ? "active" : "")} aria-current="page" onClick={() => this.changePage("search")}>Search</button>
+                            </li>
+                            <li className="nav-item">
+                                <button className={"nav-link" + (this.state.active === "addNew" ? "active" : "")} aria-current="page" onClick={() => this.changePage("addNew")}>Add New</button>
+                            </li>
+                            <li className="nav-item">
+                                <button className={"nav-link" + (this.state.active === "myTools" ? "active" : "")} aria-current="page" onClick={() => this.changePage("myTools")}>My Tools</button>
+                            </li>
+                        </ul>
+                    </div>
+                    <div className="container">
+                        {this.renderContent()}
+                    </div>
                 </div>
             </React.Fragment>
         )

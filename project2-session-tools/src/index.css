@@ -11,3 +11,78 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* MY CSS */
+
+/* SEARCH */
+
+
+.iconHeight {
+  height: 20px;
+  color: red
+    /* background-color: red */
+}
+
+#searchBox {
+  background-color: red;
+  height: 50px;
+  display: flex;
+  padding: 10px;
+}
+
+
+#searchField {
+  margin-left: 10px;
+  border-radius: 10px;
+  width: 80%;
+}
+
+#btnFilter {
+  background-color: white;
+  margin-left: 10px;
+}
+
+#btnSearch{
+  background-color: white;
+  margin-left: 10px;
+}
+
+#searchFilters {
+  width: 100%;
+  background-color: aqua;
+  z-index: 123123;
+  position: absolute;
+  transition: height 0.5s ease;
+}
+
+#searchFilterBox {
+  width: 100%;
+  position: relative;
+}
+
+.showFilters {
+  height: 400px;
+  /* transition: height 0.5s ease; */
+}
+
+.hideFilters {
+  height: 0px;
+  overflow: hidden;
+}
+
+#tagsBox {
+  background-color: bisque;
+  transition: height 0.5s ease;
+}
+
+.hideTags {
+  height: 0px;
+  overflow: hidden;
+}
+
+.showTags {
+  height: 400px;
+}
+/* small : 576px */
+/* large: 992px */
+/* x-large: 1200px */
