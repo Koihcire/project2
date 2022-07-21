@@ -18,47 +18,69 @@ code {
 
 .iconHeight {
   height: 20px;
-  color: red
+  color: red;
     /* background-color: red */
 }
 
 #searchBox {
-  background-color: red;
+  /* border: 1px solid grey; */
   height: 50px;
   display: flex;
   padding: 10px;
   justify-content: space-between;
+  width: 1000px;
 }
 
 #searchField {
   margin-left: 10px;
   border-radius: 10px;
   width: 80%;
+  height: 40px;
 }
 
 #btnFilter {
   background-color: white;
   margin-left: 10px;
+  border: 1px solid grey;
+  height: 40px;
 }
 
 #btnSearch{
   background-color: white;
   margin-left: 10px;
+  border: 1px solid grey;
+  height: 40px;
 }
 
 #searchFilters {
   width: 800px;
-  background-color: beige;
+  background-color: rgb(223, 241, 251);
   z-index: 123123;
   position: absolute;
   transition: height 0.5s ease;
   border-radius: 0px 0px 10px 10px;
-  justify-self: center;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#noSearchResults{
+  margin-top: 20px;
 }
 
 #searchFilterBox {
   width: 100%;
   position: relative;
+}
+
+#noSearchResultsContainer{
+  justify-content: center;
+}
+
+#searchBoxContainer{
+  justify-content: center;
+}
+
+#filterContainer{
+  justify-content: center;
 }
 
 .showFilters {
@@ -134,3 +156,9 @@ input {
 /* small : 576px */
 /* large: 992px */
 /* x-large: 1200px */
+
+@media screen and (max-width: 576px) {
+  #searchFilters{
+    width: 90%;
+  }
+}
