@@ -13,6 +13,13 @@ code {
 }
 
 /* MY CSS */
+.btnColor {
+  /* background-color: #a4b5da !important; */
+  background-color: #283C63 !important;
+  color: whitesmoke !important;
+  /* color:#D0ECFB !important; */
+  border: none !important;
+}
 
 /* SEARCH */
 
@@ -41,23 +48,26 @@ code {
 #btnFilter {
   background-color: white;
   margin-left: 10px;
-  border: 1px solid grey;
+  /* border: 1px solid grey; */
   height: 40px;
+  color:#283C63;
 }
 
 #btnSearch{
   background-color: white;
   margin-left: 10px;
-  border: 1px solid grey;
+  /* border: 1px solid grey; */
   height: 40px;
+  color:#283C63;
 }
 
 #searchFilters {
   width: 800px;
+  margin-top: 5px;
   background-color: rgb(223, 241, 251);
   z-index: 123123;
   position: absolute;
-  transition: height 0.5s ease;
+  transition: height 0.2s ease;
   border-radius: 0px 0px 10px 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }

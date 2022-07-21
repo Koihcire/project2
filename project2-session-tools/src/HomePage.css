@@ -1,9 +1,30 @@
 #nav-bar {
-    background-color: bisque;
+    background-color: #283C63;
 }
 
 .nav {
     justify-content: center;
+}
+
+/* .nav-tabs{
+    border: 0;
+    border-color: none !important;
+
+} */
+
+.nav-tabs .nav-link.active{
+    border-color:#4a6eb5 !important;
+    border: none;
+}
+
+.nav-tabs {
+    border-bottom: none;
+}
+
+.nav-link{
+    color: whitesmoke;
+    transition:none;
+    border: none;
 }
 
 /* .nav-linkactive {
@@ -29,8 +50,9 @@
 }
 
 .active{
-    background-color: bisque !important;
-    color: red !important;
+    background-color: #283C63 !important;
+    color: #4a6eb5 !important;
+    border-color: none !important;
 }
 
 @media screen and (max-width: 576px) {
@@ -38,9 +60,8 @@
         position: fixed;
         bottom: 0;
         z-index: 13124124;
-        background-color: bisque;
+        background-color: #283C63;
         width: 100%;
-        height: 30px;
     }
 
     .navTitle{
