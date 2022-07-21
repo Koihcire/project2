@@ -222,120 +222,133 @@ export default class Search extends React.Component {
             <React.Fragment>
                 <div>
                     {/* SEARCH */}
-                    <div id="searchFilterBox">
+                    <div id="searchFilterBox container d-flex">
                         <div id="searchBox">
-                            <input id="searchField" name="searchName" type="text" className="form-control" value={this.state.searchName} onChange={this.updateFormField} placeholder="Search by Activity Name" />
-                            <button id="btnSearch" className="btn btn-sm" onClick={this.search}>Search</button>
+                            <div className="container-fluid d-flex">
+                                <input id="searchField" name="searchName" type="text" className="form-control" value={this.state.searchName} onChange={this.updateFormField} placeholder="Search by Activity Name" />
+                                <button id="btnSearch" className="btn btn-sm" onClick={this.search}>Search</button>
+                            </div>
                             <button id="btnFilter" className="btn btn-sm" onClick={this.toggleFilters}>Show</button>
                         </div>
-                        <div id="searchFilters" className={this.state.isFiltersOpen ? "showFilters container" : "hideFilters container"}>
-                    
-                        </div>
-                    </div>
-
-
-                    <div>
-                        <input name="searchRecent" type="checkbox" className="form-check-input" value="true" checked={this.state.searchRecent.includes("true")} onChange={this.updateFormField} />
-                        <label for="searchRecent">Recently Added</label>
-                    </div>
-                    <div>
-                        <input name="minTimeNeeded" type="number" className="form-control.input" value={this.state.minTimeNeeded} onChange={this.updateFormField} placeholder="Min Time in minutes" />
-                        <input name="maxTimeNeeded" type="number" className="form-control.input" value={this.state.maxTimeNeeded} onChange={this.updateFormField} placeholder="Max Time in minutes" />
-                        {this.state.showMaxMinError ? <p>Max value cannot be less than min value</p> : ''}
-                    </div>
-                    <div>
-                        <h6>Difficulty</h6>
-                        <select className="form-select form-select-sm" name="difficulty" onChange={this.updateFormField}>
-                            <option selected value="">Select One</option>
-                            {this.state.allDifficulty.map(d => (
-                                <React.Fragment>
-                                    <option value={d}>{d}</option>
-                                </React.Fragment>
-                            ))}
-                        </select>
-                    </div>
-                    <div>
-                        <h6>Tags</h6>
-                        <div>
-                            <div className="btn btn-sm btn-primary" onClick={this.toggleTagsList}>
-                                Select one or more tags {this.state.isTagsListOpen ? <FontAwesomeIcon icon={faAngleUp} /> : <FontAwesomeIcon icon={faAngleDown} />}
+                        <div id="searchFilters" className={this.state.isFiltersOpen ? "showFilters" : "hideFilters"}>
+                            <div className="container mt-2">
+                                <h6>Recently Added</h6>
+                                <div id="recentlyAdded">
+                                    <input id="searchRecent" name="searchRecent" type="checkbox" className="form-check-input" value="true" checked={this.state.searchRecent.includes("true")} onChange={this.updateFormField} />
+                                    <label for="searchRecent" className="ms-2 placeholderText">Added in the last month</label>
+                                </div>
                             </div>
-                        </div>
+                            <div className="container mt-2">
+                                <h6>Time (minutes)</h6>
+                                <div>
+                                    <input name="minTimeNeeded" type="number" className="searchTime placeholderText" value={this.state.minTimeNeeded} onChange={this.updateFormField} placeholder="Min Time" />
+                                    <input name="maxTimeNeeded" type="number" className="searchTime placeholderText" value={this.state.maxTimeNeeded} onChange={this.updateFormField} placeholder="Max Time" />
+                                </div>
 
-                        <div id="tagsBox" className={this.state.isTagsListOpen ? "showTags" : "hideTags"}>
-                            {this.state.tagsData.map(t => (
-                                <React.Fragment>
-                                    <div>
-                                        <input name="tags" type="checkbox" className="form-check-input" value={t} checked={this.state.tags.includes(t)} onChange={this.updateFormField} />
-                                        <label for="tags" className="form-check-label">{t}</label>
+                                {this.state.showMaxMinError ? <p>Max value cannot be less than min value</p> : ''}
+                            </div>
+                            <div className="container mt-2">
+                                <h6>Difficulty</h6>
+                                <select className="form-select form-select-sm" name="difficulty" onChange={this.updateFormField}>
+                                    <option selected value="">Select one</option>
+                                    {this.state.allDifficulty.map(d => (
+
+                                        <option value={d}>{d}</option>
+
+                                    ))}
+                                </select>
+                            </div>
+                            <div className="container mt-2">
+                                <h6>Tags</h6>
+                                <div>
+                                    <div id="tagsToggle" className="btn btn-sm" onClick={this.toggleTagsList}>
+                                        Select one or more
+                                        <div id="fakeArrow">
+                                            {this.state.isTagsListOpen ? <FontAwesomeIcon icon={faAngleUp} /> : <FontAwesomeIcon icon={faAngleDown} />}
+                                        </div>
                                     </div>
-                                </React.Fragment>
-                            ))}
-                        </div>
-                    </div>
-                    <div>
-                        <h6>Group Size</h6>
-                        {this.state.allGroupSizes.map(g => (
-                            <React.Fragment>
-                                <input name="groupSize" type="checkbox" className="form-check-input" value={g} checked={this.state.groupSize.includes(g)} onChange={this.updateFormField} />
-                                <label for="groupSize" className="form-check-label">{g}</label>
-                            </React.Fragment>
-                        ))}
-                    </div>
-                    <div>
-                        Sort By:
-                        <div>
-                            <input className="form-check-input" type="radio" name="sortBy" id="recentlyAdded" value="recentlyAdded" checked={this.state.sortBy === "recentlyAdded"} onChange={this.updateFormField} />
-                            <label for="recentlyAdded" className="form-check-label">Recently Added</label>
-                            <input className="form-check-input" type="radio" name="sortBy" id="popularity" value="popularity" checked={this.state.sortBy === "popularity"} onChange={this.updateFormField} />
-                            <label for="popularity" className="form-check-label">Popularity</label>
+                                </div>
+                                <div id="tagsBox" className={this.state.isTagsListOpen ? "showTags" : "hideTags"}>
+                                    <div id="tagsHolder">
+                                        {this.state.tagsData.map(t => (
+                                            <React.Fragment>
+                                                <div id="tag">
+                                                    <input id={t} name="tags" type="checkbox" className="form-check-input" value={t} checked={this.state.tags.includes(t)} onChange={this.updateFormField} />
+                                                    <label for={t} className="form-check-label ms-2">{t}</label>
+                                                </div>
+                                            </React.Fragment>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="container mt-2">
+                                <h6>Group Size</h6>
+                                {this.state.allGroupSizes.map(g => (
+                                    <React.Fragment>
+                                        <input id={g} name="groupSize" type="checkbox" className="form-check-input" value={g} checked={this.state.groupSize.includes(g)} onChange={this.updateFormField} />
+                                        <label for={g} className="form-check-label placeholderText ms-2 me-2">{g}</label>
+                                    </React.Fragment>
+                                ))}
+                            </div>
+                            <div className="container mt-2 mb-2">
+                                <h6>Sort By</h6>
+                                <div>
+                                    <input className="form-check-input" type="radio" name="sortBy" id="mostRecent" value="recentlyAdded" checked={this.state.sortBy === "recentlyAdded"} onChange={this.updateFormField} />
+                                    <label for="mostRecent" className="form-check-label ms-2 me-2 placeholderText">Most Recent</label>
+                                    <input className="form-check-input" type="radio" name="sortBy" id="popularity" value="popularity" checked={this.state.sortBy === "popularity"} onChange={this.updateFormField} />
+                                    <label for="popularity" className="form-check-label ms-2 me-2 placeholderText">Popularity</label>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 {/* SEARCH RESULTS */}
                 <h1>Search Results</h1>
-                {this.state.data.map(t => (
-                    <div className="card">
-                        <div className="card-title">
-                            <h3>{t.name}</h3>
-                            <div className="card-body">
-                                <div>
-                                    Created By: {t.createdBy.userName}
+                <div className="container">
+                    <div id="searchResults" className="row">
+                            {this.state.data.map(t => (
+                                <div className="card col-lg-3 m-3">
+                                    <div className="card-title">
+                                        <h3>{t.name}</h3>
+                                        <div className="card-body">
+                                            <div>
+                                                Created By: {t.createdBy.userName}
+                                            </div>
+                                            <div>
+                                                Date Created: {t.dateCreated}
+                                            </div>
+                                            <div>
+                                                Description: {t.description}
+                                            </div>
+                                            <div>
+                                                Views: {t.likes}
+                                            </div>
+                                            <div>
+                                                Difficulty Level: {t.difficulty}
+                                            </div>
+                                            <div>
+                                                Tags: {t.tags.map(tags => (
+                                                    tags
+                                                ))}
+                                            </div>
+                                            <div>
+                                                Group Size: {t.groupSize.map(g => (
+                                                    g
+                                                ))}
+                                            </div>
+                                            <div>
+                                                Time Needed: {t.timeNeeded} minutes
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <button className="btn btn-sm btn-primary" onClick={() => this.showToolCard(t._id, t.likes)}>Show More</button>
+                                    </div>
                                 </div>
-                                <div>
-                                    Date Created: {t.dateCreated}
-                                </div>
-                                <div>
-                                    Description: {t.description}
-                                </div>
-                                <div>
-                                    Views: {t.likes}
-                                </div>
-                                <div>
-                                    Difficulty Level: {t.difficulty}
-                                </div>
-                                <div>
-                                    Tags: {t.tags.map(tags => (
-                                        tags
-                                    ))}
-                                </div>
-                                <div>
-                                    Group Size: {t.groupSize.map(g => (
-                                        g
-                                    ))}
-                                </div>
-                                <div>
-                                    Time Needed: {t.timeNeeded} minutes
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <button className="btn btn-sm btn-primary" onClick={() => this.showToolCard(t._id, t.likes)}>Show More</button>
-                        </div>
-
+                            ))}
                     </div>
-                ))}
+                </div>
                 <ToolCard showToolCard={this.state.showToolCard}
                     closeToolCard={this.closeToolCard}
                     activeToolData={this.state.activeToolData}

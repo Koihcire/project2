@@ -16,7 +16,6 @@ code {
 
 /* SEARCH */
 
-
 .iconHeight {
   height: 20px;
   color: red
@@ -28,8 +27,8 @@ code {
   height: 50px;
   display: flex;
   padding: 10px;
+  justify-content: space-between;
 }
-
 
 #searchField {
   margin-left: 10px;
@@ -48,11 +47,13 @@ code {
 }
 
 #searchFilters {
-  width: 100%;
-  background-color: aqua;
+  width: 800px;
+  background-color: beige;
   z-index: 123123;
   position: absolute;
   transition: height 0.5s ease;
+  border-radius: 0px 0px 10px 10px;
+  justify-self: center;
 }
 
 #searchFilterBox {
@@ -61,7 +62,8 @@ code {
 }
 
 .showFilters {
-  height: 400px;
+  height: 450px;
+  overflow-y: scroll;
   /* transition: height 0.5s ease; */
 }
 
@@ -75,13 +77,59 @@ code {
   transition: height 0.5s ease;
 }
 
+#tag {
+  margin-bottom: 3px;
+}
+
+#tagsHolder {
+  padding: 10px;
+}
+
 .hideTags {
   height: 0px;
   overflow: hidden;
 }
 
 .showTags {
-  height: 400px;
+  height: 200px;
+  overflow-y: scroll;
+}
+
+.searchTime {
+  display: inline-flex;
+  margin-right: 10px;
+  width: 100px;
+  height: 30px;
+  border: 1px solid rgb(212, 210, 210);
+  border-radius: 3.5px;
+}
+
+#recentlyAdded {
+  margin-top: -5px;
+}
+
+#tagsToggle {
+  border: 1px solid rgb(212, 210, 210);
+  width: 100%;
+  justify-content: space-between;
+  display: flex;
+  background-color: white;
+}
+
+#fakeArrow{
+  padding-right: 8px;
+}
+
+.placeholderText{
+  font-size: 15px;
+}
+
+input {
+  text-indent: 10px;
+}
+
+#searchResults {
+  justify-content: center;
 }
 /* small : 576px */
 /* large: 992px */
