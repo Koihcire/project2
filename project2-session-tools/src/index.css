@@ -231,6 +231,10 @@ input {
   right: 0;
   padding-top: 10px;
   padding-right: 10px;
+  color:#a4b5da!important;
+}
+.deleteBtn:hover {
+  color: #283C63 !important;
 }
 
 .errorMessage{
