@@ -12,11 +12,12 @@
 }
 
 .myModal-content {
-    width: 90%;
-    background-color: #fff;
+    width: 800px;
+    background-color: #e8f5fd;
     height: fit-content;
     max-height: 80vh;
     border-radius: 12px;
+    position: relative;
     /* overflow-y: scroll; */
 }
 
@@ -37,5 +38,50 @@
     border-top: 1px solid #eee;
     border-bottom: 1px solid #eee;
     overflow-y: scroll;
-    height: 68vh;
+    height: 55vh;
+}
+
+#commentCard {
+    position: relative;
+    /* background-color:  #e8f5fd; */
+    border: none;
+}
+
+.commentUser {
+    font-weight: bold;
+    font-size: smaller;
+}
+
+.commentData {
+    font-size: smaller;
+}
+
+#addNewComment {
+    padding: 15px;
+    border: none;
+}
+
+.commentBox {
+    border: 1px solid rgb(211, 207, 207) !important;
+}
+
+.commentFieldHeader {
+    font-weight: 700;
+    font-size: smaller;
+}
+
+#btnComment {
+    border: 2px solid #283C63 !important;
+    border-radius: 10px 10px 10px 10px !important;
+    font-weight: 600 !important;
+    color: #283C63 !important;
+    background-color: white !important;
+}
+
+@media screen and (max-width: 800px) {
+    .myModal-content {
+        margin-left: 10px;
+        margin-right: 10px;
+        /* overflow-y: scroll; */
+    }
 }

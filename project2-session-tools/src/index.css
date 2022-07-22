@@ -21,6 +21,11 @@ code {
   border: none !important;
 }
 
+.summaryCard {
+ background-color:#e8f5fd !important;
+ padding: 5px;
+}
+
 /* SEARCH */
 
 #searchBox {
@@ -58,7 +63,7 @@ code {
 
 #searchFilters {
   width: 800px;
-  padding: 15px;
+  /* padding: 15px; */
   margin-top: 5px;
   background-color: rgb(223, 241, 251);
   z-index: 123123;
@@ -66,6 +71,10 @@ code {
   transition: height 0.2s ease;
   border-radius: 0px 0px 10px 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#searchFiltersContainer{
+  padding: 15px;
 }
 
 #noSearchResults{
@@ -103,10 +112,6 @@ code {
 #tagsBox {
   background-color: whitesmoke;
   transition: height 0.5s ease;
-}
-
-#tag {
-  margin-bottom: 3px;
 }
 
 #tagsHolder {
@@ -156,6 +161,58 @@ input {
   text-indent: 5px;
 }
 
+.summaryCardText {
+  font-size:smaller;
+  margin-right: 60px;
+}
+
+#summaryCardDescription {
+  font-size: smaller;
+  line-height: 14px;
+
+}
+
+.btnShowMore{
+  width: fit-content;
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  right: 0;
+  border: 3px solid #283C63 !important;
+  border-radius: 10px 10px 10px 10px !important;
+  font-weight: 500 !important;
+  color: #283C63 !important;
+  background-color: white !important;
+}
+
+#tag {
+  font-size: 12px;
+  border: 1px solid #4a6eb5;
+  border-radius: 5px 5px 5px 5px;
+  margin-right: 5px;
+  margin-bottom: 3px;
+  width:max-content;
+  padding: 2px;
+  background-color: #4a6eb5;
+  color: whitesmoke;
+}
+
+#decoy {
+  height: 30px;
+  width:30px;
+  /* border: 1px solid black; */
+}
+
+/* #summaryCard{ */
+  /* position: relative; */
+  /* height: fit-content; */
+/* } */
+
+/* #tagsContainer {
+  display: flex;
+} */
+
 #searchResults {
   justify-content: center;
 }
@@ -163,8 +220,40 @@ input {
 /* large: 992px */
 /* x-large: 1200px */
 
+#mobileBottomBuffer {
+  height: 50px;
+  /* border: 1px solid black; */
+}
+
+.deleteBtn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding-top: 10px;
+  padding-right: 10px;
+}
+
+.errorMessage{
+  font-size: x-small;
+  color: red;
+  font-style: italic;
+}
+
 @media screen and (max-width: 576px) {
   #searchFilters{
     width: 90%;
   }
+
+  #searchResults {
+    justify-content: center;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  #mobileBottomBuffer {
+    height: 40px;
+    /* border: 1px solid black; */
+  }
+
+  
 }
