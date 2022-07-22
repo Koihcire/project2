@@ -346,7 +346,7 @@ export default class Search extends React.Component {
                                             <div id="tagsHolder">
                                                 {this.state.tagsData.map(t => (
                                                     <React.Fragment>
-                                                        <div id="tag">
+                                                        <div>
                                                             <input id={t} name="tags" type="checkbox" className="form-check-input" value={t} checked={this.state.tags.includes(t)} onChange={this.updateFormField} />
                                                             <label for={t} className="form-check-label ms-2 placeholderText">{t}</label>
                                                         </div>
