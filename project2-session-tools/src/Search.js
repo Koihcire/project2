@@ -41,6 +41,8 @@ export default class Search extends React.Component {
         showAddCommentUserError: false,
         showAddCommentEmailError: false,
         showAddCommentError: false,
+
+        searchByTagValue: []
     }
 
     refresh = async () => {
@@ -182,6 +184,44 @@ export default class Search extends React.Component {
             this.setState({
                 tagsData: allUniqueTags
             })
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    searchByTag = async (e) => {
+        await this.setState({
+            searchByTagValue: [e.target.value]
+        })
+
+        console.log(this.state.searchByTagValue)
+
+
+        try {
+            let response = await axios.get(this.url + "tools", {
+                params: {
+                    "tags": this.state.searchByTagValue,
+                    "sortBy": "popularity"
+                }
+            })
+
+            let data = response.data.tools;
+
+            if (!data.length) {
+                this.setState({
+                    data: data,
+                    isFiltersOpen: false,
+                    showNoResults: true,
+                    showToolCard: false
+                })
+            } else {
+                this.setState({
+                    data: data,
+                    isFiltersOpen: false,
+                    showNoResults: false,
+                    showToolCard: false
+                })
+            }
         } catch (e) {
             console.log(e)
         }
@@ -437,7 +477,7 @@ export default class Search extends React.Component {
                                                 <path d="M2 2a1 1 0 0 1 1-1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 2 6.586V2zm3.5 4a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z" />
                                                 <path d="M1.293 7.793A1 1 0 0 1 1 7.086V2a1 1 0 0 0-1 1v4.586a1 1 0 0 0 .293.707l7 7a1 1 0 0 0 1.414 0l.043-.043-7.457-7.457z" />
                                             </svg> <span>{t.tags.map(tag => (
-                                                <span id="tag">{tag}</span>
+                                                <button id="tag" value={tag} onClick={this.searchByTag}>{tag}</button>
                                             ))}</span>
                                         </div>
                                     </div>
@@ -462,6 +502,7 @@ export default class Search extends React.Component {
                     showAddCommentUserError={this.state.showAddCommentUserError}
                     showAddCommentEmailError={this.state.showAddCommentEmailError}
                     showAddCommentError={this.state.showAddCommentError}
+                    searchByTag={this.searchByTag}
                 />
 
             </React.Fragment>
