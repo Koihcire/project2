@@ -23,12 +23,6 @@ code {
 
 /* SEARCH */
 
-.iconHeight {
-  height: 20px;
-  color: red;
-    /* background-color: red */
-}
-
 #searchBox {
   /* border: 1px solid grey; */
   height: 50px;
@@ -47,15 +41,16 @@ code {
 
 #btnFilter {
   background-color: white;
-  margin-left: 10px;
+  /* margin-left: 5px; */
   /* border: 1px solid grey; */
   height: 40px;
   color:#283C63;
+  /* width: 35px; */
 }
 
 #btnSearch{
   background-color: white;
-  margin-left: 10px;
+  margin-left: 4px;
   /* border: 1px solid grey; */
   height: 40px;
   color:#283C63;
@@ -63,6 +58,7 @@ code {
 
 #searchFilters {
   width: 800px;
+  padding: 15px;
   margin-top: 5px;
   background-color: rgb(223, 241, 251);
   z-index: 123123;
@@ -105,7 +101,7 @@ code {
 }
 
 #tagsBox {
-  background-color: bisque;
+  background-color: whitesmoke;
   transition: height 0.5s ease;
 }
 
@@ -157,7 +153,7 @@ code {
 }
 
 input {
-  text-indent: 10px;
+  text-indent: 5px;
 }
 
 #searchResults {
