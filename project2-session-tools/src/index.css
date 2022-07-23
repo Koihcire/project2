@@ -44,6 +44,9 @@ code {
   height: 40px;
 }
 
+
+
+
 #btnFilter {
   background-color: white;
   margin-left: 4px;
@@ -77,7 +80,7 @@ code {
   padding: 15px;
 }
 
-#noSearchResults{
+.noSearchResults{
   margin-top: 20px;
 }
 
@@ -86,7 +89,7 @@ code {
   position: relative;
 }
 
-#noSearchResultsContainer{
+.noSearchResultsContainer{
   justify-content: center;
 }
 
@@ -262,6 +265,10 @@ input {
   font-style: italic;
   height: fit-content;
 }
+
+
+
+
 
 @media screen and (max-width: 576px) {
   #searchFilters{

@@ -427,8 +427,8 @@ export default class Search extends React.Component {
                 </div>
 
                 {/* SEARCH RESULTS */}
-                <div id="noSearchResultsContainer" className="container d-flex">
-                    {this.state.showNoResults ? <p id="noSearchResults">No search results</p> : ""}
+                <div className="container d-flex noSearchResultsContainer">
+                    {this.state.showNoResults ? <p className="noSearchResults">No search results</p> : ""}
                 </div>
                 <div className="container">
                     <div id="searchResults" className="row">

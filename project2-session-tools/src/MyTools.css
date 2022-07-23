@@ -1,0 +1,11 @@
+/* My Tools */
+#myToolsSearchField {
+    margin-left: 10px;
+    border-radius: 10px;
+    width: 80%;
+    height: 40px;
+  }
+
+#myToolsSearchField{
+    width: 800px;
+}

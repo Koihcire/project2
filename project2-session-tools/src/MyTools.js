@@ -2,7 +2,9 @@ import React from "react"
 import axios from "axios";
 import parse from "html-react-parser"
 import ToolCard from "./ToolCard";
+import "./index.css"
 import "./ToolCard.css"
+import "./MyTools.css"
 import UpdateToolCard from "./UpdateToolCard";
 import ConfirmDelete from "./ConfirmDelete";
 import ProcessDelete from "./ProcessDelete";
@@ -24,6 +26,9 @@ export default class MyTools extends React.Component {
         commentUserName: "",
         commentEmail: "",
         commentData: "",
+
+        showNoResults: false,
+        showEmailError: false,
     }
 
     async componentDidMount() {
@@ -147,7 +152,18 @@ export default class MyTools extends React.Component {
     }
 
     searchMyTools = async (e) => {
-        if (this.state.email){
+        //check for email error
+        if ((!this.state.email.includes("@") && !this.state.email.includes(".")) || !this.state.email) {
+            await this.setState({
+                showEmailError: true
+            })
+        } else {
+            await this.setState({
+                showEmailError: false
+            })
+        }
+
+        if (!this.state.showEmailError) {
             try {
                 let response = await axios.get(this.url + "tools", {
                     params: {
@@ -155,19 +171,40 @@ export default class MyTools extends React.Component {
                     }
                 }
                 )
-                this.setState({
-                    data: response.data.tools
-                })
+
+                let data = response.data.tools;
+
+                if (!data.length) {
+                    await this.setState({
+                        showNoResults: true,
+                        data: data
+                    })
+                } else {
+                    await this.setState({
+                        showNoResults: false,
+                        data: data
+                    })
+                }
+                // this.setState({
+                //     data: response.data.tools
+                // })
             } catch (e) {
                 console.log(e)
             }
         }
     }
 
+    keyUpSearch = (e) => {
+        if (e.key === "Enter") {
+            this.searchMyTools();
+        }
+    }
+
     clearSearch = () => {
         this.setState({
             data: [],
-            email: ""
+            email: "",
+            showNoResults: false,
         })
 
     }
@@ -200,7 +237,7 @@ export default class MyTools extends React.Component {
         }
     }
 
-    refresh = async()=>{
+    refresh = async () => {
         let response = await axios.get(this.url + "tool/" + this.state.activeToolData._id)
         this.setState({
             activeToolData: response.data.tool
@@ -210,17 +247,28 @@ export default class MyTools extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <div>
-                    <h1>THIS IS MY TOOLS PAGE</h1>
-                    <h6>Enter your email to display the tools you created</h6>
+                <div className="d-flex mt-3 justify-content-center">
+                    <div>
+                        <div>
+                            <input id="myToolsSearchField" name="email" className="form-control" type="text" value={this.state.email} onChange={this.updateFormField} placeholder="Enter email to search for your tools" onKeyUp={this.keyUpSearch} />
+                        </div>
+                        <div>
+                            {this.state.showEmailError ? <p className="errorMessage ms-3">!Please enter a valid email address</p> : ""}
+                        </div>
+                    </div>
+                    <button id="btnFilter" className="btn btn-sm" onClick={this.searchMyTools}><svg xmlns="http://www.w3.org/2000/svg" width="25" height="30" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                    </svg></button>
+                    <button id="btnSearch" className="btn btn-sm" onClick={this.clearSearch}><svg xmlns="http://www.w3.org/2000/svg" width="25" height="30" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                        <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                    </svg></button>
                 </div>
-                <div>
-                    <input name="email" type="text" value={this.state.email} onChange={this.updateFormField} placeholder="email" />
-                    <button onClick={this.searchMyTools}>Search</button>
-                    <button onClick={this.clearSearch}>Clear</button>
-                </div>
+
                 {/* SEARCH RESULTS */}
-                <h1>Search Results</h1>
+                <div className="container d-flex noSearchResultsContainer">
+                    {this.state.showNoResults ? <p className="noSearchResults">No search results</p> : ""}
+                </div>
                 {this.state.data.map(t => (
                     <div className="card">
                         <div className="card-title">
@@ -236,7 +284,7 @@ export default class MyTools extends React.Component {
                                     Description: {t.description}
                                 </div>
                                 <div>
-                                    Views: {t.likes} 
+                                    Views: {t.likes}
                                 </div>
                                 <div>
                                     Difficulty: {t.difficulty}
@@ -263,7 +311,7 @@ export default class MyTools extends React.Component {
                         </div>
                     </div>
                 ))}
-                
+
                 <ToolCard showToolCard={this.state.showToolCard}
                     closeToolCard={this.closeToolCard}
                     activeToolData={this.state.activeToolData}
