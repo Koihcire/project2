@@ -65,13 +65,13 @@ export default class Search extends React.Component {
         }
 
         //check for email error
-        if ((!this.state.commentEmail.includes("@") && !this.state.commentEmail.includes(".")) || !this.state.commentEmail) {
+        if ((this.state.commentEmail.includes("@") && this.state.commentEmail.includes("."))) {
             await this.setState({
-                showAddCommentEmailError: true
+                showAddCommentEmailError: false
             })
         } else {
             await this.setState({
-                showAddCommentEmailError: false
+                showAddCommentEmailError: true
             })
         }
 

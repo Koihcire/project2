@@ -1,5 +1,7 @@
 import React from "react"
 import "./ToolCard.css"
+// import "./AddNew.css"
+import "./index.css"
 import axios from "axios"
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
@@ -29,7 +31,19 @@ export default class UpdateToolCard extends React.Component {
         updateInstructionsData: "",
         updateDebriefData: "",
 
-        showStartUpdate: true
+        showStartUpdate: true,
+
+        showNameError: false,
+        showUserNameError: false,
+        showEmailError: false,
+        showDescriptionError: false,
+        showTagsError: false,
+        showGroupSizeError: false,
+        showTimeNeededError: false,
+        showDifficultyError: false,
+        showMaterialsError: false,
+        showLearningObjectivesError: false,
+        showInstructionsError: false,
     }
 
     processUpdate = async () => {
@@ -300,48 +314,75 @@ export default class UpdateToolCard extends React.Component {
                 <div className="myModal">
                     <div className="myModal-content">
                         <div className="myModal-header">
+
                             <div className="myModal-title">
-                                <h4>Update</h4>
                             </div>
                             {this.state.showStartUpdate ?
                                 <div>
-                                    <button onClick={this.startUpdate}>Click to Start Update</button>
-                                </div> :
+                                    <button className="btnStartUpdate" onClick={this.startUpdate}>Click to Start Update</button>
+                                    <button className="btn btn-sm deleteBtn" onClick={this.endUpdate}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-square" viewBox="0 0 16 16">
+                                            <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                                        </svg></button>
+                                </div>
+                                :
                                 <React.Fragment>
+                                    <div>
+                                        <button className="btn btn-sm deleteBtn me-4 mt-2" onClick={this.endUpdate}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-square" viewBox="0 0 16 16">
+                                                <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                                                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                                            </svg></button>
+                                    </div>
                                     <div className="myModal-body">
-                                        This is a modal update test
                                         <div>
-                                            Name:
-                                            <input type="text" className="form-control" name="updateName" value={this.state.updateName} onChange={this.updateFormField} />
+                                            <h4>Name</h4>
+                                            <input name="updateName" type="text" className="form-control" value={this.state.updateName} onChange={this.updateFormField} placeholder="Activity Name" />
+                                            {this.state.showNameError ? <p className="errorMessage">!Please enter an activity name</p> : ""}
                                         </div>
-                                        <div>
+                                        <div className="mt-3">
                                             Description:
-                                            <input type="text" className="form-control" name="updateDescription" value={this.state.updateDescription} onChange={this.updateFormField} />
+                                            <div>
+                                                <textarea rows={4} name="updateDescription" type="text" className="form-control mt-2" value={this.state.updateDescription} onChange={this.updateFormField} placeholder="Brief description of the activity" />
+                                                {this.state.showDescriptionError ? <p className="errorMessage">!Please describe your activity</p> : ""}
+                                            </div>
                                         </div>
-                                        <div>
+                                        <div className="mt-3">
                                             Group Size:
-                                            {this.state.allGroupSizes.map(g => (
-                                                <React.Fragment>
-                                                    <input name="updateGroupSize" type="checkbox" className="form-check-input" value={g} checked={this.state.updateGroupSize.includes(g)} onChange={this.updateFormField} />
-                                                    <label for="updateGroupSize" className="form-check-label">{g}</label>
-                                                </React.Fragment>
-                                            ))}
+                                            <div className="mt-2">
+                                                {this.state.allGroupSizes.map(g => (
+                                                    <React.Fragment>
+                                                        <input id={g} name="updateGroupSize" type="checkbox" className="form-check-input ms-3" value={g} checked={this.state.updateGroupSize.includes(g)} onChange={this.updateFormField} />
+                                                        <label for={g} className="form-check-label ms-1">{g}</label>
+                                                    </React.Fragment>
+                                                ))}
+                                            </div>
+
+                                            {this.state.showGroupSizeError ? <p className="errorMessage">!Please select at least 1 group size</p> : ""}
                                         </div>
-                                        <div>
-                                            Time Needed:
-                                            <input name="updateTimeNeeded" type="number" className="form-control" value={this.state.updateTimeNeeded} onChange={this.updateFormField} /> minutes
+                                        <div className="mt-3">
+                                            Time Needed (minutes):
+                                            <div>
+                                                <input name="updateTimeNeeded" type="number" className="form-control halfInput mt-2" value={this.state.updateTimeNeeded} onChange={this.updateFormField} min="0" max="999" />
+                                            </div>
+                                            {this.state.showTimeNeededError ? <p className="errorMessage">!Please enter an integer from 0 to 999</p> : ""}
                                         </div>
-                                        <div>
+                                        <div className="mt-3">
                                             Difficulty:
-                                            <select className="form-select form-select-sm" name="updateDifficulty" select={this.state.updateDifficulty} onChange={this.updateFormField}>
-                                                {this.state.allDifficulty.map(d=>(
-                                                    <option value={d}>{d}</option>
+                                            <select className="form-select form-select-sm mt-2" name="updateDifficulty" select={this.state.updateDifficulty} onChange={this.updateFormField}>
+                                                {/* <option selected>Select One</option> */}
+                                                {this.state.allDifficulty.map(d => (
+                                                    <React.Fragment>
+                                                        <option value={d}>{d}</option>
+                                                    </React.Fragment>
                                                 ))}
                                             </select>
+                                            {this.state.showDifficultyError ? <p className="errorMessage">!Please select a difficulty level</p> : ""}
                                         </div>
-                                        <div>
+                                        <div className="mt-3">
                                             Tags:
-                                            <React.Fragment>
+                                            <div className="mt-2">
                                                 <CreatableSelect
                                                     placeholder="Select or create new tag"
                                                     isMulti
@@ -349,35 +390,48 @@ export default class UpdateToolCard extends React.Component {
                                                     options={this.state.allTags}
                                                     defaultValue={this.state.preSelectedTags}
                                                 />
-                                            </React.Fragment>
+                                            </div>
+                                            {this.state.showTagsError ? <p className="errorMessage">!Please select at least 1 tag</p> : ""}
                                         </div>
-                                        <div>
+                                        <div className="mt-3">
                                             Materials:
-                                            {this.state.materials.map((element, index) => (
-                                                <React.Fragment>
-                                                    <div key={index}>
-                                                        <label></label>
-                                                        <input name="material" type="text" value={element.material} onChange={(e) => this.materialChange(index, e)} />
-                                                    </div>
-                                                    <button onClick={this.addMaterial}>Add New</button>
-                                                    <button onClick={(e) => this.removeMaterial(index, e)}>Remove</button>
-                                                </React.Fragment>
-                                            ))}
+                                            <div>
+                                                {this.state.materials.map((element, index) => (
+                                                    <React.Fragment>
+                                                        <div key={index} className="d-flex mt-2">
+                                                            <input name="material" type="text" className="form-control dynamicInput" value={element.material} onChange={(e) => this.materialChange(index, e)} />
+                                                            <button className="btn btn-sm" onClick={this.addMaterial}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+                                                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
+                                                            </svg></button>
+                                                            {this.state.materials.length > 1 && (<button className="btn btn-sm" onClick={(e) => this.removeMaterial(index, e)}>
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                                                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z" />
+                                                                </svg></button>)}
+                                                        </div>
+                                                    </React.Fragment>
+                                                ))}
+                                            </div>
+
+                                            {this.state.showMaterialsError ? <p className="errorMessage">!Please do not leave any field blank</p> : ""}
                                         </div>
-                                        <div>
+                                        <div className="mt-3">
                                             Learning Objectives:
                                             {this.state.learningObjectives.map((element, index) => (
                                                 <React.Fragment>
-                                                    <div key={index}>
-                                                        <label></label>
-                                                        <input name="learningObjective" type="text" value={element.learningObjective} onChange={(e) => this.learningObjectiveChange(index, e)} />
+                                                    <div key={index} className="d-flex mt-2">
+                                                        <input name="learningObjective" type="text" className="form-control dynamicInput" value={element.learningObjective} onChange={(e) => this.learningObjectiveChange(index, e)} />
+                                                        <button className="btn btn-sm" onClick={this.addLearningObjective}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+                                                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
+                                                        </svg></button>
+                                                        {this.state.learningObjectives.length > 1 && (<button className="btn btn-sm" onClick={() => this.removeLearningObjective(index)}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                                                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z" />
+                                                        </svg></button>)}
                                                     </div>
-                                                    <button onClick={this.addLearningObjective}>Add New</button>
-                                                    <button onClick={() => this.removeLearningObjective(index)}>Remove</button>
                                                 </React.Fragment>
                                             ))}
+                                            {this.state.showLearningObjectivesError ? <p className="errorMessage">!Please do not leave any field blank</p> : ''}
                                         </div>
-                                        <div>
+                                        <div className="mt-3">
                                             Instructions:
                                             <div>
                                                 <CKEditor
@@ -402,12 +456,14 @@ export default class UpdateToolCard extends React.Component {
                                                     }}
                                                 />
                                             </div>
+                                            {this.state.showInstructionsError ? <p className="errorMessage">!Please enter instructions for your activity</p> : ''}
                                         </div>
-                                        <div>
+                                        <div className="mt-3">
                                             Debrief:
                                             <div>
                                                 <CKEditor
                                                     editor={ClassicEditor}
+                                                    config={{ placeholder: "Optional" }}
                                                     data={this.state.updateDebriefData}
                                                     onReady={editor => {
                                                         // You can store the "editor" and use when it is needed.
@@ -429,26 +485,17 @@ export default class UpdateToolCard extends React.Component {
                                                 />
                                             </div>
                                         </div>
-                                        <div>
-                                            <button className="btn btn-sm btn-primary" onClick={this.processUpdate}>Update</button>
+
+                                        <div className="mt-4 mb-4">
+                                            <button className="btnSubmit" onClick={this.processUpdate}>Update</button>
                                         </div>
 
                                     </div>
 
                                     <div className="myModal-footer">
-                                        <button onClick={this.endUpdate}>Cancel</button>
-
                                     </div>
                                 </React.Fragment>
                             }
-
-                            {/* <div className="myModal-body">
-                                This is a modal update test
-                                <input type="text" name="updateName" value={this.state.updateName} onChange={this.updateFormField}/>
-                            </div> */}
-                            {/* <div className="myModal-footer">
-                                <button onClick={this.props.closeUpdateToolCard}>close</button>
-                            </div> */}
                         </div>
                     </div>
                 </div>

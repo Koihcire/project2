@@ -68,6 +68,14 @@ export default class MyTools extends React.Component {
         })
     }
 
+    toDate = (date) => {
+        const c = { time: date }
+        return new Date(c.time).toLocaleString("en-US", {
+            year: "numeric",
+            month: "numeric",
+            day: "numeric"
+        });
+    }
     showToolCard = async (toolId) => {
         let response = await axios.get(this.url + "tool/" + toolId)
 
@@ -153,13 +161,14 @@ export default class MyTools extends React.Component {
 
     searchMyTools = async (e) => {
         //check for email error
-        if ((!this.state.email.includes("@") && !this.state.email.includes(".")) || !this.state.email) {
+        if ((this.state.email.includes("@") && this.state.email.includes("."))) {
             await this.setState({
-                showEmailError: true
+                showEmailError: false
             })
         } else {
             await this.setState({
-                showEmailError: false
+                showEmailError: true,
+                showNoResults: false
             })
         }
 
@@ -269,49 +278,77 @@ export default class MyTools extends React.Component {
                 <div className="container d-flex noSearchResultsContainer">
                     {this.state.showNoResults ? <p className="noSearchResults">No search results</p> : ""}
                 </div>
-                {this.state.data.map(t => (
-                    <div className="card">
-                        <div className="card-title">
-                            <h3>{t.name}</h3>
-                            <div className="card-body">
-                                <div>
-                                    Created By: {t.createdBy.userName}
+                <div className="container">
+                    <div id="searchResults" className="row">
+                        {this.state.data.map(t => (
+                            <div className="card col-xl-3 col-md-5 col-12 m-3 summaryCard">
+                                <div className="card-title">
+                                    <h4>{t.name}</h4>
+                                    <div id="summaryCardDescription">
+                                        {t.description}
+                                    </div>
+                                    <div className="card-body">
+                                        <div>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-plus-fill" viewBox="0 0 16 16">
+                                                <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                                                <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z" />
+                                            </svg> <span className="summaryCardText ms-2">{t.createdBy.userName}</span>
+                                        </div>
+                                        <div>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar3" viewBox="0 0 16 16">
+                                                <path d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z" />
+                                                <path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
+                                            </svg> <span className="summaryCardText ms-2">{this.toDate(t.dateCreated)}</span>
+                                        </div>
+                                        <div>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                                                <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
+                                                <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
+                                            </svg> <span className="summaryCardText ms-2">{t.likes} views</span>
+                                        </div>
+                                        <div>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-hammer" viewBox="0 0 16 16">
+                                                <path d="M9.972 2.508a.5.5 0 0 0-.16-.556l-.178-.129a5.009 5.009 0 0 0-2.076-.783C6.215.862 4.504 1.229 2.84 3.133H1.786a.5.5 0 0 0-.354.147L.146 4.567a.5.5 0 0 0 0 .706l2.571 2.579a.5.5 0 0 0 .708 0l1.286-1.29a.5.5 0 0 0 .146-.353V5.57l8.387 8.873A.5.5 0 0 0 14 14.5l1.5-1.5a.5.5 0 0 0 .017-.689l-9.129-8.63c.747-.456 1.772-.839 3.112-.839a.5.5 0 0 0 .472-.334z" />
+                                            </svg> <span className="summaryCardText ms-2">{t.difficulty} difficulty</span>
+                                        </div>
+                                        <div>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
+                                                <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                                                <path fill-rule="evenodd" d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z" />
+                                                <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z" />
+                                            </svg> <span className="summaryCardText">{t.groupSize.map(g => (
+                                                <span className="ms-2">| {g}</span>
+                                            ))}</span>
+                                        </div>
+                                        <div>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-stopwatch" viewBox="0 0 16 16">
+                                                <path d="M8.5 5.6a.5.5 0 1 0-1 0v2.9h-3a.5.5 0 0 0 0 1H8a.5.5 0 0 0 .5-.5V5.6z" />
+                                                <path d="M6.5 1A.5.5 0 0 1 7 .5h2a.5.5 0 0 1 0 1v.57c1.36.196 2.594.78 3.584 1.64a.715.715 0 0 1 .012-.013l.354-.354-.354-.353a.5.5 0 0 1 .707-.708l1.414 1.415a.5.5 0 1 1-.707.707l-.353-.354-.354.354a.512.512 0 0 1-.013.012A7 7 0 1 1 7 2.071V1.5a.5.5 0 0 1-.5-.5zM8 3a6 6 0 1 0 .001 12A6 6 0 0 0 8 3z" />
+                                            </svg> <span className="summaryCardText ms-2">{t.timeNeeded} minutes</span>
+                                        </div>
+                                        <div id="tagsContainer">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-tags-fill" viewBox="0 0 16 16">
+                                                <path d="M2 2a1 1 0 0 1 1-1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 2 6.586V2zm3.5 4a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z" />
+                                                <path d="M1.293 7.793A1 1 0 0 1 1 7.086V2a1 1 0 0 0-1 1v4.586a1 1 0 0 0 .293.707l7 7a1 1 0 0 0 1.414 0l.043-.043-7.457-7.457z" />
+                                            </svg> <span>{t.tags.map(tag => (
+                                                <button id="tag" value={tag} onClick={this.searchByTag}>{tag}</button>
+                                            ))}</span>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div>
-                                    Date Created: {t.dateCreated}
-                                </div>
-                                <div>
-                                    Description: {t.description}
-                                </div>
-                                <div>
-                                    Views: {t.likes}
-                                </div>
-                                <div>
-                                    Difficulty: {t.difficulty}
-                                </div>
-                                <div>
-                                    Tags: {t.tags.map(tags => (
-                                        tags
-                                    ))}
-                                </div>
-                                <div>
-                                    Group Size: {t.groupSize.map(g => (
-                                        g
-                                    ))}
-                                </div>
-                                <div>
-                                    Time Needed: {t.timeNeeded} minutes
-                                </div>
-                                <div>
-                                    <button className="btn btn-sm btn-primary" onClick={() => this.showToolCard(t._id)}>Show More</button>
-                                    <button className="btn btn-sm btn-primary" onClick={() => this.showUpdateToolCard(t._id)}>Update Tool</button>
-                                    <button className="btn btn-sm btn-danger" onClick={() => this.showConfirmDelete(t._id)}>Delete</button>
-                                </div>
+                                <div id="decoy"></div>
+                                <button className="btn btn-sm btnShowMore" onClick={() => this.showToolCard(t._id, t.likes)}>Read More</button>
+                                <button className="btn btn-sm btnEdit" onClick={() => this.showUpdateToolCard(t._id)}>Edit</button>
+                                <button className="btn btn-sm deleteBtn" onClick={() => this.showConfirmDelete(t._id)}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-square" viewBox="0 0 16 16">
+                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                                    </svg></button>
                             </div>
-                        </div>
+                        ))}
                     </div>
-                ))}
-
+                </div>
+               
                 <ToolCard showToolCard={this.state.showToolCard}
                     closeToolCard={this.closeToolCard}
                     activeToolData={this.state.activeToolData}

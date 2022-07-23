@@ -461,8 +461,8 @@ export default class AddNew extends React.Component {
                                     <div className="mt-2">
                                         {this.state.allGroupSizes.map(g => (
                                             <React.Fragment>
-                                                <input name="newGroupSize" type="checkbox" className="form-check-input ms-3" value={g} checked={this.state.newGroupSize.includes(g)} onChange={this.updateFormField} />
-                                                <label for="groupSize" className="form-check-label ms-1">{g}</label>
+                                                <input id={g} name="newGroupSize" type="checkbox" className="form-check-input ms-3" value={g} checked={this.state.newGroupSize.includes(g)} onChange={this.updateFormField} />
+                                                <label for={g} className="form-check-label ms-1">{g}</label>
                                             </React.Fragment>
                                         ))}
                                     </div>
