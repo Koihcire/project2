@@ -21,6 +21,16 @@
     /* overflow-y: scroll; */
 }
 
+.myAlertModal-content {
+    width: 600px;
+    background-color: #e8f5fd;
+    height: fit-content;
+    max-height: 80vh;
+    border-radius: 12px;
+    position: relative;
+    /* overflow-y: scroll; */
+}
+
 .myModal-header {
     padding: 10px;
 }
@@ -83,5 +93,10 @@
         margin-left: 10px;
         margin-right: 10px;
         /* overflow-y: scroll; */
+    }
+
+    .myAlertModal-content {
+        margin-left: 20px;
+        margin-right: 20px;
     }
 }

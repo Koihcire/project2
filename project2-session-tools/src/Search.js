@@ -118,7 +118,10 @@ export default class Search extends React.Component {
         this.setState({
             showToolCard: false,
             commentUserName: "",
-            commentData: ""
+            commentData: "",
+            showAddCommentUserError: false,
+            showAddCommentEmailError: false,
+            showAddCommentError: false
         })
     }
 
@@ -290,6 +293,12 @@ export default class Search extends React.Component {
         }
     }
 
+    keyUpSearch = (e)=>{
+        if (e.key === "Enter"){
+            this.search();
+        }
+    }
+
     toDate = (date) => {
         const c = { time: date }
         return new Date(c.time).toLocaleString("en-US", {
@@ -329,10 +338,7 @@ export default class Search extends React.Component {
                         <div className="d-flex container" id="searchBoxContainer">
                             <div id="searchBox">
                                 <div className="container-fluid d-flex">
-                                    <input id="searchField" name="searchName" type="text" className="form-control" value={this.state.searchName} onChange={this.updateFormField} placeholder="Search by Activity Name" />
-                                    {/* <button id="btnFilter" className="btn btn-sm" onClick={this.toggleFilters}><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-funnel-fill" viewBox="0 0 16 16">
-                                        <path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2z" />
-                                    </svg></button> */}
+                                    <input id="searchField" name="searchName" type="text" className="form-control" value={this.state.searchName} onChange={this.updateFormField} placeholder="Search by Activity Name" onKeyUp={this.keyUpSearch} />
                                     <button id="btnFilter" className="btn btn-sm" onClick={this.toggleFilters}><svg xmlns="http://www.w3.org/2000/svg" width="25" height="30" fill="currentColor" class="bi bi-funnel" viewBox="0 0 16 16">
                                         <path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2h-11z" />
                                     </svg></button>
@@ -427,7 +433,7 @@ export default class Search extends React.Component {
                 <div className="container d-flex">
                     <div id="searchResults" className="row">
                         {this.state.data.map(t => (
-                            <div className="card col-xl-3 col-md-5 m-3 summaryCard">
+                            <div className="card col-xl-3 col-md-5 col-12 m-3 summaryCard">
                                 <div className="card-title">
                                     <h4>{t.name}</h4>
                                     <div id="summaryCardDescription">

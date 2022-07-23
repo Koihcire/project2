@@ -46,7 +46,7 @@ code {
 
 #btnFilter {
   background-color: white;
-  /* margin-left: 5px; */
+  margin-left: 4px;
   /* border: 1px solid grey; */
   height: 40px;
   color:#283C63;
@@ -186,6 +186,21 @@ input {
   background-color: white !important;
 }
 
+.btnSubmitDanger{
+  width: fit-content;
+  /* position: absolute; */
+  bottom: 0;
+  /* margin-bottom: 10px;
+  margin-left: 10px;
+  /* right: 0; */
+  margin-left: 10px;
+  border: 3px solid red !important;
+  border-radius: 10px 10px 10px 10px !important;
+  font-weight: 500 !important;
+  color: red !important;
+  background-color: white !important;
+}
+
 #tag {
   font-size: 12px;
   border: 1px solid #4a6eb5;
@@ -196,6 +211,10 @@ input {
   padding: 2px;
   background-color: #4a6eb5;
   color: whitesmoke;
+}
+
+.emailVerificationInput{
+  max-width: 500px !important;
 }
 
 #decoy {
