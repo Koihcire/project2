@@ -430,7 +430,7 @@ export default class Search extends React.Component {
                 <div id="noSearchResultsContainer" className="container d-flex">
                     {this.state.showNoResults ? <p id="noSearchResults">No search results</p> : ""}
                 </div>
-                <div className="container d-flex">
+                <div className="container">
                     <div id="searchResults" className="row">
                         {this.state.data.map(t => (
                             <div className="card col-xl-3 col-md-5 col-12 m-3 summaryCard">
