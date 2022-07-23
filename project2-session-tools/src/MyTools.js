@@ -29,6 +29,10 @@ export default class MyTools extends React.Component {
 
         showNoResults: false,
         showEmailError: false,
+
+        showAddCommentUserError: false,
+        showAddCommentEmailError: false,
+        showAddCommentError: false,
     }
 
     async componentDidMount() {
@@ -219,8 +223,68 @@ export default class MyTools extends React.Component {
     }
 
     submitComment = async () => {
-        let toolId = this.state.activeToolData._id
-        if (this.state.commentUserName && this.state.commentData) {
+        // let toolId = this.state.activeToolData._id
+
+        // if (this.state.commentUserName && this.state.commentData) {
+        //     try {
+        //         let response = await axios.put(this.url + "add-comment/" + toolId, {
+        //             userName: this.state.commentUserName,
+        //             comments: this.state.commentData,
+        //             email: this.state.commentEmail
+        //         })
+        //         console.log(response.data)
+        //     } catch (e) {
+        //         console.log(e)
+        //     }
+        //     this.setState({
+        //         commentUserName: "",
+        //         commentData: "",
+        //         commentEmail: ""
+        //     })
+        //     let response = await axios.get(this.url + "tool/" + toolId)
+
+        //     this.setState({
+        //         showToolCard: true,
+        //         // activeToolId: activeToolId
+        //         activeToolData: response.data.tool
+        //     })
+        // }
+        //check for username error
+        if (!this.state.commentUserName || this.state.commentUserName.length > 100) {
+            await this.setState({
+                showAddCommentUserError: true
+            })
+        } else {
+            await this.setState({
+                showAddCommentUserError: false
+            })
+        }
+
+        //check for email error
+        if ((this.state.commentEmail.includes("@") && this.state.commentEmail.includes("."))) {
+            await this.setState({
+                showAddCommentEmailError: false
+            })
+        } else {
+            await this.setState({
+                showAddCommentEmailError: true
+            })
+        }
+
+        //check for comment error
+        //check for description error
+        if (!this.state.commentData || this.state.commentData.length > 500) {
+            await this.setState({
+                showAddCommentError: true
+            })
+        } else {
+            await this.setState({
+                showAddCommentError: false
+            })
+        }
+
+        if (!this.state.showAddCommentEmailError && !this.state.showAddCommentError && !this.state.showAddCommentUserError) {
+            let toolId = this.state.activeToolData._id
             try {
                 let response = await axios.put(this.url + "add-comment/" + toolId, {
                     userName: this.state.commentUserName,
@@ -360,7 +424,10 @@ export default class MyTools extends React.Component {
                     commentUserName={this.state.commentUserName}
                     commentData={this.state.commentData}
                     commentEmail={this.state.commentEmail}
-                    refresh={this.refresh} />
+                    refresh={this.refresh}
+                    showAddCommentEmailError={this.state.showAddCommentEmailError}
+                    showAddCommentError={this.state.showAddCommentError}
+                    showAddCommentUserError={this.state.showAddCommentUserError} />
 
                 <UpdateToolCard showUpdateToolCard={this.state.showUpdateToolCard}
                     closeUpdateToolCard={this.closeUpdateToolCard}
