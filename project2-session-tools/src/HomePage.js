@@ -74,6 +74,7 @@ export default class HomePage extends React.Component {
                             </li>
                         </ul>
                     </div>
+                    <div id="topBuffer"></div>
                     <div>
                         {this.renderContent()}
                     </div>

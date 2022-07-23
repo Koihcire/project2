@@ -64,7 +64,28 @@
         width: 100%;
     }
 
+    #topBuffer{
+        height: 0px;
+        width: 0px;
+    }
+
     .navTitle{
         display: none;
     }
+}
+
+@media screen and (width > 576px) {
+    #nav-bar{
+        position: fixed;
+        top: 0;
+        z-index: 13124124;
+        background-color: #283C63;
+        width: 100%;
+    }
+
+    #topBuffer{
+        height: 50px;
+        width: 40px;
+    }
+    
 }
