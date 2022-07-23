@@ -34,19 +34,131 @@ export default class UpdateToolCard extends React.Component {
         showStartUpdate: true,
 
         showNameError: false,
-        showUserNameError: false,
-        showEmailError: false,
+        // showUserNameError: false,
+        // showEmailError: false,
         showDescriptionError: false,
         showTagsError: false,
         showGroupSizeError: false,
         showTimeNeededError: false,
-        showDifficultyError: false,
+        showLearningObjectivesError: false,
         showMaterialsError: false,
+        showDifficultyError: false,
         showLearningObjectivesError: false,
         showInstructionsError: false,
     }
 
     processUpdate = async () => {
+        //check for name error
+        if (!this.state.updateName || this.state.updateName.length > 100) {
+            await this.setState({
+                showNameError: true
+            })
+        } else {
+            await this.setState({
+                showNameError: false
+            })
+        }
+
+        //check for description error
+        if (!this.state.updateDescription || this.state.updateDescription.length > 300) {
+            await this.setState({
+                showDescriptionError: true
+            })
+        } else {
+            await this.setState({
+                showDescriptionError: false
+            })
+        }
+
+        //check for tags error
+        if (!this.state.updateTags.length) {
+            await this.setState({
+                showTagsError: true
+            })
+        } else {
+            await this.setState({
+                showTagsError: false
+            })
+        }
+
+        //check for group size error
+        if (!this.state.updateGroupSize.length) {
+            await this.setState({
+                showGroupSizeError: true
+            })
+        } else {
+            await this.setState({
+                showGroupSizeError: false
+            })
+        }
+
+        //check for time needed error
+        if (!this.state.updateTimeNeeded || this.state.updateTimeNeeded < 0 || this.state.updateTimeNeeded > 999) {
+            await this.setState({
+                showTimeNeededError: true
+            })
+        } else {
+            await this.setState({
+                showTimeNeededError: false
+            })
+        }
+
+        //check difficulty error
+        if (!this.state.updateDifficulty) {
+            await this.setState({
+                showDifficultyError: true
+            })
+        } else {
+            await this.setState({
+                showDifficultyError: false
+            })
+        }
+
+        //check for materials error
+        let emptyMat = "";
+        for (let m of this.state.updateMaterials) {
+            if (!m.length) {
+                emptyMat = true
+            }
+        }
+        if (emptyMat) {
+            await this.setState({
+                showMaterialsError: true
+            })
+        } else {
+            await this.setState({
+                showMaterialsError: false
+            })
+        }
+
+        //check for learning objectives error
+        let emptyLo = "";
+        for (let l of this.state.updateLearningObjectives) {
+            if (!l.length) {
+                emptyLo = true
+            }
+        }
+        if (emptyLo) {
+            await this.setState({
+                showLearningObjectivesError: true
+            })
+        } else {
+            await this.setState({
+                showLearningObjectivesError: false
+            })
+        }
+
+        //check for instructions error
+        if (!this.state.updateInstructionsData) {
+            await this.setState({
+                showInstructionsError: true
+            })
+        } else {
+            await this.setState({
+                showInstructionsError: false
+            })
+        }
+
         try {
             await axios.put(this.url + "update-tool/" + this.state.updateId, {
                 name: this.state.updateName,

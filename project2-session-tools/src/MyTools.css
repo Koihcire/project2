@@ -7,7 +7,10 @@
 }
 
 #myToolsSearchField {
-    width: 800px;
+    /* margin-left: 10px;
+    border-radius: 10px; */
+    width: 80%;
+    /* height: 40px; */
 }
 
 .btnEdit {
@@ -26,10 +29,36 @@
 
 .btnYes {
     width: fit-content;
-   
+
     border: 3px solid red !important;
     border-radius: 10px 10px 10px 10px !important;
     font-weight: 500 !important;
     color: red !important;
     background-color: white !important;
+}
+
+#myToolsSearchBoxContainer {
+    /* border: 1px solid grey; */
+    height: 50px;
+    display: flex;
+    /* justify-self: center; */
+    padding: 10px;
+    justify-content: center;
+    width: 100%;
+}
+
+#myToolsSearchBox {
+    height: 50px;
+    display: flex;
+    padding: 10px;
+    justify-content: space-between;
+    width: 1000px;
+}
+
+@media screen and (max-width: 576px) {
+
+    #mobileBottomBuffer {
+        height: 40px;
+        /* border: 1px solid black; */
+    }
 }

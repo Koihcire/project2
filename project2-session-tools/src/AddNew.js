@@ -225,16 +225,6 @@ export default class AddNew extends React.Component {
                 showLearningObjectivesError: false
             })
         }
-    
-        // if (!this.state.newLearningObjectivesArray.length) {
-        //     await this.setState({
-        //         showLearningObjectivesError: true
-        //     })
-        // } else {
-        //     await this.setState({
-        //         showLearningObjectivesError: false
-        //     })
-        // }
 
         //check for instructions error
         if (!this.state.newInstructionsData) {
