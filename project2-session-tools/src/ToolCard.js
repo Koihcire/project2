@@ -257,8 +257,6 @@ export default class ToolCard extends React.Component {
                                 </div>
                             </div>
                             <div className="myModal-footer">
-                                {/* <button onClick={this.props.closeToolCard}>close</button> */}
-
                             </div>
                         </div>
                     </div>

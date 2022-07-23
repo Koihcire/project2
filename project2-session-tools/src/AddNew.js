@@ -5,6 +5,8 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import CreatableSelect from 'react-select/creatable';
 import ProcessAddNew from "./ProcessAddNew";
 import "bootstrap/dist/css/bootstrap.min.css"
+import "./AddNew.css"
+import "./index.css"
 
 
 export default class AddNew extends React.Component {
@@ -46,7 +48,7 @@ export default class AddNew extends React.Component {
         showDifficultyError: false,
         showMaterialsError: false,
         showLearningObjectivesError: false,
-        showInstructionsError: false
+        showInstructionsError: false,
         // showDebriefError: false
     }
 
@@ -191,7 +193,13 @@ export default class AddNew extends React.Component {
         }
 
         //check for materials error
-        if (!this.state.newMaterialsArray.length) {
+        let emptyMat = "";
+        for (let m of this.state.newMaterials){
+           if(!m.material){
+            emptyMat = true
+           } 
+        }
+        if (emptyMat) {
             await this.setState({
                 showMaterialsError: true
             })
@@ -202,7 +210,13 @@ export default class AddNew extends React.Component {
         }
 
         //check for learning objectives error
-        if (!this.state.newLearningObjectivesArray.length) {
+        let emptyLo = "";
+        for (let l of this.state.newLearningObjectives){
+           if(!l.learningObjective){
+            emptyLo = true
+           } 
+        }
+        if (emptyLo) {
             await this.setState({
                 showLearningObjectivesError: true
             })
@@ -211,6 +225,16 @@ export default class AddNew extends React.Component {
                 showLearningObjectivesError: false
             })
         }
+    
+        // if (!this.state.newLearningObjectivesArray.length) {
+        //     await this.setState({
+        //         showLearningObjectivesError: true
+        //     })
+        // } else {
+        //     await this.setState({
+        //         showLearningObjectivesError: false
+        //     })
+        // }
 
         //check for instructions error
         if (!this.state.newInstructionsData) {
@@ -394,169 +418,180 @@ export default class AddNew extends React.Component {
         return (
             <React.Fragment>
                 {/* ADD NEW ENTRY */}
-                <h1>Add New</h1>
-                <div className="card">
-                    <div className="card-title">
-                        <h3>Name</h3>
-                        <input name="newName" type="text" className="form-control" value={this.state.newName} onChange={this.updateFormField} placeholder="Activity Name" />
-                        {this.state.showNameError ? <p>Name error</p> : ""}
-                        <div className="card-body">
-                            <div>
-                                Created By:
+                <div id="mainContainer" className="container d-flex justify-content-center mt-2">
+                    <div id="newToolCard" className="card">
+                        <div className="card-title">
+                            <h4>New Activity Name</h4>
+                            <input name="newName" type="text" className="form-control" value={this.state.newName} onChange={this.updateFormField} placeholder="Activity Name" />
+                            {this.state.showNameError ? <p className="errorMessage">!Please enter an activity name</p> : ""}
+                            <div className="card-body">
                                 <div>
-                                    <input name="newUserName" type="text" className="form-control" value={this.state.newUserName} onChange={this.updateFormField} placeholder="User Name" />
-                                    {this.state.showUserNameError ? <p>Username error</p> : ""}
+                                    Created By:
+                                    <div>
+                                        <input name="newUserName" type="text" className="form-control mt-2" value={this.state.newUserName} onChange={this.updateFormField} placeholder="User Name" />
+                                        {this.state.showUserNameError ? <p className="errorMessage">!Please enter a username</p> : ""}
+                                    </div>
+                                    <div>
+                                        <input name="newEmail" type="text" className="form-control mt-2" value={this.state.newEmail} onChange={this.updateFormField} placeholder="Email" />
+                                        {this.state.showEmailError ? <p className="errorMessage">!Please enter a valid email address</p> : ""}
+                                    </div>
                                 </div>
-                                <div>
-                                    <input name="newEmail" type="text" className="form-control" value={this.state.newEmail} onChange={this.updateFormField} placeholder="Email" />
-                                    {this.state.showEmailError ? <p>Email error</p> : ""}
+                                <div className="mt-3">
+                                    Description:
+                                    <div>
+                                        <textarea rows={4} name="newDescription" type="text" className="form-control mt-2" value={this.state.newDescription} onChange={this.updateFormField} placeholder="Brief description of the activity" />
+                                        {this.state.showDescriptionError ? <p className="errorMessage">!Please describe your activity</p> : ""}
+                                    </div>
+                                    {/* <input name="newDescription" type="text" className="form-control-input" value={this.state.newDescription} onChange={this.updateFormField} /> */}
                                 </div>
-                            </div>
-                            <div>
-                                Description:
-                                <div>
-                                    <textarea rows={4} name="newDescription" type="text" className="form-control" value={this.state.newDescription} onChange={this.updateFormField} placeholder="Brief description of the activity" />
-                                    {this.state.showDescriptionError ? <p>Description error</p> : ""}
+                                <div className="mt-3">
+                                    Tags:
+                                    <div className="mt-2">
+                                        <CreatableSelect
+                                            placeholder="Select or create new tag"
+                                            isMulti
+                                            onChange={this.handleCreatableChange}
+                                            options={this.state.tagsData}
+                                        />
+                                    </div>
+                                    {this.state.showTagsError ? <p className="errorMessage">!Please select at least 1 tag</p> : ""}
                                 </div>
-                                {/* <input name="newDescription" type="text" className="form-control-input" value={this.state.newDescription} onChange={this.updateFormField} /> */}
-                            </div>
-                            <div>
-                                Tags:
-                                {/* {this.state.newTags.map((element, index) => (
-                                    <React.Fragment>
-                                        <div key={index}>
-                                            <label>Tags</label>
-                                            <input name="tag" type="text" value={element.tag} onChange={(e) => this.tagChange(index, e)} />
-                                        </div>
-                                        <button onClick={this.addTag}>Add New</button>
-                                        <button onClick={() => this.removeTag(index)}>Remove</button>
-                                    </React.Fragment>
-                                ))} */}
-                                <React.Fragment>
-                                    <CreatableSelect
-                                        placeholder="Select or create new tag"
-                                        isMulti
-                                        onChange={this.handleCreatableChange}
-                                        options={this.state.tagsData}
-                                    />
-                                </React.Fragment>
-                                {this.state.showTagsError ? <p>Tags Error</p> : ""}
-                            </div>
-                            <div>
-                                Group Size:
-                                {this.state.allGroupSizes.map(g => (
-                                    <React.Fragment>
-                                        <input name="newGroupSize" type="checkbox" className="form-check-input" value={g} checked={this.state.newGroupSize.includes(g)} onChange={this.updateFormField} />
-                                        <label for="groupSize" className="form-check-label">{g}</label>
-                                    </React.Fragment>
-                                ))}
-                                {this.state.showGroupSizeError ? <p>Group size error</p> : ""}
-                            </div>
-                            <div>
-                                Time Needed: <input name="newTimeNeeded" type="number" className="form-control-input" value={this.state.newTimeNeeded} onChange={this.updateFormField} min="0" max="999" /> minutes
-                                {this.state.showTimeNeededError ? <p>Time Error</p> : ""}
-                            </div>
-                            <div>
-                                Difficulty:
-                                <select className="form-select form-select-sm" name="newDifficulty" onChange={this.updateFormField}>
-                                    <option selected>Select One</option>
-                                    {this.state.allDifficulty.map(d => (
+                                <div className="mt-3">
+                                    Group Size:
+                                    <div className="mt-2">
+                                        {this.state.allGroupSizes.map(g => (
+                                            <React.Fragment>
+                                                <input name="newGroupSize" type="checkbox" className="form-check-input ms-3" value={g} checked={this.state.newGroupSize.includes(g)} onChange={this.updateFormField} />
+                                                <label for="groupSize" className="form-check-label ms-1">{g}</label>
+                                            </React.Fragment>
+                                        ))}
+                                    </div>
+
+                                    {this.state.showGroupSizeError ? <p className="errorMessage">!Please select at least 1 group size</p> : ""}
+                                </div>
+                                <div className="mt-3">
+                                    Time Needed (minutes):
+                                    <div>
+                                        <input name="newTimeNeeded" type="number" className="form-control halfInput mt-2" value={this.state.newTimeNeeded} onChange={this.updateFormField} min="0" max="999" />
+                                    </div>
+                                    {this.state.showTimeNeededError ? <p className="errorMessage">!Please enter an integer from 0 to 999</p> : ""}
+                                </div>
+                                <div className="mt-3">
+                                    Difficulty:
+                                    <select className="form-select form-select-sm mt-2" name="newDifficulty" onChange={this.updateFormField}>
+                                        <option selected>Select One</option>
+                                        {this.state.allDifficulty.map(d => (
+                                            <React.Fragment>
+                                                <option value={d}>{d}</option>
+                                            </React.Fragment>
+                                        ))}
+                                    </select>
+                                    {this.state.showDifficultyError ? <p className="errorMessage">!Please select a difficulty level</p> : ""}
+                                </div>
+                                <div className="mt-3">
+                                    Materials:
+                                    <div>
+                                        {this.state.newMaterials.map((element, index) => (
+                                            <React.Fragment>
+                                                <div key={index} className="d-flex mt-2">
+                                                    <input name="material" type="text" className="form-control dynamicInput" value={element.material} onChange={(e) => this.materialChange(index, e)} />
+                                                    <button className="btn btn-sm" onClick={this.addMaterial}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+                                                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
+                                                    </svg></button>
+                                                    {this.state.newMaterials.length > 1 && (<button className="btn btn-sm" onClick={(e) => this.removeMaterial(index, e)}>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                                                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z" />
+                                                        </svg></button>)}
+                                                </div>
+                                                {/* <button onClick={(e) => this.removeMaterial(index, e)}>Remove</button> */}
+                                            </React.Fragment>
+                                        ))}
+                                    </div>
+
+                                    {this.state.showMaterialsError ? <p className="errorMessage">!Please do not leave any field blank</p> : ""}
+                                </div>
+                                <div className="mt-3">
+                                    Learning Objectives:
+                                    {this.state.newLearningObjectives.map((element, index) => (
                                         <React.Fragment>
-                                            <option value={d}>{d}</option>
+                                            <div key={index} className="d-flex mt-2">
+                                                <input name="learningObjective" type="text" className="form-control dynamicInput" value={element.learningObjective} onChange={(e) => this.learningObjectiveChange(index, e)} />
+                                                <button className="btn btn-sm" onClick={this.addLearningObjective}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+                                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
+                                                </svg></button>
+                                                {this.state.newLearningObjectives.length > 1 && (<button className="btn btn-sm" onClick={() => this.removeLearningObjective(index)}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z" />
+                                                </svg></button>)}
+                                            </div>
+
+                                            {/* <button onClick={() => this.removeLearningObjective(index)}>Remove</button> */}
                                         </React.Fragment>
                                     ))}
-                                </select>
-                                {this.state.showDifficultyError ? <p>Difficulty error</p> : ""}
-                            </div>
-                            <div>
-                                Materials:
-                                {this.state.newMaterials.map((element, index) => (
-                                    <React.Fragment>
-                                        <div key={index}>
-                                            <input name="material" type="text" className="form-control" value={element.material} onChange={(e) => this.materialChange(index, e)} />
-                                        </div>
-                                        <button onClick={this.addMaterial}>Add New</button>
-                                        {this.state.newMaterials.length > 1 && (<button onClick={(e) => this.removeMaterial(index, e)}>Remove</button>)}
-                                        {/* <button onClick={(e) => this.removeMaterial(index, e)}>Remove</button> */}
-                                    </React.Fragment>
-                                ))}
-                                {this.state.showMaterialsError ? <p>Materials Error</p> : ""}
-                            </div>
-                            <div>
-                                Learning Objectives:
-                                {this.state.newLearningObjectives.map((element, index) => (
-                                    <React.Fragment>
-                                        <div key={index}>
-                                            <input name="learningObjective" type="text" className="form-control" value={element.learningObjective} onChange={(e) => this.learningObjectiveChange(index, e)} />
-                                        </div>
-                                        <button onClick={this.addLearningObjective}>Add New</button>
-                                        {this.state.newLearningObjectives.length > 1 && (<button onClick={() => this.removeLearningObjective(index)}>Remove</button>)}
-                                        {/* <button onClick={() => this.removeLearningObjective(index)}>Remove</button> */}
-                                    </React.Fragment>
-                                ))}
-                                {this.state.showLearningObjectivesError ? <p>Learning Objectives Error</p> : ''}
-                            </div>
-                            <div>
-                                Instructions:
-                                <div>
-                                    <CKEditor
-                                        editor={ClassicEditor}
-                                        data={this.state.newInstructionsData}
-                                        onReady={editor => {
-                                            // You can store the "editor" and use when it is needed.
-                                            console.log('Editor is ready to use!', editor);
-                                        }}
-                                        onChange={(event, editor) => {
-                                            const data = editor.getData();
-                                            console.log({ event, editor, data });
-                                            this.setState({
-                                                newInstructionsData: data
-                                            })
-                                        }}
-                                        onBlur={(event, editor) => {
-                                            console.log('Blur.', editor);
-                                        }}
-                                        onFocus={(event, editor) => {
-                                            console.log('Focus.', editor);
-                                        }}
-                                    />
+                                    {this.state.showLearningObjectivesError ? <p className="errorMessage">!Please do not leave any field blank</p> : ''}
                                 </div>
-                                {this.state.showInstructionsError ? <p>Instructions error</p> : ''}
-                            </div>
-                            <div>
-                                Debrief:
-                                <div>
-                                    <CKEditor
-                                        editor={ClassicEditor}
-                                        config={{placeholder: "Optional"}}
-                                        data={this.state.newDebriefData}
-                                        onReady={editor => {
-                                            // You can store the "editor" and use when it is needed.
-                                            console.log('Editor is ready to use!', editor);
-                                        }}
-                                        onChange={(event, editor) => {
-                                            const data = editor.getData();
-                                            console.log({ event, editor, data });
-                                            this.setState({
-                                                newDebriefData: data
-                                            })
-                                        }}
-                                        onBlur={(event, editor) => {
-                                            console.log('Blur.', editor);
-                                        }}
-                                        onFocus={(event, editor) => {
-                                            console.log('Focus.', editor);
-                                        }}
-                                    />
+                                <div className="mt-3">
+                                    Instructions:
+                                    <div>
+                                        <CKEditor
+                                            editor={ClassicEditor}
+                                            data={this.state.newInstructionsData}
+                                            onReady={editor => {
+                                                // You can store the "editor" and use when it is needed.
+                                                console.log('Editor is ready to use!', editor);
+                                            }}
+                                            onChange={(event, editor) => {
+                                                const data = editor.getData();
+                                                console.log({ event, editor, data });
+                                                this.setState({
+                                                    newInstructionsData: data
+                                                })
+                                            }}
+                                            onBlur={(event, editor) => {
+                                                console.log('Blur.', editor);
+                                            }}
+                                            onFocus={(event, editor) => {
+                                                console.log('Focus.', editor);
+                                            }}
+                                        />
+                                    </div>
+                                    {this.state.showInstructionsError ? <p className="errorMessage">!Please enter instructions for your activity</p> : ''}
+                                </div>
+                                <div className="mt-3">
+                                    Debrief:
+                                    <div>
+                                        <CKEditor
+                                            editor={ClassicEditor}
+                                            config={{ placeholder: "Optional" }}
+                                            data={this.state.newDebriefData}
+                                            onReady={editor => {
+                                                // You can store the "editor" and use when it is needed.
+                                                console.log('Editor is ready to use!', editor);
+                                            }}
+                                            onChange={(event, editor) => {
+                                                const data = editor.getData();
+                                                console.log({ event, editor, data });
+                                                this.setState({
+                                                    newDebriefData: data
+                                                })
+                                            }}
+                                            onBlur={(event, editor) => {
+                                                console.log('Blur.', editor);
+                                            }}
+                                            onFocus={(event, editor) => {
+                                                console.log('Focus.', editor);
+                                            }}
+                                        />
+                                    </div>
+                                </div>
+                                <div className="mt-4 mb-4">
+                                    <button className="btnSubmit" onClick={this.addNewSubmit}>Add Activity</button>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
-                <button onClick={this.addNewSubmit}>Submit</button>
                 <ProcessAddNew showProcessAddNew={this.state.showProcessAddNew}
-                    closeProcessAddNew={this.closeProcessAddNew} />
+                    closeProcessAddNew={this.closeProcessAddNew}/>
             </React.Fragment>
         )
     }
