@@ -1,0 +1,11 @@
+.font {
+    font-family: 'Lato', sans-serif;
+}
+
+main{
+    background-image: url(./images/training.jpg) ;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    
+}
