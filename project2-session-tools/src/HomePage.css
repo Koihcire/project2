@@ -55,7 +55,7 @@
     border-color: none !important;
 }
 
-@media screen and (max-width: 576px) {
+@media screen and (max-width: 768px) {
     #nav-bar{
         position: fixed;
         bottom: 0;
@@ -74,7 +74,7 @@
     }
 }
 
-@media screen and (width > 576px) {
+@media screen and (width > 768px) {
     #nav-bar{
         position: fixed;
         top: 0;

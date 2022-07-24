@@ -13,3 +13,19 @@
     /* background-color: red */
 }
 
+#btnClearFilter {
+    /* background-color: white; */
+    margin-left: 4px;
+    /* border: 1px solid grey; */
+    height: 40px;
+    /* color:#283C63; */
+    color: rgb(181, 181, 181);
+    /* width: 35px; */
+    position: absolute;
+    right: 5px;
+    top: 5px;
+  }
+
+#btnClearFilter:hover {
+  color:#283C63;
+}
