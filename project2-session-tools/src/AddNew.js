@@ -580,6 +580,7 @@ export default class AddNew extends React.Component {
                         </div>
                     </div>
                 </div>
+                <div id="mobileBottomBuffer"></div>
                 <ProcessAddNew showProcessAddNew={this.state.showProcessAddNew}
                     closeProcessAddNew={this.closeProcessAddNew}/>
             </React.Fragment>

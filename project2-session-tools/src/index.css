@@ -85,6 +85,7 @@ code {
 #searchFilterBox {
   width: 100%;
   position: relative;
+  padding: 10px;
 }
 
 .noSearchResultsContainer{
@@ -279,7 +280,7 @@ input {
 
 
 
-@media screen and (max-width: 576px) {
+@media screen and (width < 768px) {
   #searchFilters{
     width: 90%;
   }
@@ -295,3 +296,5 @@ input {
     /* border: 1px solid black; */
   }
 }
+
+

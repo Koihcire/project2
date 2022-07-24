@@ -8,6 +8,7 @@ import "./MyTools.css"
 import UpdateToolCard from "./UpdateToolCard";
 import ConfirmDelete from "./ConfirmDelete";
 import ProcessDelete from "./ProcessDelete";
+import LoadingIcons from "react-loading-icons";
 
 export default class MyTools extends React.Component {
     url = "https://tgc-session-tools.herokuapp.com/"
@@ -339,6 +340,7 @@ export default class MyTools extends React.Component {
                         </svg></button>
                     </div>
                 </div>
+                <LoadingIcons.Puff stroke="#4a6eb5" fill="#4a6eb5" width="50px"/>
 
 
                 {/* SEARCH RESULTS */}
@@ -414,6 +416,7 @@ export default class MyTools extends React.Component {
                             </div>
                         ))}
                     </div>
+                    <div id="mobileBottomBuffer"></div>
                 </div>
 
                 <ToolCard showToolCard={this.state.showToolCard}

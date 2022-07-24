@@ -1,3 +1,5 @@
+
+
 #nav-bar {
     background-color: #283C63;
 }
@@ -55,7 +57,7 @@
     border-color: none !important;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (width < 768px) {
     #nav-bar{
         position: fixed;
         bottom: 0;
@@ -64,10 +66,10 @@
         width: 100%;
     }
 
-    #topBuffer{
+    /* #topBuffer{
         height: 0px;
         width: 0px;
-    }
+    } */
 
     .navTitle{
         display: none;

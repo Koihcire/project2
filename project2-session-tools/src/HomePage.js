@@ -40,7 +40,7 @@ export default class HomePage extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <div>
+                <div id="main">
                     <div id="nav-bar" className="container-fluid">
                         <ul className="nav nav-tabs navbar-expand" >
                             <li className="nav-item">
