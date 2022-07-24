@@ -5,7 +5,7 @@
 }
 
 .nav {
-    justify-content: center;
+    justify-content: left;
 }
 
 /* .nav-tabs{
@@ -51,6 +51,16 @@
     height: 45px;
 }
 
+.company-logo{
+    margin-top: 6px;
+    margin-left: 10px;
+    margin-right: 100px;
+    height: 35px;
+    width: 35px;
+}
+
+
+
 .active{
     background-color: #283C63 !important;
     color: #4a6eb5 !important;
@@ -73,6 +83,17 @@
 
     .navTitle{
         display: none;
+    }
+
+    .company-logo{
+        margin-top: 10px;
+        margin-right: 20px;
+        height: 25px;
+        width: 25px;
+    }
+
+    .nav {
+        justify-content:space-between;
     }
 }
 
