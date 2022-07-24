@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDown, faThumbsDown } from '@fortawesome/free-solid-svg-icons'
 import { faAngleUp } from '@fortawesome/free-solid-svg-icons'
 import ToolCard from "./ToolCard";
+import LoadingIcons from "react-loading-icons";
 
 
 export default class Search extends React.Component {
@@ -43,7 +44,21 @@ export default class Search extends React.Component {
         showAddCommentEmailError: false,
         showAddCommentError: false,
 
-        searchByTagValue: []
+        searchByTagValue: [],
+
+        showLoading: false
+    }
+
+    async showLoading() {
+        await this.setState({
+            showLoading: true
+        })
+    }
+
+    async closeLoading() {
+        await this.setState({
+            showLoading: false
+        })
     }
 
     refresh = async () => {
@@ -90,7 +105,6 @@ export default class Search extends React.Component {
         }
 
         //check for comment error
-        //check for description error
         if (!this.state.commentData || this.state.commentData.length > 500) {
             await this.setState({
                 showAddCommentError: true
@@ -184,6 +198,7 @@ export default class Search extends React.Component {
     }
 
     async componentDidMount() {
+        this.showLoading();
         try {
             let response = await axios.get(this.url + "tools")
             this.setState({
@@ -204,6 +219,7 @@ export default class Search extends React.Component {
         } catch (e) {
             console.log(e)
         }
+        this.closeLoading();
     }
 
     searchByTag = async (e) => {
@@ -245,6 +261,7 @@ export default class Search extends React.Component {
     }
 
     search = async (e) => {
+        this.showLoading();
         let minTime = ''
         let maxTime = ''
         if (!this.state.minTimeNeeded) {
@@ -305,6 +322,7 @@ export default class Search extends React.Component {
                 console.log(e)
             }
         }
+        this.closeLoading();
     }
 
     keyUpSearch = (e) => {
@@ -348,7 +366,7 @@ export default class Search extends React.Component {
             <React.Fragment>
                 <div>
                     {/* SEARCH */}
-                    <div id="searchFilterBox">
+                    <div id="searchFilterBox" className="lato">
                         <div className="d-flex container" id="searchBoxContainer">
                             <div id="searchBox">
                                 <div className="container-fluid d-flex">
@@ -453,7 +471,12 @@ export default class Search extends React.Component {
                     {this.state.showNoResults ? <p className="noSearchResults">No search results</p> : ""}
                 </div>
                 <div className="container">
-                    <div id="searchResults" className="row">
+                    <div id="searchResults" className="row lato">
+                        {this.state.showLoading ?
+                            <div id="loading" className="d-flex align-items-center justify-content-center">
+                                <LoadingIcons.Puff stroke="#4a6eb5" fill="#4a6eb5" width="50px" id="loadingIcon" />
+                            </div> : ""
+                        }
                         {this.state.data.map(t => (
                             <div className="card col-xl-3 col-md-5 col-12 m-3 summaryCard">
                                 <div className="card-title">

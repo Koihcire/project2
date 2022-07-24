@@ -409,7 +409,7 @@ export default class AddNew extends React.Component {
             <React.Fragment>
                 {/* ADD NEW ENTRY */}
                 <div id="mainContainer" className="container d-flex justify-content-center mt-2">
-                    <div id="newToolCard" className="card">
+                    <div id="newToolCard" className="card lato">
                         <div className="card-title">
                             <h4>New Activity Name</h4>
                             <input name="newName" type="text" className="form-control" value={this.state.newName} onChange={this.updateFormField} placeholder="Activity Name" />

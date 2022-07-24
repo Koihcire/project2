@@ -108,7 +108,7 @@ export default class ToolCard extends React.Component {
             return null
         } else if (this.props.showToolCard) {
             return (
-                <div className="myModal">
+                <div className="myModal lato">
                     <div className="myModal-content">
                         <button className="btn btn-sm deleteBtn" onClick={this.props.closeToolCard}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-square" viewBox="0 0 16 16">

@@ -34,6 +34,20 @@ export default class MyTools extends React.Component {
         showAddCommentUserError: false,
         showAddCommentEmailError: false,
         showAddCommentError: false,
+
+        showLoading: false
+    }
+
+    async showLoading() {
+        await this.setState({
+            showLoading: true
+        })
+    }
+
+    async closeLoading() {
+        await this.setState({
+            showLoading: false
+        })
     }
 
     async componentDidMount() {
@@ -165,6 +179,7 @@ export default class MyTools extends React.Component {
     }
 
     searchMyTools = async (e) => {
+        this.showLoading();
         //check for email error
         if ((this.state.email.includes("@") && this.state.email.includes("."))) {
             await this.setState({
@@ -205,6 +220,7 @@ export default class MyTools extends React.Component {
             } catch (e) {
                 console.log(e)
             }
+            this.closeLoading();
         }
     }
 
@@ -322,7 +338,7 @@ export default class MyTools extends React.Component {
         return (
             <React.Fragment>
                 <div id="myToolsSearchBoxContainer">
-                    <div id="myToolsSearchBox" className="d-flex justify-content-center">
+                    <div id="myToolsSearchBox" className="d-flex justify-content-center lato">
                         <div id="myToolsSearchField">
                             <div>
                                 <input name="email" className="form-control" type="text" value={this.state.email} onChange={this.updateFormField} placeholder="Enter email to search for your tools" onKeyUp={this.keyUpSearch} />
@@ -340,7 +356,7 @@ export default class MyTools extends React.Component {
                         </svg></button>
                     </div>
                 </div>
-                <LoadingIcons.Puff stroke="#4a6eb5" fill="#4a6eb5" width="50px"/>
+
 
 
                 {/* SEARCH RESULTS */}
@@ -348,7 +364,12 @@ export default class MyTools extends React.Component {
                     {this.state.showNoResults ? <p className="noSearchResults">No search results</p> : ""}
                 </div>
                 <div className="container">
-                    <div id="searchResults" className="row">
+                    <div id="searchResults" className="row lato">
+                        {this.state.showLoading ?
+                            <div id="loading" className="d-flex align-items-center justify-content-center">
+                                <LoadingIcons.Puff stroke="#4a6eb5" fill="#4a6eb5" width="50px" id="loadingIcon" />
+                            </div> : ""
+                        }
                         {this.state.data.map(t => (
                             <div className="card col-xl-3 col-md-5 col-12 m-3 summaryCard">
                                 <div className="card-title">

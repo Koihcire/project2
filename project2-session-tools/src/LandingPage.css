@@ -3,16 +3,16 @@
 
 .left {
     height: fit-content;
-    border: 1px solid red;
+    /* border: 1px solid red; */
 
 }
 .right {
     height: fit-content;
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 
 .bottom {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     width: 95%;
  
     position: absolute;
@@ -67,36 +67,18 @@ small {
     width: 100px;
 }
 
-/* @media screen and (width < 992px) {
-    .left {
-        margin-top: -50px;
-        height: 40%;
-        border: 1px solid red;
-
-    }
-
-    .right {
-        margin-top: 30px;
-        height: fit-content;
-        border: 1px solid black;
-        justify-content: center;
-        display: flex;
-    }
-
-} */
-
 
 @media screen and (width > 576px) {
     .left {
         height: 40%;
-        border: 1px solid red;
+        /* border: 1px solid red; */
 
     }
 
     .right {
         margin-top: 30px;
         height: fit-content;
-        border: 1px solid black;
+        /* border: 1px solid black; */
         justify-content: center;
         display: flex;
     }
@@ -114,13 +96,13 @@ small {
 @media screen and (width > 768px) {
     .left {
         height: 40%;
-        border: 1px solid red;
+        /* border: 1px solid red; */
         margin-top: -40px;
     }
 
     .right {
         /* height: fit-content; */
-        border: 1px solid black;
+        /* border: 1px solid black; */
         justify-content: center;
         display: flex;
     }
@@ -135,7 +117,7 @@ small {
     }
 
     .bottom {
-        border: 1px solid black;
+        /* border: 1px solid black; */
         /* width: 95%; */
      
         position: absolute;
@@ -154,18 +136,18 @@ small {
     .left {
         margin-top: 50px;
         height: 60%;
-        border: 1px solid black;
+        /* border: 1px solid black; */
         position: relative;
     }
     
     .right {
         margin-top: 50px;
         height: 60%;
-        border: 1px solid black;
+        /* border: 1px solid black; */
     }
     
     .bottom {
-        border: 1px solid black;
+        /* border: 1px solid black; */
         width: 95%;
         margin-top: 30px;
         /* height: 15vh; */
