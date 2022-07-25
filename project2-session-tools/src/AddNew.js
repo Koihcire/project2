@@ -127,13 +127,13 @@ export default class AddNew extends React.Component {
         }
 
         //check for email error
-        if ((!this.state.newEmail.includes("@") && !this.state.newEmail.includes(".")) || !this.state.newEmail) {
+        if ((this.state.newEmail.includes("@") && this.state.newEmail.includes("."))) {
             await this.setState({
-                showEmailError: true
+                showEmailError: false
             })
         } else {
             await this.setState({
-                showEmailError: false
+                showEmailError: true
             })
         }
 
@@ -171,7 +171,7 @@ export default class AddNew extends React.Component {
         }
 
         //check for time needed error
-        if (!this.state.newTimeNeeded || this.state.newTimeNeeded < 0 || this.state.newTimeNeeded > 999) {
+        if (!this.state.newTimeNeeded || this.state.newTimeNeeded <= 0 || this.state.newTimeNeeded > 999) {
             await this.setState({
                 showTimeNeededError: true
             })
@@ -464,7 +464,7 @@ export default class AddNew extends React.Component {
                                     <div>
                                         <input name="newTimeNeeded" type="number" className="form-control halfInput mt-2" value={this.state.newTimeNeeded} onChange={this.updateFormField} min="0" max="999" />
                                     </div>
-                                    {this.state.showTimeNeededError ? <p className="errorMessage">!Please enter an integer from 0 to 999</p> : ""}
+                                    {this.state.showTimeNeededError ? <p className="errorMessage">!Please enter an integer from 1 to 999</p> : ""}
                                 </div>
                                 <div className="mt-3">
                                     Difficulty:
