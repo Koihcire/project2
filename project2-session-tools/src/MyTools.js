@@ -179,20 +179,8 @@ export default class MyTools extends React.Component {
     }
 
     searchMyTools = async (e) => {
-        
-        //check for email error
-        if ((this.state.email.includes("@") && this.state.email.includes("."))) {
-            await this.setState({
-                showEmailError: false
-            })
-        } else {
-            await this.setState({
-                showEmailError: true,
-                showNoResults: false
-            })
-        }
 
-        if (!this.state.showEmailError) {
+        if (this.state.email) {
             this.showLoading();
             try {
                 let response = await axios.get(this.url + "tools", {
@@ -215,13 +203,15 @@ export default class MyTools extends React.Component {
                         data: data
                     })
                 }
-                // this.setState({
-                //     data: response.data.tools
-                // })
+                
             } catch (e) {
                 console.log(e)
             }
             this.closeLoading();
+        } else {
+            await this.setState({
+                showNoResults: true
+            })
         }
     }
 
