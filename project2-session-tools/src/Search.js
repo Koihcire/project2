@@ -198,28 +198,50 @@ export default class Search extends React.Component {
     }
 
     async componentDidMount() {
-        await this.showLoading();
+        this.showLoading();
         try {
             let response = await axios.get(this.url + "tools")
             await this.setState({
                 data: response.data.tools
             })
+
+            let tagsresponse = await axios.get(this.url + "tags")
+            let tagsresponseData = tagsresponse.data.tags
+            
             let allTags = []
-            for (let d of this.state.data) {
-                for (let tag of d.tags) {
+            for (let t of tagsresponseData) {
+                for (let tag of t.tags) {
                     // console.log(tag)
                     allTags.push(tag)
                 }
             }
+
             let allUniqueTags = [...new Set(allTags)]
 
-            this.setState({
+            await this.setState({
                 tagsData: allUniqueTags
             })
+
+            // console.log(allUniqueTags)
+
+            // console.log(this.state.data)
+
+            // let allTags = []
+            // for (let d of this.state.data) {
+            //     for (let tag of d.tags) {
+            //         // console.log(tag)
+            //         allTags.push(tag)
+            //     }
+            // }
+            // let allUniqueTags = [...new Set(allTags)]
+
+            // await this.setState({
+            //     tagsData: allUniqueTags
+            // })
         } catch (e) {
             console.log(e)
         }
-        await this.closeLoading();
+        this.closeLoading();
     }
 
     searchByTag = async (e) => {

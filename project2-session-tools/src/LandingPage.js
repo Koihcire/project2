@@ -25,11 +25,11 @@ export default class LandingPage extends React.Component {
                                     <p id="header-two">By Trainers</p>
                                 </div>
                                 <div className="text">
-                                    <p>Dolor nisi ad cupidatat sint amet exercitation ipsum amet. Ea occaecat quis mollit ullamco ipsum ea fugiat. Lorem velit ut aliqua excepteur aliquip pariatur.</p>
+                                    <p>Need ideas for your next training engagement? Session Tools is an online collaborative repository for trainers to share training activity templates. Search for activity ideas now!</p>
                                 </div>
                                 <div className="cta">
                                     <button className="btn btn-custom">Sign Up</button>
-                                    <button href="#" className="btn btn-custom">Log In</button>
+                                    <button href="#" className="btn btn-custom" onClick={this.props.changePage}>Begin</button>
                                 </div>
 
                                 <div className="bottom">

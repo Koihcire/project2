@@ -22,7 +22,7 @@ export default class HomePage extends React.Component {
         } else if (this.state.active === "myTools") {
             return <MyTools />
         } else if (this.state.active === "landingPage") {
-            return <LandingPage />
+            return <LandingPage changePage={()=>this.setToSearch()}/>
         }
     }
 
