@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   version="1.1"
+   width="300"
+   height="200"
+   id="svg9"
+   sodipodi:docname="muzli-colors.svg"
+   inkscape:version="1.2 (dc2aeda, 2022-05-15)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs13" />
+  <sodipodi:namedview
+     id="namedview11"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="1.18"
+     inkscape:cx="150"
+     inkscape:cy="100.42373"
+     inkscape:window-width="1680"
+     inkscape:window-height="997"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg9" />
+  <rect
+     width="60"
+     height="200"
+     x="0"
+     fill="#e8f5fd"
+     id="#e8f5fd" />
+  <rect
+     width="60"
+     height="200"
+     x="60"
+     fill="#d0ecfb"
+     id="#d0ecfb" />
+  <rect
+     width="60"
+     height="200"
+     x="120"
+     fill="#a4b5da"
+     id="#a4b5da" />
+  <rect
+     width="60"
+     height="200"
+     x="180"
+     fill="#4a6eb5"
+     id="#4a6eb5" />
+  <rect
+     width="60"
+     height="200"
+     x="240"
+     fill="#283c63"
+     id="#283c63" />
+</svg>
