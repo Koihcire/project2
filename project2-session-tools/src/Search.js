@@ -198,10 +198,10 @@ export default class Search extends React.Component {
     }
 
     async componentDidMount() {
-        this.showLoading();
+        await this.showLoading();
         try {
             let response = await axios.get(this.url + "tools")
-            this.setState({
+            await this.setState({
                 data: response.data.tools
             })
             let allTags = []
@@ -219,7 +219,7 @@ export default class Search extends React.Component {
         } catch (e) {
             console.log(e)
         }
-        this.closeLoading();
+        await this.closeLoading();
     }
 
     searchByTag = async (e) => {
