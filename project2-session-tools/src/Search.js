@@ -429,7 +429,7 @@ export default class Search extends React.Component {
                                             <input name="maxTimeNeeded" type="number" className="searchTime placeholderText" value={this.state.maxTimeNeeded} onChange={this.updateFormField} placeholder="Max Time" />
                                         </div>
 
-                                        {this.state.showMaxMinError ? <p>Max value cannot be less than min value</p> : ''}
+                                        {this.state.showMaxMinError ? <p className="errorMessage">Max value cannot be less than min value</p> : ''}
                                     </div>
                                     <div className="container mt-2">
                                         <h6>Difficulty</h6>

@@ -24,8 +24,7 @@
 
 <p>Jason has 20 years of experience as a trainer both freelance and inhouse. He is often the go-to for engagement tools in the classroom as he is known among his peers as an excellent facilitator and creative with ideas. He is also active in the adult educator community, and he often wishes there would be a common platform to share his ideas and also to hear how other people have implemented his activity templates, in the event he is able to further improve on them.</p>
 
-<h3>2.2 Scope</h3>
-<h4>Features</h4>
+<h4>User Goals</h4>
 <ul>
     <li>Search for activity templates by the following search filters</li>
         <ul>
@@ -47,6 +46,10 @@
     <li>Comment on any activity template to suggest improvements and customisations or encourage the creator</li>
     <li>Edit and delete templates that were added by user</li>
 </ul>
+
+<h3>2.2 Scope</h3>
+<h4>Features</h4>
+
 
 <h4>Content</h4>
 <ul>
