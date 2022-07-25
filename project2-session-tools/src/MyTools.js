@@ -179,7 +179,7 @@ export default class MyTools extends React.Component {
     }
 
     searchMyTools = async (e) => {
-        this.showLoading();
+        
         //check for email error
         if ((this.state.email.includes("@") && this.state.email.includes("."))) {
             await this.setState({
@@ -193,6 +193,7 @@ export default class MyTools extends React.Component {
         }
 
         if (!this.state.showEmailError) {
+            this.showLoading();
             try {
                 let response = await axios.get(this.url + "tools", {
                     params: {
