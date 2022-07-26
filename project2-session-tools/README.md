@@ -86,10 +86,14 @@
 
 <h3>2.3 Database and Website Architecture</h3>
 <h4>Database</h4>
+<img src="src/images/readme/session-tools-erd.png" style="width:800px"></img>
 <h4>Website</h4>
+<!-- insert mockups here -->
+<img src="src/images/readme/site-map.png" style="width: 800px"></img>
 
 <h3>2.4 UI Skeleton</h3>
 <!-- insert mockups here -->
+<img src="src/images/readme/wireframe.png" style="width: 800px"></img>
 
 <h3>2.5 Surface</h3>
 <h4>Colors</h4>
@@ -128,7 +132,7 @@
         </ul>
     <li>Email validation for delete comments</li>
         <ul>
-            <li></li>
+            <li>Users are required to provide an email address when deleting a comment. A separate search route is created on express using the aggregrate function to only return the comment object that matches both the tool_id and the email provided. If there is a return result, the user has been authenticated and delete is processed. If there is no return result, user has not been authenticated and error message is returned.</li>
         </ul>
 </ul>
 <h3>Limitations and Future Implementations</h3>
@@ -141,22 +145,22 @@
     <tr>
         <td>1</td>
         <td>User is currently unable to insert media (images / videos)</td>
-        <td>test</td>
+        <td>User will be allowed to input images and videos of activity to make it easier for others to refer to their activity templates. Media will be stored in MongoDB, and allowed in CK Editor.</td>
     </tr>
     <tr>
         <td>2</td>
         <td>Users are not required to log in for CRUD</td>
-        <td>test</td>
+        <td>Log in accounts will be implemented for all users before they are able to access content on the website. Add Tools page will be combined with My Tools page. An additional My Favourites page will be added to allow users to save their favourite tools.</td>
     </tr>
     <tr>
         <td>3</td>
         <td>There is no role available to moderate the comments section</td>
-        <td>test</td>
+        <td>Admin and moderator roles will be added that will have permissions to delete comments and posts</td>
     </tr>
     <tr>
         <td>4</td>
         <td>Users are only able to view individual activities, but cannot build a complete programme outline</td>
-        <td>test</td>
+        <td>An additional Build Outline page will be added to allow users to build a programme outline and include existing activities into their outline. They will also be able to export and print the outline for different purposes (for client, for trainers) which will filter the amount of information shown respectively</td>
     </tr>
 </table>
 
@@ -178,39 +182,43 @@
     </tr>
     <tr>
         <td>MongoDB</td>
-        <td></td>
+        <td>Database hosting</td>
     </tr>
     <tr>
         <td>Axios</td>
-        <td></td>
+        <td>API calls</td>
     </tr>
     <tr>
         <td>HTML React Parser</td>
-        <td></td>
+        <td>Display data from rich text editor into formatted html</td>
     </tr>
     <tr>
         <td>CK Editor</td>
-        <td></td>
+        <td>Instructions and Debrief form field inputs</td>
     </tr>
     <tr>
         <td>ExpressJS</td>
-        <td></td>
+        <td>Backend application</td>
     </tr>
     <tr>
         <td>ReactJS</td>
-        <td></td>
+        <td>Frontend application</td>
     </tr>
     <tr>
-        <td>BootStrap / React-Bootstrap</td>
-        <td></td>
+        <td>React-select</td>
+        <td>Create user editable multi select tags for tags form field input</td>
+    </tr>
+    <tr>
+        <td>BootStrap / CSS</td>
+        <td>Styling of html elements in React application</td>
     </tr>
     <tr>
         <td>Heroku</td>
-        <td></td>
+        <td>Deployment of Express API</td>
     </tr>
     <tr>
         <td>Netlify</td>
-        <td></td>
+        <td>Deployment of React application</td>
     </tr>
 </table>
 
