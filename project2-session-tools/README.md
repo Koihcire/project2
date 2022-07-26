@@ -220,6 +220,14 @@
         <td>Netlify</td>
         <td>Deployment of React application</td>
     </tr>
+    <tr>
+        <td>dotenv</td>
+        <td>To enable use of .env file</td>
+    </tr>
+    <tr>
+        <td>CORS</td>
+        <td>To enable cross origin resource sharing for API</td>
+    </tr>
 </table>
 
 <h2>7. Credits</h2>
