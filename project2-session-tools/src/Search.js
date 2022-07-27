@@ -204,17 +204,17 @@ export default class Search extends React.Component {
             await this.setState({
                 data: response.data.tools
             })
+            console.log(response.data.tools)
 
-            let tagsresponse = await axios.get(this.url + "tags")
-            let tagsresponseData = tagsresponse.data.tags
+            let responseData = response.data.tools
             
             let allTags = []
-            for (let t of tagsresponseData) {
+            for (let t of responseData) {
                 for (let tag of t.tags) {
-                    // console.log(tag)
                     allTags.push(tag)
                 }
             }
+            console.log(allTags)
 
             let allUniqueTags = [...new Set(allTags)]
 
@@ -222,22 +222,6 @@ export default class Search extends React.Component {
                 tagsData: allUniqueTags
             })
 
-            // console.log(allUniqueTags)
-
-            // console.log(this.state.data)
-
-            // let allTags = []
-            // for (let d of this.state.data) {
-            //     for (let tag of d.tags) {
-            //         // console.log(tag)
-            //         allTags.push(tag)
-            //     }
-            // }
-            // let allUniqueTags = [...new Set(allTags)]
-
-            // await this.setState({
-            //     tagsData: allUniqueTags
-            // })
         } catch (e) {
             console.log(e)
         }
