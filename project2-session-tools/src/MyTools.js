@@ -453,11 +453,13 @@ export default class MyTools extends React.Component {
                     showAddCommentError={this.state.showAddCommentError}
                     showAddCommentUserError={this.state.showAddCommentUserError} />
 
-                <UpdateToolCard showUpdateToolCard={this.state.showUpdateToolCard}
+
+                {this.state.showUpdateToolCard?<UpdateToolCard showUpdateToolCard={this.state.showUpdateToolCard}
                     closeUpdateToolCard={this.closeUpdateToolCard}
                     activeToolData={this.state.activeToolData}
                     searchMyTools={this.searchMyTools}
-                    tagsData={this.state.tagsData} />
+                    tagsData={this.state.tagsData} /> :""}
+                
 
                 <ConfirmDelete showConfirmDelete={this.state.showConfirmDelete}
                     closeConfirmDelete={this.closeConfirmDelete}
